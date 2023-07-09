@@ -1,0 +1,375 @@
+{
+    "sources" :
+    [{
+        "id": 1,
+        "name": "Original Aircoookie",
+		"github": "https://github.com/Aircoookie/WLED",
+		"branches" : [
+			{
+				"name":"Development main",
+				"type":"branch",
+				"sourcepatch": "https://github.com/Aircoookie/WLED/archive/refs/heads/main.zip"
+			},
+			{
+				"name":"Release 0.14.0-b3",
+				"type":"release",
+				"sourcepatch": "https://github.com/Aircoookie/WLED/archive/refs/tags/v0.14.0-b3.zip"
+			}
+		],
+		"enviroments" : [
+			{
+				"name": "ESP32",
+				"env": "esp32dev"
+			},
+			{
+				"name": "ESP32 with Ethernet",
+				"env": "esp32_eth"
+			},
+			{
+				"name": "ESP8266",
+				"env": "nodemcuv2"
+			},
+			{
+				"name": "ESP32-C3",
+				"env": "esp32c3dev"
+			},
+			{
+				"name": "ESP32-S2",
+				"env": "lolin_s2_mini"
+			},
+			{
+				"name": "ESP32-S3 (8MB Flash)",
+				"env": "esp32s3dev_8MB"
+			}
+		]
+     },
+	 {
+		"id": 1,
+        "name": "Sound Reactive",
+		"github": "https://github.com/atuline/WLED",
+		"branches" : [
+			{
+				"name":"Master branch (master)",
+				"type":"branch",
+				"sourcepatch": "https://github.com/atuline/WLED/archive/refs/heads/master.zip"
+			},
+			{
+				"name":"Development branch (dev)",
+				"type":"branch",
+				"sourcepatch": "https://github.com/atuline/WLED/archive/refs/heads/dev.zip"
+			},
+			{
+				"name":"Release 0.13.3",
+				"type":"release",
+				"sourcepatch": "https://github.com/atuline/WLED/archive/refs/tags/v0.13.3.zip"
+			}
+		],
+		"enviroments" : [
+			{
+				"name": "ESP32",
+				"env": "soundReactive_esp32dev"
+			},
+{
+				"name": "ESP32 with Ethernet",
+				"env": "soundReactive_esp32dev_eth"
+			}			
+		]
+
+     }
+	],
+	"settings":[
+		{
+			"name" : "Include Debug flags",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"build_flags" : "${common.debug_flags}",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Include sound reactive debug flags",
+			"sources" : [1],
+			"type" : "checkbox",
+			"build_flags" : "-D SR_DEBUG",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable microphone logger",
+			"sources" : [1],
+			"type" : "checkbox",
+			"build_flags" : "-D MIC_LOGGER",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable brownout detection",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_BROWNOUT_DET",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable OTA",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_OTA",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable WiFi fix for boards like Lolin C3 mini",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"build_flags" : "-D LOLIN_WIFI_FIX",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default LED pin GPIO number: ",
+			"sources" : [0, 1],
+			"type" : "number",
+			"build_flags" : "-D LEDPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default button pin GPIO number: ",
+			"sources" : [0, 1],
+			"type" : "number",
+			"build_flags" : "-D BTNPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default relay pin GPIO number: ",
+			"sources" : [0, 1],
+			"type" : "number",
+			"build_flags" : "-D RLYPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default infrared pin GPIO number: ",
+			"sources" : [0, 1],
+			"type" : "number",
+			"build_flags" : "-D IRPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default audio pin GPIO number: ",
+			"sources" : [1],
+			"type" : "number",
+			"build_flags" : "-D AUDIOPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable and define dig. mic. type by number: ",
+			"sources" : [1],
+			"type" : "number",
+			"build_flags" : "-D DMENABLED=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define I2S SD pin number: ",
+			"sources" : [1],
+			"type" : "number",
+			"build_flags" : "-D I2S_SDPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define I2S WS pin number: ",
+			"sources" : [1],
+			"type" : "number",
+			"build_flags" : "-D I2S_WSPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define I2S SCK pin number: ",
+			"sources" : [1],
+			"type" : "number",
+			"build_flags" : "-D I2S_CKPIN=",
+			"lib_deps" : ""
+		}
+	],
+	"usermods":[
+		{
+			"name" : "Audio Reactive",
+			"sources" : [0],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"build_flags" : "-D USERMOD_AUDIOREACTIVE",
+			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
+		},
+		{
+			"name" : "DS18B20 Temperatursensor",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Temperature/readme.md",
+			"build_flags" : "-D USERMOD_DALLASTEMPERATURE",
+			"lib_deps" : "OneWire@~2.3.5"
+		},
+		{
+			"name" : "DHT22 and DHT11 humidity and temperature sensors",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/DHT/readme.md",
+			"build_flags" : "-D USERMOD_DHT -D USERMOD_DHT_CELSIUS",
+			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking"
+		},
+		{
+			"name" : "Autosave (automatically save settings to preset and load at startup)",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_auto_save/readme.md",
+			"build_flags" : "-D USERMOD_AUTO_SAVE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Four line display",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_four_line_display/readme.md",
+			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
+			"lib_deps" : "olikraus/U8g2 @ ^2.28.8"
+		},
+		{
+			"name" : "Ping pong clock",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_ping_pong_clock/readme.md",
+			"build_flags" : "-D USERMOD_PING_PONG_CLOCK",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Word clock",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_word_clock/readme.md",
+			"build_flags" : "-D USERMOD_WORDCLOCK",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Analog clock",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/tree/main/usermods/Analog_Clock",
+			"build_flags" : "-D USERMOD_ANALOG_CLOCK",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Rotary encoder UI",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui/readme.md",
+			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_MODE_SORT",
+			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire"
+		},
+		
+		{
+			"name" : "Animated staircase",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Animated_Staircase/README.md",
+			"build_flags" : "-D USERMOD_ANIMATED_STAIRCASE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Multirelay",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/multi_relay/readme.md",
+			"build_flags" : "-D USERMOD_MULTI_RELAY",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Battery",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Battery/readme.md",
+			"build_flags" : "-D USERMOD_BATTERY",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Sensors to MQTT (BMP280, CCS811 and Si7021 measurements to Home Assistant via MQTT)",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/sensors_to_mqtt/readme.md",
+			"build_flags" : "-D USERMOD_SENSORSTOMQTT",
+			"lib_deps" : "adafruit/Adafruit BMP280 Library @ 2.1.0\n  adafruit/Adafruit CCS811 Library @ 1.0.4\n  adafruit/Adafruit Si7021 Library @ 1.4.0\n  adafruit/Adafruit Unified Sensor"
+		},
+		{
+			"name" : "PIR sensor switch",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
+			"build_flags" : "-D USERMOD_PIRSWITCH",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "BME280 or BMP280 Sensor",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/BME280_v2/README.md",
+			"build_flags" : "-D USERMOD_BME280",
+			"lib_deps" : "BME280@~3.0.0\n  Wire"
+		},
+		{
+			"name" : "RTC usermod",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/RTC/readme.md",
+			"build_flags" : "-D USERMOD_RTC",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "RGB rotary encoder",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/rgb-rotary-encoder/readme.md",
+			"build_flags" : "-D RGB_ROTARY_ENCODER",
+			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0"
+		},
+		{
+			"name" : "PWM Fan",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PWM_fan/readme.md",
+			"build_flags" : "-D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "PWM Outputs (ESP32 only)",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/pwm_outputs/usermod_pwm_outputs.h",
+			"build_flags" : "-D USERMOD_PWM_OUTPUTS",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "ADS1115 16-Bit ADC with four inputs",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/ADS1115_v2/readme.md",
+			"build_flags" : "-D USERMOD_ADS1115",
+			"lib_deps" : "adafruit/Adafruit BusIO @ 1.13.2\n  adafruit/Adafruit ADS1X15 @ 2.4.0\n  adafruit/Adafruit Unified Sensor"
+		},
+		{
+			"name" : "Seven segment display",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/seven_segment_display/readme.md",
+			"build_flags" : "-D USERMOD_SEVEN_SEGMENT",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Seven segment display reloaded",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/seven_segment_display_reloaded/readme.md",
+			"build_flags" : "-D USERMOD_SSDR",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "SN photoresistor (like the KY-018)",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/SN_Photoresistor/readme.md",
+			"build_flags" : "-D USERMOD_SN_PHOTORESISTOR",
+			"lib_deps" : ""
+		}
+		
+	]
+}
