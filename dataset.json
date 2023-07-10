@@ -128,6 +128,13 @@
 			"lib_deps" : ""
 		},
 		{
+			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed)",
+			"sources" : [0, 1],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_DMX",
+			"lib_deps" : ""
+		},
+		{
 			"name" : "Set default LED pin GPIO number: ",
 			"sources" : [0, 1],
 			"type" : "number",
@@ -154,7 +161,7 @@
 			"type" : "number",
 			"build_flags" : "-D IRPIN=",
 			"lib_deps" : ""
-		},
+		},	
 		{
 			"name" : "Set default audio pin GPIO number: ",
 			"sources" : [1],
