@@ -192,21 +192,21 @@
 		},
 		{
 			"name" : "Define max number of buttons (default: 2 for ESP8266, 4 for ESP32)",
-			"sources" : [1],
+			"sources" : [0, 1],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_BUTTONS=",
 			"lib_deps" : ""
 		},
 		{
 			"name" : "Define max number of usermods (default: 4 for ESP8266, 6 for ESP32)",
-			"sources" : [1],
+			"sources" : [0, 1],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_USERMODS=",
 			"lib_deps" : ""
 		},
 		{
 			"name" : "Define default number of LEDs (default: 30)",
-			"sources" : [1],
+			"sources" : [0, 1],
 			"type" : "number",
 			"build_flags" : "-D DEFAULT_LED_COUNT=",
 			"lib_deps" : ""
