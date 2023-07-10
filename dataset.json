@@ -210,6 +210,14 @@
 			"type" : "number",
 			"build_flags" : "-D DEFAULT_LED_COUNT=",
 			"lib_deps" : ""
+		},
+		{
+			"name" : "Define default value for automatic brightness limiter (ABL) in mA (default: 850, enter 0 to disable ABL)",
+			"sources" : [0, 1],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D ABL_MILLIAMPS_DEFAULT=",
+			"lib_deps" : ""
 		}
 	],
 	"usermods":[
