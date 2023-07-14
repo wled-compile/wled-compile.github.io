@@ -10,7 +10,7 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<div class="container"  m-2 p-0>
+<div class="container">
 <h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> c</span><span style="color:brown">o</span><span style="color:hotpink">m</span><span style="color:lightcoral">p</span><span style="color:red">i</span><span style="color:seagreen">l</span><span style="color:crimson">e</span><span style="color:darkgreen"> h</span><span style="color:darkmagemnta">e</span><span style="color:darkblue">l</span><span style="color:red">p</span><span style="color:darksalmon">e</span><span style="color:lightpink">r</span></h3>
 	<div class="form-floating mb-1">
 	  <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
@@ -19,18 +19,33 @@
 	  </select>
 	  <label for="lang">Language/Sprache:</label>
 	</div>
-		<div class="form-floating mb-1">
+	<div class="form-floating mb-1">
 		<p id="L07">Dieses Werkzeug hilft Ihnen eine Konfiguration vorzubereiten um selbst WLED Software mit speziellen Einstellungen und/oder UserMods zu kompilieren. Es erzeugt die sogenannten „Enviroment“ Einstellungen, die man dann in platformio.ini Datei in VSC/PlattformIO kopieren und mit einem Befehl „pio run -e custom_build“ kompilieren kann.</p>
 		<div class="accordion accordion-flush bottompart" id="accordionTop1">
 			<div class="accordion-item bottompart">
-				<h4 class="accordion-header bottompart" id="headingPrivacy">
-				  <button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrivacy" aria-expanded="true" aria-controls="collapseOne">
+				<h4 class="accordion-header bottompart" id="headingTop1">
+				  <button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTop1" aria-expanded="true" aria-controls="collapseOne">
 					<span id="L08" style="color:blue;text-decoration: underline;">Details: WLED SW selbst kompilieren mit VSC/PlatformIO</span>
 				  </button>
 				</h4>
-				<div id="collapsePrivacy" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionBottom">
+				<div id="collapseTop1" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionTop1">
 				  <div class="accordion-body bottompart">
 					<small><span id="L09"></span></small>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<p id="L25">You also can compile WLED using GitHub using YAML workflow script generated below.</p>
+		<div class="accordion accordion-flush bottompart" id="accordionYAML">
+			<div class="accordion-item bottompart">
+				<h4 class="accordion-header bottompart" id="headingPrivacy">
+				  <button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYAML" aria-expanded="true" aria-controls="collapseOne">
+					<span id="L23" style="color:blue;text-decoration: underline;">Wie compiliere ich WLED Software auf Github mit diesem YAML Script?</span>
+				  </button>
+				</h4>
+				<div id="collapseYAML" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionYAML">
+				  <div class="accordion-body bottompart">
+					<small><span id="L24">Im Folgenden wird erklärt, wie man WLED Software auf Github kompilieren kann. Der Vorteil diese Methode ist, dass man keine Software (VSC/PlatformIO) auf dem eigenen PC installieren muss. GitHub nutzt dabei eigene Server und das ganze wird durch ein Script gesteuert durchgeführt. Man muss lediglich sich auf GitHub registrieren (alles kostenlos), Repository und Workflow (Skript) anlegen und starten:<br><ol><li>Wenn Du noch kein Account auf GitHub hast, <a href=https://github.com/signup target=“_blank“ rel="noreferrer">registriere Dich</a>. Es reicht ein „free“ Account. Damit kannst Du ca. 600 Mal pro Monat WLED kompilieren.</li><li>Erstelle in deinem Github eine neue Repository (mit dem grünen Knopf „Create a new repository“). Diese kannst du beliebig benennen.</li><li>In deiner Repository gebe den Workflows die Berechtigung diese Repository beschreiben zu dürfen. Dafür gehe in deine Repository, dann oben zu „Settings“, dann in der Spalte links zu „Actions“-> „General“. Jetzt musst Du die Seite „Actions Permissions“ sehen. Weiter unten auf dieser Seite im Bereich „Workflow permissions“ musst Du „Read and write permissions“ anklicken und dann auf „Save“ drunter.</li><li>Gehe jetzt zurück zu „< > Code“ in deiner Repository und erstelle eine Workflow Datei. Dafür klicke auf „Add file“ und dann auf „Create new file“. Oben im Feld „Name your file“ tippe folgendes ein „.github/workflows/wled-compile.yaml“. Dabei jedes Mal wenn man „/“ eintippt, erstellt Github einen Unterverzeichnis. In den Bereich „Edit“ kannst Du jetzt den Inhalt der wled-compile.yaml Datei reinkopieren. Dann klicke auf den grünen Knopf „Commit changes...“ und dann im geöffneten Fenster noch mal auf „Commit changes“.</li><li>Jetzt kann man den Workflow starten damit WLED compiliert wird. Dafür gehe oben zu „Actions“ und links in de rListe der Workflows auf dem Workflow „WLED compile“, Nun in hellblauer Zeile ( wo steht „This workflow has a workflow_dispatch event trigger.“) kannst Du rechts auf „Run workflow“ klicken und dann noch mal auf den grünen Knopf „Run workflow“. Nach paar Sekunden erscheint dann unter dieser hellblauen Zeile dann die Zeile mit „WLED Compile“, wo rechts dann der Status „in progress“ steht.</li><li>Sobald dieser Workflow erfolgreich abgeschlossen ist (dauert normalerweise ca.  3-10 Minuten), erscheint bei „WLED Compile“ links ein grüner Hacken. Dann kannst Du wieder zu „Code“ gehen und da ist dann die kompilierte WLED Software in der Datei custom_build.bin zu finden. Du kannst diese Datei herunterladen: auf die Datei klicken und dann rechts auf Symbol „Download raw file“.<br>Wenn der Workflow nicht erfolgreich war, erscheint kein grüner Hacken, dafür aber ein rotes Kreuz. Man kann dann den Workflow verlauf untersuchen um rauszufinden, woran das Problem liegt. </li><li>Diese Datei kannst du dann auf deinem WLED Controller per „Manual OTA Update“ installieren.</li></ol></span></small>
 				  </div>
 				</div>
 			</div>
@@ -73,6 +88,11 @@
 	  <span class="input-group-text"></span>
 	  <textarea class="form-control" rows="5" id="env-text"></textarea>
 	</div>
+	<div class="container m-0 p-2">
+	<button type="button" class="btn btn-primary" onclick="DownloadBuildYAML()"><span span id="L22">YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren</span></button>
+	<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
+	</div>
+	
 </div>
 
  <hr>
@@ -260,8 +280,10 @@ function LangChanged() {
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-basierter WLED Software Installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Nützliche Informationen:";
-		
-
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren";
+		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "Wie compiliere ich WLED Software auf Github mit diesem YAML Script?";
+		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Im Folgenden wird erklärt, wie man WLED Software auf Github kompilieren kann. Der Vorteil dieser Methode ist, dass man keine Software (VSC/PlatformIO) auf dem eigenen PC installieren muss. GitHub nutzt dabei eigene Server und das ganze wird durch ein Script gesteuert durchgeführt. Man muss lediglich sich auf GitHub registrieren (alles kostenlos), Repository und Workflow (Skript) anlegen und starten:<br><ol><li>Wenn Du noch kein Account auf GitHub hast, <a href=https://github.com/signup target=“_blank“ rel="noreferrer">registriere Dich</a>. Es reicht ein „free“ Account. Damit kannst Du ca. 600 Mal pro Monat WLED kompilieren.</li><li>Erstelle in deinem Github eine neue Repository (mit dem grünen Knopf „Create a new repository“). Diese kannst du beliebig benennen.</li><li>In deiner Repository gebe den Workflows die Berechtigung diese Repository beschreiben zu dürfen. Dafür gehe in deine Repository, dann oben zu „Settings“, dann in der Spalte links zu „Actions“-> „General“. Jetzt musst Du die Seite „Actions Permissions“ sehen. Weiter unten auf dieser Seite im Bereich „Workflow permissions“ musst Du „Read and write permissions“ anklicken und dann auf „Save“ drunter.</li><li>Gehe jetzt zurück zu „< > Code“ in deiner Repository und erstelle eine Workflow Datei. Dafür klicke auf „Add file“ und dann auf „Create new file“. Oben im Feld „Name your file“ tippe folgendes ein „.github/workflows/wled-compile.yaml“. Dabei jedes Mal wenn man „/“ eintippt, erstellt Github einen Unterverzeichnis. In den Bereich „Edit“ kannst Du jetzt den Inhalt der wled-compile.yaml Datei reinkopieren. Dann klicke auf den grünen Knopf „Commit changes...“ und dann im geöffneten Fenster noch mal auf „Commit changes“.</li><li>Jetzt kann man den Workflow starten damit WLED compiliert wird. Dafür gehe oben zu „Actions“ und links in de rListe der Workflows auf dem Workflow „WLED compile“, Nun in hellblauer Zeile ( wo steht „This workflow has a workflow_dispatch event trigger.“) kannst Du rechts auf „Run workflow“ klicken und dann noch mal auf den grünen Knopf „Run workflow“. Nach paar Sekunden erscheint dann unter dieser hellblauen Zeile dann die Zeile mit „WLED Compile“, wo rechts dann der Status „in progress“ steht.</li><li>Sobald dieser Workflow erfolgreich abgeschlossen ist (dauert normalerweise ca.  3-10 Minuten), erscheint bei „WLED Compile“ links ein grüner Hacken. Dann kannst Du wieder zu „Code“ gehen und da ist dann die kompilierte WLED Software in der Datei custom_build.bin zu finden. Du kannst diese Datei herunterladen: auf die Datei klicken und dann rechts auf Symbol „Download raw file“.<br>Wenn der Workflow nicht erfolgreich war, erscheint kein grüner Hacken, dafür aber ein rotes Kreuz. Man kann dann den Workflow verlauf untersuchen um rauszufinden, woran das Problem liegt. </li><li>Diese Datei kannst du dann auf deinem WLED Controller per „Manual OTA Update“ installieren.</li></ol>';
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'Sie können WLED auch mit GitHub mit Hilfe des YAML workflow Skiptes (unten im Abschnitt „Ergebnisse“) kompilieren:';
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -284,8 +306,53 @@ function LangChanged() {
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful links: ";
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "Download YAML Script to compile WLED on GitHub";
+		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "How to compile WLED software on Github using this YAML script?";
+		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'The following explains how to compile WLED software on Github. The advantage of this method is that you dont have to install any software (VSC/PlatformIO) on your own PC. GitHub uses its own server and the whole thing is controlled by a script. All you have to do is register on GitHub (for free), create and start repository and workflow (script):<br><ol><li>If you dont have an account on GitHub yet, <a href=https://github. com/signup target=”_blank” rel="noreferrer">sign up</a>. A "free" account is sufficient. With this you can compile WLED about 600 times per month.</li><li>Create a new repository in your Github (with the green button "Create a new repository"). You can name these as you like.</li><li>In your repository, give the workflows permission to write to this repository. To do this, go to your repository, then to "Settings" at the top line, then in the column on the left to "Actions"-> "General". Now you must see the "Actions Permissions" page. At the bottom of this page in the "Workflow permissions" section you need to click "Read and write permissions" and then click "Save" underneath.</li><li>Now go back to "< > Code" in your repository and create the workflow file. To do this, click on “Add file” and then on “Create new file”. At the top in the "Name your file" field, type ".github/workflows/wled-compile.yaml". Every time you type "/", Github creates a subdirectory. You can now copy the content of the wled-compile.yaml file into the "Edit" area. Then click on the green button "Commit changes..." and then in the opened window again on "Commit changes".</li><li>Now you can start the workflow to compile WLED. To do this, go to "Actions" at the top and on the left in the list of workflows on the "WLED compile" workflow. Now in the light blue line (where it says "This workflow has a workflow_dispatch event trigger.") You can click on "Run workflow" on the right and then again on the green button "Run workflow". After a few seconds, the line with "WLED Compile" will appear under this light blue line, where the status "in progress" will appear on the right side.</li><li>Once this workflow has been successfully completed (usually takes about 3-10 minutes), a green tick appears at the left side of "WLED Compile". Then you can go back to "<> Code" and there you will find the compiled WLED software in the custom_build.bin file. You can download this file: click on the file and then at the right side on the "Download raw file" icon.<br>If the workflow was unsuccessful, no green tick but a red cross will appear. You can then examine the workflow history to find out what the problem is. </li><li>You can then install this file on your WLED controller via "Manual OTA Update".</li></ol>';
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'You also can compile WLED using GitHub using YAML workflow script generated below in the "Results" section:';
 	}
 	
+}
+
+// $$WLEDPATH$$ Path to zipped source
+// echo " " >> platformio.ini
+// pio run -e esp32dev || pio run -e esp32dev || true
+// $$WLEDPIORUN$$
+
+var objLastUrl = null;
+function DownloadBuildYAML() {
+    var strText, objBlob, objLink;
+
+    if (objLastUrl == null){
+        window.URL.revokeObjectURL(objLastUrl);
+        objLastUrl = null;
+    }
+
+    strText = "";	
+	const xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			SS=document.getElementById('select-sources').selectedIndex;
+			BB=document.getElementById('select-branches').selectedIndex;
+			
+			strText = this.responseText.replace("$$WLEDPATH$$",dataset.sources[SS].branches[BB].sourcepatch);
+			
+			var piotext="";
+			lines=document.getElementById('env-text').value.split('\n');
+			for(var n = 0; n < lines.length; n++) {
+				piotext=piotext+"echo '"+lines[n]+"' >>platformio.ini\n        ";
+			}	
+			strText = strText.replace("$$WLEDPIORUN$$", piotext);
+			
+		    objBlob = new Blob([ strText ], { type: "text/plain" });
+			objLink = document.getElementById("downloadLinkYAML");
+			objLastUrl = window.URL.createObjectURL(objBlob);
+			objLink.href = objLastUrl;
+			objLink.click();
+		}
+	  };
+	  xhttp.open("GET", "wled_compile_template.yaml");
+	  xhttp.send(); 
 }
 
 window.onload = function () {
