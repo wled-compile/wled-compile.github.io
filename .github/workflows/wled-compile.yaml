@@ -20,7 +20,7 @@ jobs:
         pip install --upgrade platformio
         wget $$WLEDPATH$$ -O /tmp/mm.zip
         unzip /tmp/mm.zip -d /tmp
-        find /tmp -maxdepth 1 -name "WLED-*" -type d > wledfoldername
+        find /tmp -maxdepth 1 -name "WLED-*" -type d >> wledfoldername
         mv `cat wledfoldername` /tmp/WLED-main
     - name: Run PlatformIO
       run: |
