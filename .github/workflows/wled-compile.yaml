@@ -27,7 +27,7 @@ jobs:
         cd /tmp/WLED-main
         echo '[env:custom_build]' >>platformio.ini
         echo 'extends = env:esp32dev' >>platformio.ini
-        echo 'build_flags = ${env:esp32dev.build_flags} ${common.debug_flags} -D LOLIN_WIFI_FIX -D USERMOD_AUDIOREACTIVE -D USERMOD_PIRSWITCH -D USERMOD_SEVEN_SEGMENT' >>platformio.ini
+        echo 'build_flags = ${env:esp32dev.build_flags} -D WLED_DISABLE_ESPNOW -D USERMOD_AUDIOREACTIVE' >>platformio.ini
         echo 'lib_deps = ' >>platformio.ini
         echo '  ${env:esp32dev.lib_deps}' >>platformio.ini
         echo '  https://github.com/blazoncek/arduinoFFT.git' >>platformio.ini
