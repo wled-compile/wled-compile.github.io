@@ -21,25 +21,25 @@ jobs:
         wget https://github.com/Aircoookie/WLED/archive/refs/heads/main.zip -O /tmp/mm.zip
         unzip /tmp/mm.zip -d /tmp
         find /tmp -maxdepth 1 -name "WLED-*" -type d >> wledfoldername
-        mv `cat wledfoldername` /tmp/WLED-main
+        mv `cat wledfoldername` /tmp/WLED-maindir
     - name: Run PlatformIO
       run: |
-        cd /tmp/WLED-main
+        cd /tmp/WLED-maindir
         echo '[env:custom_build]' >>platformio.ini
         echo 'extends = env:esp32dev' >>platformio.ini
-        echo 'build_flags = ${env:esp32dev.build_flags} -D WLED_DISABLE_ESPNOW -D USERMOD_AUDIOREACTIVE' >>platformio.ini
+        echo 'build_flags = ${env:esp32dev.build_flags} -D LEDPIN=16 -D USERMOD_AUDIOREACTIVE' >>platformio.ini
         echo 'lib_deps = ' >>platformio.ini
         echo '  ${env:esp32dev.lib_deps}' >>platformio.ini
         echo '  https://github.com/blazoncek/arduinoFFT.git' >>platformio.ini
         
         pio run -e custom_build || pio run -e custom_build
       env:
-        PLATFORMIO_CI_SRC: /tmp/WLED-main
+        PLATFORMIO_CI_SRC: /tmp/WLED-maindir
     - name: Copy Files
       run: |
         cd $GITHUB_WORKSPACE
         git rm -r $GITHUB_WORKSPACE/*.bin || true
-        cp /tmp/WLED-main/build_output/firmware/custom_build.bin $GITHUB_WORKSPACE/
+        cp /tmp/WLED-maindir/build_output/firmware/custom_build.bin $GITHUB_WORKSPACE/
         date -I | tr -d '\n' >$GITHUB_WORKSPACE/last_update_date.txt
     - name: Commit Files
       run: |
