@@ -11,6 +11,11 @@
 				"sourcepatch": "https://github.com/Aircoookie/WLED/archive/refs/heads/main.zip"
 			},
 			{
+				"name":"Release 0.14.0-b4",
+				"type":"release",
+				"sourcepatch": "https://github.com/Aircoookie/WLED/archive/refs/tags/v0.14.0-b4.zip"
+			},
+			{
 				"name":"Release 0.14.0-b3",
 				"type":"release",
 				"sourcepatch": "https://github.com/Aircoookie/WLED/archive/refs/tags/v0.14.0-b3.zip"

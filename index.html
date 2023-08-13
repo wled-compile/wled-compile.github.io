@@ -61,13 +61,13 @@
 		</div>
 		<div class="col mb-1">
 		  <div class="form-floating">
-			<select id="select-branches" onchange="SourceChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
+			<select id="select-branches" onchange="BranchChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 			<label for="select-branches"><span id="L02">Branch / Release auswählen</span></label>
 		  </div>
 		</div>
 		<div class="col mb-1">
 		  <div class="form-floating">
-			<select id="select-enviroments" onchange="SourceChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
+			<select id="select-enviroments" onchange="EnvChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
 			<label for="select-enviroments"><span id="L03">Mikrocontroller Typ auswählen:</span></label>
 		  </div>
 		</div>
@@ -142,17 +142,6 @@ var dataset;
 
 function SourceChanged() {
 	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
-	sel=document.getElementById('select-enviroments');
-	while (sel.options.length > 0) {
-        sel.remove(0);
-    }
-	for(var i = 0; i < dataset.sources[SI].enviroments.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = dataset.sources[SI].enviroments[i].name;
-        sel.appendChild(opt);
-      }
-	  
 	sel=document.getElementById('select-branches');
 	while (sel.options.length > 0) {
         sel.remove(0);
@@ -163,6 +152,29 @@ function SourceChanged() {
         opt.innerHTML = dataset.sources[SI].branches[i].name;
         sel.appendChild(opt);
       }
+	BranchChanged();
+}
+
+function BranchChanged() {
+	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
+	sel=document.getElementById('select-enviroments');
+	while (sel.options.length > 0) {
+        sel.remove(0);
+    }
+	for(var i = 0; i < dataset.sources[SI].enviroments.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.innerHTML = dataset.sources[SI].enviroments[i].name;
+        sel.appendChild(opt);
+      }
+	EnvChanged();
+}
+
+
+function EnvChanged() {
+	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
+	
+	
 	options_div=document.getElementById('div-options');
 	  options_div.innerHTML="";
 	  var SS=parseInt(document.getElementById('select-sources').selectedIndex);
