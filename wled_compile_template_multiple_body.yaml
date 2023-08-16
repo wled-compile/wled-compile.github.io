@@ -1,0 +1,25 @@
+    - name: Run PlatformIO $$BRANCHNAME$$ $$ENVNAME$$
+      run: |
+        rm -rf /tmp/WLEDtemp/* || true
+        mkdir -p /tmp/WLEDtemp
+        wget $$WLEDPATH$$ -O /tmp/WLEDtemp/mm.zip
+        unzip -o /tmp/WLEDtemp/mm.zip -d /tmp/WLEDtemp
+        find /tmp/WLEDtemp -maxdepth 1 -name "$$REPONAME$$-*" -type d >> /tmp/WLEDtemp/wledfoldername
+        cd `cat /tmp/WLEDtemp/wledfoldername`
+        $$WLEDPIORUN$$
+        pio run -e custom_build || pio run -e custom_build || true
+    - name: Copy Files $$BRANCHNAME$$ $$ENVNAME$$
+      run: |
+        cd $GITHUB_WORKSPACE
+        WLEDFOLDERNAME=`cat /tmp/WLEDtemp/wledfoldername`
+        cp ${WLEDFOLDERNAME}/build_output/firmware/custom_build.bin $GITHUB_WORKSPACE/build_$$BRANCHNAME$$_$$ENVNAME$$.bin || true
+        date -I | tr -d '\n' >$GITHUB_WORKSPACE/last_update_date.txt
+    - name: Commit Files $$BRANCHNAME$$ $$ENVNAME$$
+      run: |
+        cd $GITHUB_WORKSPACE
+        git config user.name "GitHub Actions Bot"
+        git config user.email "<>"
+        git add $GITHUB_WORKSPACE/build_$$BRANCHNAME$$_$$ENVNAME$$.bin || true
+        git add $GITHUB_WORKSPACE/last_update_date.txt || true
+        git commit -m "Commit Custom Build" || true
+        git push origin main || true

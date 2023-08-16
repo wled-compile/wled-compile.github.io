@@ -67,8 +67,22 @@
 		</div>
 		<div class="col mb-1">
 		  <div class="form-floating">
-			<select id="select-enviroments" onchange="EnvChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;"></select>
+			<select id="select-enviroments" onchange="EnvChanged();" class="form-select" aria-label="" style="min-width: 20em; width:auto;" ></select>
 			<label for="select-enviroments"><span id="L03">Mikrocontroller Typ auswählen:</span></label>
+		  </div>
+		</div>
+	</div>
+	<div class="row row-cols-auto" id="UserInputRow">
+		<div class="col mb-1">
+		  <div class="form-floating">
+			<input id="input-username" onchange="UserRepoChanged();" class="form-control" aria-label="" style="min-width: 20em; width:auto;"></select>
+			<label for="input-username"><span id="L26">Your GitHub user name:</span></label>
+		  </div>
+		</div>
+		<div class="col mb-1">
+		  <div class="form-floating">
+			<input id="input-reponame" onchange="UserRepoChanged();" class="form-control" aria-label="" style="min-width: 20em; width:auto;"></select>
+			<label for="input-reponame"><span id="L27">Your GitHub repository:</span></label>
 		  </div>
 		</div>
 	</div>
@@ -92,7 +106,41 @@
 	<button type="button" class="btn btn-primary" onclick="DownloadBuildYAML()"><span span id="L22">YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren</span></button>
 	<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
 	</div>
-	
+	<div class="accordion accordion-flush bottompart" id="accordionMultEnvs">
+		<div class="accordion-item">
+			<h4 class="accordion-header" id="headingMultEnvs">
+				<button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMultEnvs" aria-expanded="true" aria-controls="collapseOne">
+				<span id="L28" style="color:blue;text-decoration: underline;">Generate YAML for multiple enviroments</span>
+			    </button>
+			</h4>
+			<div id="collapseMultEnvs" class="accordion-collapse collapse bottompart" aria-labelledby="headingMultEnvs" data-bs-parent="#accordionMultEnvs">
+			  <div class="accordion-body bottompart">
+				<div class="row row-cols-auto mb-2">
+				<span span id="L31">Das folgende YAML-Skript generiert nicht nur eine Datei „custom_build.bin“, sondern eine für jeden Branch und jede ausgewählte Enviroment. Jede kompilierte .bin-Datei erhält den Namen build_<branch name>_<env name>.bin. Die oben genannten Einstellungen werden auf jeden Build angewendet (mit der Ausnahme, dass der Enviroment Name jedes Mal angepasst wird). Bedenken Sie, dass ein kostenloses GitHub-Konto nur 2000 Build-Minuten pro Monat hat und jeder Build etwa 3 Minuten dauert. Sie können also maximal ca. 660 Builds pro Monat bauen. Danach benötigen Sie ein weiteres kostenloses GitHub-Konto.</span>
+				</div>
+				<div class="row row-cols-auto">
+					<div class="col mb-1">
+					  <span span id="L30">Select multiple branches:</span>
+					  <div class="form-floating">
+						<select id="select-branchesMult" onchange="" class="form-select" aria-label="" style="min-height: 10em; min-width: 20em; width:auto;" multiple></select>
+					  </div>
+					</div>
+					<div class="col mb-1">
+					  <span span id="L29">Select multiple enviroments:</span>
+					  <div class="form-floating">
+						<select id="select-enviromentsMult" onchange="" class="form-select" aria-label="" style="min-height: 10em; min-width: 20em; width:auto;" multiple></select>
+					  </div>
+					</div>
+				</div>
+				<div class="container m-0 p-2">
+				<button type="button" class="btn btn-primary" onclick="DownloadBuildYAMLMult()"><span span id="L32">YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren</span></button>
+				<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+	</div>
 </div>
 
  <hr>
@@ -140,40 +188,231 @@
 <script>
 var dataset;
 
-function SourceChanged() {
-	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
+function UserRepoChanged() {
+	var SS = document.getElementById('select-sources');
+	var SI=SS.selectedIndex;
+	if(SS.options[SI].getAttribute("custom")==="1") {
+		SS.options[SI].setAttribute("ghusername",document.getElementById('input-username').value);
+		SS.options[SI].setAttribute("ghreponame",document.getElementById('input-reponame').value);
+	}
+	SearchForBranchesAndReleases();
+}
+
+function SearchForBranchesAndReleases(){
 	sel=document.getElementById('select-branches');
 	while (sel.options.length > 0) {
         sel.remove(0);
     }
-	for(var i = 0; i < dataset.sources[SI].branches.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = dataset.sources[SI].branches[i].name;
-        sel.appendChild(opt);
-      }
-	BranchChanged();
-}
-
-function BranchChanged() {
-	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
+	var opt = document.createElement('option');
+    opt.value = 0;
+    opt.innerHTML = 'Searching for branches ...';
+    sel.appendChild(opt);
+	
+	selM=document.getElementById('select-branchesMult');
+	while (selM.options.length > 0) {
+        selM.remove(0);
+    }
+	var optM = document.createElement('option');
+    optM.value = 0;
+    optM.innerHTML = 'Searching for branches ...';
+    selM.appendChild(optM);
+	
 	sel=document.getElementById('select-enviroments');
 	while (sel.options.length > 0) {
         sel.remove(0);
     }
-	for(var i = 0; i < dataset.sources[SI].enviroments.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = dataset.sources[SI].enviroments[i].name;
-        sel.appendChild(opt);
-      }
-	EnvChanged();
+	var opt = document.createElement('option');
+    opt.value = 0;
+    opt.innerHTML = 'Searching for enviroments in platformio.ini ...';
+    sel.appendChild(opt);
+	
+	selM=document.getElementById('select-enviromentsMult');
+	while (selM.options.length > 0) {
+        selM.remove(0);
+    }
+	var optM = document.createElement('option');
+	optM.value = 0;
+    optM.innerHTML = 'Searching for enviroments in platformio.ini ...';
+    selM.appendChild(optM);
+	
+	var SS = document.getElementById('select-sources');
+	var SI=SS.selectedIndex;
+	var mReq = new XMLHttpRequest();
+	mReq.open('GET', 'https://api.github.com/repos/'+SS.options[SI].getAttribute("ghusername")+'/'+SS.options[SI].getAttribute("ghreponame")+'/branches');
+	mReq.responseType = 'json';
+	mReq.onreadystatechange = function () {
+	  if (this.readyState == 4) {
+		if(mReq.status === 200) {
+			var SS = document.getElementById('select-sources');
+			var SI=SS.selectedIndex;
+			sel=document.getElementById('select-branches');
+			while (sel.options.length > 0) {
+				sel.remove(0);
+			}
+			selM=document.getElementById('select-branchesMult');
+			while (selM.options.length > 0) {
+				selM.remove(0);
+			}
+			var json=this.response;
+			for(let i = 0; i < json.length; i++) {
+				let obj = json[i];
+				var opt = document.createElement('option');
+				opt.value = i;
+				opt.setAttribute("type","branch");
+				opt.setAttribute("bname",obj.name);
+				opt.setAttribute("url",'https://github.com/' + SS.options[SI].getAttribute("ghusername") + '/' + SS.options[SI].getAttribute("ghreponame") + '/archive/refs/heads/'+obj.name+'.zip');
+				opt.setAttribute("pio_url",'https://raw.githubusercontent.com/' + SS.options[SI].getAttribute("ghusername") + '/' + SS.options[SI].getAttribute("ghreponame") + '/'+obj.name+'/platformio.ini');
+				opt.innerHTML = 'Branch: \"'+obj.name+'"';
+				if(SS.options[SI].getAttribute("recommendedbranch")===obj.name) {
+				opt.innerHTML = opt.innerHTML + ' (RECOMMENDED)';
+				
+				}
+				sel.appendChild(opt);
+				var optM = document.createElement('option');
+				optM.value = i;
+				optM.setAttribute("type","branch");
+				optM.setAttribute("bname",opt.getAttribute("bname"));
+				optM.setAttribute("url",opt.getAttribute("url"));
+				optM.setAttribute("pio_url",opt.getAttribute("pio_url"));
+				optM.innerHTML = opt.innerHTML;
+				selM.appendChild(optM);
+			}
+			// set RECOMMENDED
+			for(i = 0; i < sel.options.length; i++) {
+			   if (sel.options[i].innerHTML.includes("(RECOMMENDED)")) {
+				   sel.value=sel.options[i].value;
+			   }
+			 }
+			
+			///////////////////////////////////
+			if(SS.options[SI].getAttribute("custom")==="0") {
+				var mReq1 = new XMLHttpRequest();
+				mReq1.open('GET', 'https://api.github.com/repos/'+SS.options[SI].getAttribute("ghusername")+'/'+SS.options[SI].getAttribute("ghreponame")+'/releases');
+				mReq1.responseType = 'json';
+				mReq1.onreadystatechange = function () {
+				  if (this.readyState == 4) {
+					if(mReq1.status === 200) {
+						var SS = document.getElementById('select-sources');
+						var SI=SS.selectedIndex;
+						sel=document.getElementById('select-branches');
+						NN=sel.length;
+						var json=this.response;
+						for(let i = 0; i < json.length; i++) {
+							let obj = json[i];
+							var opt = document.createElement('option');
+							opt.value = i+NN-1;
+							opt.setAttribute("type","release");
+							opt.setAttribute("bname",obj.tag_name);
+							opt.setAttribute("url",obj.zipball_url);
+							opt.setAttribute("pio_url",'https://raw.githubusercontent.com/' + SS.options[SI].getAttribute("ghusername") + '/' + SS.options[SI].getAttribute("ghreponame") + '/'+obj.tag_name+'/platformio.ini');
+							opt.innerHTML = 'Release: \"'+obj.tag_name+'"';
+							sel.appendChild(opt);
+						}
+						BranchChanged();
+					}
+				  }
+				}	
+				mReq1.send();
+			} else {
+				BranchChanged();
+			}
+			///////////////////////////////////
+			
+		}
+	  }
+	}	
+	mReq.send();
+}
+
+function SourceChanged() {
+	var SS = document.getElementById('select-sources');
+	var SI=SS.selectedIndex;
+	if(SS.options[SI].getAttribute("custom")==="0") {
+		document.getElementById('input-username').value = SS.options[SI].getAttribute("ghusername");
+		document.getElementById('input-reponame').value = SS.options[SI].getAttribute("ghreponame");
+		document.getElementById('input-username').disabled = true;
+		document.getElementById('input-reponame').disabled = true;
+	} else {
+		document.getElementById('input-username').value = "";
+		document.getElementById('input-reponame').value = "";
+		document.getElementById('input-username').disabled = false;
+		document.getElementById('input-reponame').disabled = false;
+	}
+	
+	SearchForBranchesAndReleases();
+}
+
+function BranchChanged() {
+	var SB = document.getElementById('select-branches');
+	var SI=SB.selectedIndex;
+	
+	sel=document.getElementById('select-enviroments');
+	while (sel.options.length > 0) {
+        sel.remove(0);
+    }
+	var opt = document.createElement('option');
+    opt.value = 0;
+    opt.innerHTML = 'Searching for enviroments in platformio.ini ...';
+    sel.appendChild(opt);
+	
+	selM=document.getElementById('select-enviromentsMult');
+	while (selM.options.length > 0) {
+        selM.remove(0);
+    }
+	var optM = document.createElement('option');
+	optM.value = 0;
+    optM.innerHTML = 'Searching for enviroments in platformio.ini ...';
+    selM.appendChild(optM);
+
+	var mReq = new XMLHttpRequest();
+	mReq.open('GET', SB.options[SI].getAttribute("pio_url"));
+	mReq.responseType = 'plain/text';
+	mReq.onreadystatechange = function () {
+	  if (this.readyState == 4) {
+		if(mReq.status === 200) {
+			//console.log(this.response)
+			sel=document.getElementById('select-enviroments');
+			while (sel.options.length > 0) {
+				sel.remove(0);
+			}
+			selM=document.getElementById('select-enviromentsMult');
+			while (selM.options.length > 0) {
+				selM.remove(0);
+			}
+			splitted=this.response.replaceAll("\r\n","\n").replaceAll("\r","\n").split("\n");
+			var SS = document.getElementById('select-sources');
+			var SSI=SS.selectedIndex;
+			for (var i = 0; i < splitted.length; i++) {
+				if(splitted[i].replaceAll(" ","").replaceAll("\t","").startsWith("[env:")) {
+					envname1=splitted[i].replaceAll(" ","").replaceAll("\t","").replaceAll("[env:","");
+					envname=envname1.substr(0, envname1.indexOf(']'));
+					if(!(envname.toLowerCase().includes("codm") || envname.toLowerCase().includes("athom") || envname.toLowerCase().includes("travis") || envname.toLowerCase().includes("sp5") || envname.toLowerCase().includes("h803") || envname.toLowerCase().includes("heltec")  || envname.toLowerCase().includes("elekstube") || envname.toLowerCase().includes("anavi") || envname.toLowerCase().includes("my92"))) {
+						//console.log(envname);
+						var opt = document.createElement('option');
+						opt.value = 0;
+						opt.innerHTML = envname;
+						if(envname===SS.options[SSI].getAttribute("recommended_esp8266")) opt.innerHTML = opt.innerHTML + " (RECOMMENDED for ESP8266)";
+						if(envname===SS.options[SSI].getAttribute("recommended_esp32")) opt.innerHTML = opt.innerHTML + " (RECOMMENDED for ESP32)";
+						opt.setAttribute("env",envname);
+						sel.appendChild(opt);
+						var optM = document.createElement('option');
+						optM.value = opt.value;
+						optM.innerHTML = opt.innerHTML;
+						optM.setAttribute("env",envname);
+						selM.appendChild(optM);
+					}
+				}
+			}
+			EnvChanged();
+		}
+	  }
+	}
+	mReq.send();
 }
 
 
 function EnvChanged() {
 	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
-	
 	
 	options_div=document.getElementById('div-options');
 	  options_div.innerHTML="";
@@ -208,6 +447,12 @@ function LoadDataset() {
         var opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = dataset.sources[i].name;
+		opt.setAttribute("ghusername",dataset.sources[i].githubusername);
+		opt.setAttribute("ghreponame",dataset.sources[i].githubreponame);
+		opt.setAttribute("custom",dataset.sources[i].custom);
+		opt.setAttribute("recommendedbranch",dataset.sources[i].recommendedbranch);
+		opt.setAttribute("recommended_esp8266",dataset.sources[i].recommended_esp8266);
+		opt.setAttribute("recommended_esp32",dataset.sources[i].recommended_esp32);
         sel.appendChild(opt);
       }
 	  SourceChanged();	  
@@ -219,16 +464,18 @@ function LoadDataset() {
 
 function GenerateEnvText() {
 envtextfield=document.getElementById('env-text');
-SS=document.getElementById('select-sources').selectedIndex;
-SE=document.getElementById('select-enviroments').selectedIndex;
+SS=document.getElementById('select-sources')
+SSI=SS.selectedIndex;
+SE=document.getElementById('select-enviroments');
+SEI=SE.selectedIndex;
 
-var value="[env:custom_build]\nextends = env:"+dataset.sources[SS].enviroments[SE].env;
+var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
 
 var buildflags="";
 var libdeps="";
 
 	for(var i = 0; i < dataset.settings.length; i++) {
-		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number") && dataset.settings[i].sources.includes(SS)) {
+		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number") && dataset.settings[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-set'+String(i)).checked) {
 				if(String(dataset.settings[i].build_flags).length>0) {
 				buildflags=buildflags+" "+dataset.settings[i].build_flags;
@@ -248,7 +495,7 @@ var libdeps="";
 
 	}
 	for(var i = 0; i < dataset.usermods.length; i++) {
-		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SS)) {
+		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
 				if(String(dataset.usermods[i].build_flags).length>0) {
 				buildflags=buildflags+" "+dataset.usermods[i].build_flags;
@@ -261,10 +508,10 @@ var libdeps="";
 	}
 	
 	if(String(buildflags).length>0) {
-		value=value+"\nbuild_flags = ${env:"+dataset.sources[SS].enviroments[SE].env+".build_flags}"+buildflags;
+		value=value+"\nbuild_flags = ${env:"+SE.options[SEI].getAttribute("env")+".build_flags}"+buildflags;
 	}
 	if(String(libdeps).length>0) {
-		value=value+"\nlib_deps = \n  ${env:"+dataset.sources[SS].enviroments[SE].env+".lib_deps}"+libdeps;
+		value=value+"\nlib_deps = \n  ${env:"+SE.options[SEI].getAttribute("env")+".lib_deps}"+libdeps;
 	}
 	
 envtextfield.value=value;
@@ -296,6 +543,13 @@ function LangChanged() {
 		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "Wie compiliere ich WLED Software auf Github mit diesem YAML Script?";
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Im Folgenden wird erklärt, wie man WLED Software auf Github kompilieren kann. Der Vorteil dieser Methode ist, dass man keine Software (VSC/PlatformIO) auf dem eigenen PC installieren muss. GitHub nutzt dabei eigene Server und das ganze wird durch ein Script gesteuert durchgeführt. Man muss lediglich sich auf GitHub registrieren (alles kostenlos), Repository und Workflow (Skript) anlegen und starten:<br><ol><li>Wenn Du noch kein Account auf GitHub hast, <a href=https://github.com/signup target=“_blank“ rel="noreferrer">registriere Dich</a>. Es reicht ein „free“ Account. Damit kannst Du ca. 600 Mal pro Monat WLED kompilieren.</li><li>Erstelle in deinem Github eine neue Repository (mit dem grünen Knopf „Create a new repository“). Diese kannst du beliebig benennen.<br><img src="pictures/pic1.jpg"></li><li>In deiner Repository gebe den Workflows die Berechtigung diese Repository beschreiben zu dürfen. Dafür gehe in deine Repository, dann oben zu „Settings“, dann in der Spalte links zu „Actions“-> „General“. Jetzt musst Du die Seite „Actions Permissions“ sehen.<br><img src="pictures/pic2.jpg"><br>Weiter unten auf dieser Seite im Bereich „Workflow permissions“ musst Du „Read and write permissions“ anklicken und dann auf „Save“ drunter.<br><img src="pictures/pic3.jpg"></li><li>Gehe jetzt zurück zu „< > Code“ in deiner Repository und erstelle eine Workflow Datei. Dafür klicke auf „creating new file“ in dem hellbaluen bereich "Quick Setup". Oben im Feld „Name your file“ tippe folgendes ein „.github/workflows/wled-compile.yaml“. Dabei jedes Mal wenn man „/“ eintippt, erstellt Github einen Unterverzeichnis. In den Bereich „Edit“ kannst Du jetzt den Inhalt der wled-compile.yaml Datei reinkopieren. Dann klicke auf den grünen Knopf „Commit changes...“ und dann im geöffneten Fenster noch mal auf „Commit changes“.<br><img src="pictures/pic4.jpg"></li><li>Jetzt kann man den Workflow starten damit WLED compiliert wird. Dafür gehe oben zu „Actions“ und links in de rListe der Workflows auf dem Workflow „WLED compile“, Nun in hellblauer Zeile ( wo steht „This workflow has a workflow_dispatch event trigger.“) kannst Du rechts auf „Run workflow“ klicken und dann noch mal auf den grünen Knopf „Run workflow“.<br><img src="pictures/pic5.jpg"><br>Nach paar Sekunden erscheint dann unter dieser hellblauen Zeile dann die Zeile mit „WLED Compile“, wo rechts dann der Status „in progress“ steht.</li><li>Sobald dieser Workflow erfolgreich abgeschlossen ist (dauert normalerweise ca.  3-10 Minuten), erscheint bei „WLED Compile“ links ein grüner Hacken. Dann kannst Du wieder zu „Code“ gehen und da ist dann die kompilierte WLED Software in der Datei custom_build.bin zu finden.<br><img src="pictures/pic6.jpg"><br>Du kannst diese Datei herunterladen: auf die Datei klicken und dann rechts auf Symbol „Download raw file“.<br>Wenn der Workflow nicht erfolgreich war, erscheint kein grüner Hacken, dafür aber ein rotes Kreuz. Man kann dann den Workflow verlauf untersuchen um rauszufinden, woran das Problem liegt. </li><li>Diese Datei kannst du dann auf deinem WLED Controller per „Manual OTA Update“ installieren.</li></ol>';
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'Sie können WLED auch mit GitHub mit Hilfe des YAML workflow Skiptes (unten im Abschnitt „Ergebnisse“) kompilieren:';
+		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Deine GitHub Account Name';
+		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'Deine GitHub Repository';
+		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'YAML für mehrere Enviroments generieren';
+		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'Mehrere Enviroments auswählen:';
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Mehrere Branches auswählen:';
+		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'Das folgende YAML-Skript generiert nicht nur eine Datei „custom_build.bin“, sondern eine für jeden Branch und jede ausgewählte Enviroment. Jede kompilierte .bin-Datei erhält den Namen build_<branch name>_<env name>.bin. Die oben genannten Einstellungen werden auf jeden Build angewendet (mit der Ausnahme, dass der Enviroment Name jedes Mal angepasst wird). Bedenken Sie, dass ein kostenloses GitHub-Konto nur 2000 Build-Minuten pro Monat hat und jeder Build etwa 3 Minuten dauert. Sie können also maximal ca. 660 Builds pro Monat bauen. Danach benötigen Sie ein weiteres kostenloses GitHub-Konto.';
+		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = "YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren (mehrfach)";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -322,6 +576,13 @@ function LangChanged() {
 		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "How to compile WLED software on Github using this YAML script?";
 		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'The following explains how to compile WLED software on Github. The advantage of this method is that you dont have to install any software (VSC/PlatformIO) on your own PC. GitHub uses its own server and the whole thing is controlled by a script. All you have to do is register on GitHub (for free), create and start repository and workflow (script):<br><ol><li>If you dont have an account on GitHub yet, <a href=https://github. com/signup target=”_blank” rel="noreferrer">sign up</a>. A "free" account is sufficient. With this you can compile WLED about 600 times per month.</li><li>Create a new repository in your Github (with the green button "Create a new repository"). You can name these as you like..<br><img src="pictures/pic1.jpg"></li><li>In your repository, give the workflows permission to write to this repository. To do this, go to your repository, then to "Settings" at the top line, then in the column on the left to "Actions"-> "General". Now you must see the "Actions Permissions" page.<br><img src="pictures/pic2.jpg"><br>At the bottom of this page in the "Workflow permissions" section you need to click "Read and write permissions" and then click "Save" underneath.<br><img src="pictures/pic3.jpg"></li><li>Now go back to "< > Code" in your repository and create the workflow file. To do this, click on “Add file” and then on “Create new file”. At the top in the "Name your file" field, type ".github/workflows/wled-compile.yaml". Every time you type "/", Github creates a subdirectory. You can now copy the content of the wled-compile.yaml file into the "Edit" area. Then click on the green button "Commit changes..." and then in the opened window again on "Commit changes".<br><img src="pictures/pic4.jpg"></li><li>Now you can start the workflow to compile WLED. To do this, go to "Actions" at the top and on the left in the list of workflows on the "WLED compile" workflow. Now in the light blue line (where it says "This workflow has a workflow_dispatch event trigger.") You can click on "Run workflow" on the right and then again on the green button "Run workflow".<br><img src="pictures/pic5.jpg"><br>After a few seconds, the line with "WLED Compile" will appear under this light blue line, where the status "in progress" will appear on the right side.</li><li>Once this workflow has been successfully completed (usually takes about 3-10 minutes), a green tick appears at the left side of "WLED Compile". Then you can go back to "<> Code" and there you will find the compiled WLED software in the custom_build.bin file.<br><img src="pictures/pic6.jpg"><br>You can download this file: click on the file and then at the right side on the "Download raw file" icon.<br>If the workflow was unsuccessful, no green tick but a red cross will appear. You can then examine the workflow history to find out what the problem is. </li><li>You can then install this file on your WLED controller via "Manual OTA Update".</li></ol>';
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'You also can compile WLED using GitHub using YAML workflow script generated below in the "Results" section:';
+		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Your GitHub account name';
+		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'Your GitHub repository';
+		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'Generate YAML for multiple enviroments';
+		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'Select multiple enviroments:';
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Select multiple branches:';
+		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'The YAML script below will generate not only one custom_build.bin file, but one for each branch and each enviroment selected. Each .bin file compiled will be named build_<branch name>_<env name>.bin. Settings above will be applied to each build (except that enviroment name will be adapted each time). Keep in mind that one free GitHub account has only 2000 build minutes per month and each build take approximately 3 minutes. So you will be able to build max approx. 660 builds per month. After that you will need another free GitHub account.';
+		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = "Download YAML Script to compile WLED on GitHub (multiple)";
 	}
 	
 }
@@ -344,10 +605,14 @@ function DownloadBuildYAML() {
 	const xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			SS=document.getElementById('select-sources').selectedIndex;
-			BB=document.getElementById('select-branches').selectedIndex;
 			
-			strText = this.responseText.replace("$$WLEDPATH$$",dataset.sources[SS].branches[BB].sourcepatch);
+			SS=document.getElementById('select-sources');
+			SSI=SS.selectedIndex;
+			SB=document.getElementById('select-branches');
+			SBI=SB.selectedIndex;
+			
+			strText = this.responseText.replaceAll("$$WLEDPATH$$",SB.options[SBI].getAttribute("url"));
+			strText = strText.replaceAll("$$REPONAME$$",SS.options[SSI].getAttribute("ghreponame"));
 			
 			var piotext="";
 			lines=document.getElementById('env-text').value.split('\n');
@@ -364,6 +629,73 @@ function DownloadBuildYAML() {
 		}
 	  };
 	  xhttp.open("GET", "wled_compile_template.yaml");
+	  xhttp.send(); 
+}
+
+function DownloadBuildYAMLMult() {
+    var strText, objBlob, objLink;
+
+    if (objLastUrl == null){
+        window.URL.revokeObjectURL(objLastUrl);
+        objLastUrl = null;
+    }
+
+    strText = "";	
+	const xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			strText = this.responseText;
+			  const xhttp1 = new XMLHttpRequest();
+			  xhttp1.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					SE=document.getElementById('select-enviroments');
+					SEI=SE.selectedIndex;
+					SEM=document.getElementById('select-enviromentsMult');
+					
+					SS=document.getElementById('select-sources');
+					SSI=SS.selectedIndex;
+					SB=document.getElementById('select-branches');
+					SBI=SB.selectedIndex;
+					
+					SBM=document.getElementById('select-branchesMult');
+					
+					base_env_name=SE.options[SEI].getAttribute("env");
+					
+					for(var j = 0; j < SBM.options.length; j++) {
+						if(SBM.options[j].selected) {
+							for(var i = 0; i < SEM.options.length; i++) {
+								if(SEM.options[i].selected) {
+									//console.log(SEM.options[i].getAttribute("env"));
+									itemText=this.responseText.replaceAll("$$WLEDPATH$$",SBM.options[j].getAttribute("url"));
+									itemText = itemText.replaceAll("$$REPONAME$$",SS.options[SSI].getAttribute("ghreponame"));
+									itemText = itemText.replaceAll("$$ENVNAME$$",SEM.options[i].getAttribute("env"));
+									itemText = itemText.replaceAll("$$BRANCHNAME$$",SBM.options[j].getAttribute("bname"));
+									var piotext="";
+									lines=document.getElementById('env-text').value.split('\n');
+									for(var n = 0; n < lines.length; n++) {
+										piotext=piotext+"echo '"+lines[n]+"' >>platformio.ini\n        ";
+									}
+									piotext = piotext.replaceAll("env:"+base_env_name,"env:"+SEM.options[i].getAttribute("env"));
+									itemText = itemText.replace("$$WLEDPIORUN$$", piotext);
+									strText=strText+itemText;
+								}
+							}
+						}
+					}
+					
+					objBlob = new Blob([ strText ], { type: "text/plain" });
+					objLink = document.getElementById("downloadLinkYAML");
+					objLastUrl = window.URL.createObjectURL(objBlob);
+					objLink.href = objLastUrl;
+					objLink.click();
+				}
+			  };
+			  xhttp1.open("GET", "wled_compile_template_multiple_body.yaml");
+			  xhttp1.send(); 
+			
+		}
+	  };
+	  xhttp.open("GET", "wled_compile_template_multiple_prefix.yaml");
 	  xhttp.send(); 
 }
 

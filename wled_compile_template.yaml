@@ -18,22 +18,22 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install --upgrade platformio
-        wget $$WLEDPATH$$ -O /tmp/mm.zip
-        unzip /tmp/mm.zip -d /tmp
-        find /tmp -maxdepth 1 -name "WLED-*" -type d >> wledfoldername
-        mv `cat wledfoldername` /tmp/WLED-maindir
     - name: Run PlatformIO
       run: |
-        cd /tmp/WLED-maindir
+        rm -rf /tmp/WLEDtemp/* || true
+        mkdir -p /tmp/WLEDtemp
+        wget $$WLEDPATH$$ -O /tmp/WLEDtemp/mm.zip
+        unzip /tmp/WLEDtemp/mm.zip -d /tmp/WLEDtemp
+        find /tmp/WLEDtemp -maxdepth 1 -mindepth 1 -name "*" -type d >> /tmp/WLEDtemp/wledfoldername
+        cd `cat /tmp/WLEDtemp/wledfoldername`
         $$WLEDPIORUN$$
         pio run -e custom_build || pio run -e custom_build
-      env:
-        PLATFORMIO_CI_SRC: /tmp/WLED-maindir
     - name: Copy Files
       run: |
         cd $GITHUB_WORKSPACE
         git rm -r $GITHUB_WORKSPACE/*.bin || true
-        cp /tmp/WLED-maindir/build_output/firmware/custom_build.bin $GITHUB_WORKSPACE/
+        WLEDFOLDERNAME=`cat /tmp/WLEDtemp/wledfoldername`
+        cp ${WLEDFOLDERNAME}/build_output/firmware/custom_build.bin $GITHUB_WORKSPACE/
         date -I | tr -d '\n' >$GITHUB_WORKSPACE/last_update_date.txt
     - name: Commit Files
       run: |
