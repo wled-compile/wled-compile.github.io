@@ -628,7 +628,7 @@ function DownloadBuildYAML() {
 			var piotext="";
 			lines=document.getElementById('env-text').value.split('\n');
 			for(var n = 0; n < lines.length; n++) {
-				piotext=piotext+"echo '"+lines[n].replaceAll("'","'\''")+"' >>platformio.ini\n        ";
+				piotext=piotext+"echo '"+lines[n].replaceAll("'","'\\''")+"' >>platformio.ini\n        ";
 			}	
 			strText = strText.replace("$$WLEDPIORUN$$", piotext);
 			
@@ -684,7 +684,7 @@ function DownloadBuildYAMLMult() {
 									var piotext="";
 									lines=document.getElementById('env-text').value.split('\n');
 									for(var n = 0; n < lines.length; n++) {
-										piotext=piotext+"echo '"+lines[n].replaceAll("'","'\''")+"' >>platformio.ini\n        ";
+										piotext=piotext+"echo '"+lines[n].replaceAll("'","'\\''")+"' >>platformio.ini\n        ";
 									}
 									piotext = piotext.replaceAll("env:"+base_env_name,"env:"+SEM.options[i].getAttribute("env"));
 									itemText = itemText.replace("$$WLEDPIORUN$$", piotext);
