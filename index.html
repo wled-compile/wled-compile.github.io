@@ -424,6 +424,9 @@ function EnvChanged() {
 		if(dataset.settings[i].type=="number" && dataset.settings[i].sources.includes(SS)) {
 			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+String(i)+'" name="option-set'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+dataset.settings[i].name+'</label></div></div><div class="col mb-1"><input id="input-number-'+String(i)+'" type="number" min="-1" data-bind="value:input-number-'+String(i)+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 5em;"></div></div>';
 		}
+		if((dataset.settings[i].type=="string" || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SS)) {
+			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+String(i)+'" name="option-set'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+dataset.settings[i].name+'</label></div></div><div class="col mb-1"><input id="input-string-'+String(i)+'" data-bind="value:input-string-'+String(i)+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 30em;"></div></div>';
+		}
       }
 	
 	options_div=document.getElementById('div-usermods');
@@ -475,7 +478,7 @@ var buildflags="";
 var libdeps="";
 
 	for(var i = 0; i < dataset.settings.length; i++) {
-		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number") && dataset.settings[i].sources.includes(SSI)) {
+		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-set'+String(i)).checked) {
 				if(String(dataset.settings[i].build_flags).length>0) {
 				buildflags=buildflags+" "+dataset.settings[i].build_flags;
@@ -485,6 +488,14 @@ var libdeps="";
 							numval="0";
 						}
 						buildflags=buildflags+numval;
+					}
+					if(dataset.settings[i].type=="string") {
+						stringval=String(document.getElementById('input-string-'+String(i)).value);
+						buildflags=buildflags+"'\""+stringval+"\"'";
+					}
+					if(dataset.settings[i].type=="defparam") {
+						stringval=String(document.getElementById('input-string-'+String(i)).value);
+						buildflags=buildflags+stringval;
 					}
 				}
 				if(String(dataset.settings[i].lib_deps).length>0) {
@@ -617,7 +628,7 @@ function DownloadBuildYAML() {
 			var piotext="";
 			lines=document.getElementById('env-text').value.split('\n');
 			for(var n = 0; n < lines.length; n++) {
-				piotext=piotext+"echo '"+lines[n]+"' >>platformio.ini\n        ";
+				piotext=piotext+"echo '"+lines[n].replaceAll("'","\\'")+"' >>platformio.ini\n        ";
 			}	
 			strText = strText.replace("$$WLEDPIORUN$$", piotext);
 			
@@ -673,7 +684,7 @@ function DownloadBuildYAMLMult() {
 									var piotext="";
 									lines=document.getElementById('env-text').value.split('\n');
 									for(var n = 0; n < lines.length; n++) {
-										piotext=piotext+"echo '"+lines[n]+"' >>platformio.ini\n        ";
+										piotext=piotext+"echo '"+lines[n].replaceAll("'","\\'")+"' >>platformio.ini\n        ";
 									}
 									piotext = piotext.replaceAll("env:"+base_env_name,"env:"+SEM.options[i].getAttribute("env"));
 									itemText = itemText.replace("$$WLEDPIORUN$$", piotext);

@@ -97,6 +97,125 @@
 			"lib_deps" : ""
 		},
 		{
+			"name" : "Enable Ethernet support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_USE_ETHERNET",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable adds the MAC address to the WLED AP SSID",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_AP_SSID_UNIQUE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable debug messages to serial console",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DEBUG",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable NTP debug",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DEBUG_NTP",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable debug improv serial",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DEBUG_IMPROV",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable simplified UI (User Interface)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_SIMPLE_UI",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable MQTT",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_MQTT",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable MQTT",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_MQTT",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable Loxone support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_LOXONE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable Loxone support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_LOXONE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable websockets support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_WEBSOCKETS",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable websockets support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_WEBSOCKETS",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable Adalight support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_ADALIGHT",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Enable Pixart",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_ENABLE_PIXART",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable Alexa support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_ALEXA",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable Philips Hue support",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_HUESYNC",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Disable 2D features",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D WLED_DISABLE_2D",
+			"lib_deps" : ""
+		},
+		{
 			"name" : "Set default LED pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
@@ -115,6 +234,14 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D RLYPIN=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Set default relay mode: 1=active high, 0=active low (default: 1)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D RLYMDE=",
 			"lib_deps" : ""
 		},
 		{
@@ -174,6 +301,13 @@
 			"lib_deps" : ""
 		},
 		{
+			"name" : "Define max number of LED busses (default: 3 on ESP8266 and on ESP32C3, 10 on ESP32 without AR, 8 on ESP32 with AR, 6 on ESP32S3 and on ESP32S2 with AR, 7 on ESP32S2 without AR)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"build_flags" : "-D WLED_MAX_BUSSES=",
+			"lib_deps" : ""
+		},
+		{
 			"name" : "Define default number of LEDs (default: 30)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
@@ -181,11 +315,107 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Define default value for automatic brightness limiter (ABL) in mA (default: 850, enter 0 to disable ABL)",
+			"name" : "Define default value for automatic brightness limiter (ABL) in mA (default: 850, enter 0 to disable ABL, minimum: 250)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D ABL_MILLIAMPS_DEFAULT=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define default LED type (defalt: TYPE_WS2812_RGB, see wled00/const.h for possible values)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"minnumber": 0,
+			"build_flags" : "-D DEFAULT_LED_TYPE=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define default LED color order (defalt: COL_ORDER_GRB, see wled00/const.h for possible values)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"minnumber": 0,
+			"build_flags" : "-D DEFAULT_LED_COLOR_ORDER=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define number of LEDMAPs (default: 10 on ESP8266, 156 on ESP32)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_MAX_LEDMAPS=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define max number of LEDs (default: 1664 on ESP8266, 8192 on ESP32)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D MAX_LEDS=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define max number of LEDs per bus (default: 2048)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D MAX_LEDS_PER_BUS=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define max LEDs memory (default: 4000 on ESP8266, 32000 on ESP32C3 and ESP32S2, 64000 on ESP32 and ESP32S3)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D MAX_LED_MEMORY=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define WLED PWM frequency (default: 880 on ESP8266, 19531 on ESP32)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_PWM_FREQ=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define the default WiFi SSID",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"minnumber": 0,
+			"build_flags" : "-D CLIENT_SSID=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define the default WiFi password",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"minnumber": 0,
+			"build_flags" : "-D CLIENT_PASS=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define the name of the internal WiFI Access Point (default: WLED-AP)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_AP_SSID=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define the password for the internal WiFI Access Point (default: wled1234)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_AP_PASS=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define the whatchdog timout in milliseconds (default: 0 (deactivated))",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_WATCHDOG_TIMEOUT=",
 			"lib_deps" : ""
 		}
 	],
