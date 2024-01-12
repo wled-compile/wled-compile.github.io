@@ -111,10 +111,25 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Enable debug messages to serial console",
+			"name" : "Enable debug messages to serial console (WLED_DEBUG)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DEBUG",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define host for NET debug (for example an IP like 192.168.1.20, FQDN is also possible)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"minnumber": 0,
+			"build_flags" : "-D WLED_DEBUG_HOST=",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Define port for NET debug (WLED_DEBUG_PORT, default: 7868)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"build_flags" : "-D WLED_DEBUG_PORT=",
 			"lib_deps" : ""
 		},
 		{
