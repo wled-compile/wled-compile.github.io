@@ -6,6 +6,7 @@
         unzip -o /tmp/WLEDtemp/mm.zip -d /tmp/WLEDtemp
         find /tmp/WLEDtemp -maxdepth 1 -name "$$REPONAME$$-*" -type d >> /tmp/WLEDtemp/wledfoldername
         cd `cat /tmp/WLEDtemp/wledfoldername`
+        npm install
         $$WLEDPIORUN$$
         pio run -e custom_build || pio run -e custom_build || true
     - name: Copy Files $$BRANCHNAME$$ $$ENVNAME$$
