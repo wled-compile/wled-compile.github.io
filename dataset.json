@@ -449,7 +449,7 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Temperature/readme.md",
 			"build_flags" : "-D USERMOD_DALLASTEMPERATURE",
-			"lib_deps" : "OneWire@~2.3.5"
+			"lib_deps" : "OneWire@~2.3.7"
 		},
 		{
 			"name" : "DHT22 and DHT11 humidity and temperature sensors",
@@ -585,7 +585,7 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PWM_fan/readme.md",
 			"build_flags" : "-D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE",
-			"lib_deps" : "OneWire@~2.3.5"
+			"lib_deps" : "OneWire@~2.3.7"
 		},
 		{
 			"name" : "PWM Outputs (ESP32 only)",
