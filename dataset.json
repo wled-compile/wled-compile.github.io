@@ -585,7 +585,7 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PWM_fan/readme.md",
 			"build_flags" : "-D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE",
-			"lib_deps" : ""
+			"lib_deps" : "OneWire@~2.3.5"
 		},
 		{
 			"name" : "PWM Outputs (ESP32 only)",
