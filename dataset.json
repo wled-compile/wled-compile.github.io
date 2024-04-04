@@ -460,6 +460,14 @@
 			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking"
 		},
 		{
+			"name" : "BH1750 ambient light sensor",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/BH1750_v2/readme.md",
+			"build_flags" : "-D USERMOD_BH1750",
+			"lib_deps" : "claws/BH1750 @ ^1.2.0"
+		},
+		{
 			"name" : "Autosave (automatically save settings to preset and load at startup)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
