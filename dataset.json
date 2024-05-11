@@ -436,7 +436,15 @@
 	],
 	"usermods":[
 		{
-			"name" : "Audio Reactive",
+			"name" : "Audio Reactive (for use with newest versions Aircoookie WLED)",
+			"sources" : [0],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"build_flags" : "${esp32.AR_build_flags}",
+			"lib_deps" : "${esp32.AR_lib_deps}"
+		},
+		{
+			"name" : "Audio Reactive (for use with some older Aircoookie WLED (<0.14.1))",
 			"sources" : [0],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
