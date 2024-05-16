@@ -8,6 +8,7 @@
         cd `cat /tmp/WLEDtemp/wledfoldername`
         npm install
         $$WLEDPIORUN$$
+        echo 'build_unflags= -D WLED_RELEASE_NAME' >>platformio.ini
         pio run -e custom_build || pio run -e custom_build || true
     - name: Copy Files $$BRANCHNAME$$ $$ENVNAME$$
       run: |
