@@ -316,7 +316,7 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Define max number of LED busses (default: 3 on ESP8266 and on ESP32C3, 10 on ESP32 without AR, 8 on ESP32 with AR, 6 on ESP32S3 and on ESP32S2 with AR, 7 on ESP32S2 without AR)",
+			"name" : "Define max number of LED busses (defaults: 4 on ESP8266 and on ESP32C3, 20 on ESP32, 6 on ESP32S3, 7 on ESP32S2)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_BUSSES=",
