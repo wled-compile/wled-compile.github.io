@@ -520,7 +520,7 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui/readme.md",
-			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_MODE_SORT",
+			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI",
 			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire"
 		},
 		{
@@ -528,7 +528,7 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
-			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_MODE_SORT -D USE_ALT_DISPlAY",
+			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USE_ALT_DISPlAY",
 			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire"
 		},
 		{
