@@ -457,15 +457,72 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Temperature/readme.md",
 			"build_flags" : "-D USERMOD_DALLASTEMPERATURE",
-			"lib_deps" : "OneWire@~2.3.7"
+			"lib_deps" : "paulstoffregen/OneWire @ ~2.3.8",
+			"options" : [
+				{
+					"name" : "number of milliseconds between measurements, defaults to 60000 ms (60s)",
+					"type" : "number",
+					"minnumber": 1000,
+					"build_flags" : "-D USERMOD_DALLASTEMPERATURE_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "DHT22 and DHT11 humidity and temperature sensors",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/DHT/readme.md",
-			"build_flags" : "-D USERMOD_DHT -D USERMOD_DHT_CELSIUS",
-			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking"
+			"build_flags" : "-D USERMOD_DHT",
+			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking",
+			"options" : [
+				{
+					"name" : "DHT model: 11, 21, 22 for DHT11, DHT21, or DHT22, defaults to 22/DHT22",
+					"type" : "number",
+					"minnumber": 11,
+					"build_flags" : "-D USERMOD_DHT_DHTTYPE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Pin to which DHT is connected",
+					"type" : "number",
+					"minnumber":  0,
+					"build_flags" : "-D USERMOD_DHT_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Report temperatures in degrees Celsius, otherwise Fahrenheit will be reported",
+					"type" : "checkbox",
+					"build_flags" : "-D USERMOD_DHT_CELSIUS",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The number of milliseconds between measurements, defaults to 60000 ms",
+					"type" : "number",
+					"minnumber":  1000,
+					"build_flags" : "-D USERMOD_DHT_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The number of milliseconds after boot to take first measurement, defaults to 90000 ms",
+					"type" : "number",
+					"minnumber":  1000,
+					"build_flags" : "-D USERMOD_DHT_FIRST_MEASUREMENT_AT=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Publish measurements to an MQTT broker",
+					"type" : "checkbox",
+					"build_flags" : "-D USERMOD_DHT_MQTT",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "For debug, report delay stats",
+					"type" : "checkbox",
+					"build_flags" : "-D USERMOD_DHT_STATS",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "BH1750 ambient light sensor",
@@ -473,7 +530,37 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/BH1750_v2/readme.md",
 			"build_flags" : "-D USERMOD_BH1750",
-			"lib_deps" : "claws/BH1750 @ ^1.2.0"
+			"lib_deps" : "claws/BH1750 @ ^1.2.0",
+			"options" : [
+				{
+					"name" : "The max number of milliseconds between measurements, defaults to 10000 ms",
+					"type" : "number",
+					"minnumber": 1000,
+					"build_flags" : "-D USERMOD_BH1750_MAX_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The min number of milliseconds between measurements, defaults to 500 ms",
+					"type" : "number",
+					"minnumber": 10,
+					"build_flags" : "-D USERMOD_BH1750_MIN_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The offset value to report on, defaults to 1",
+					"type" : "number",
+					"minnumber": 1,
+					"build_flags" : "-D USERMOD_BH1750_OFFSET_VALUE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The number of milliseconds after boot to take first measurement, defaults to 10000 ms",
+					"type" : "number",
+					"minnumber": 1000,
+					"build_flags" : "-D USERMOD_BH1750_FIRST_MEASUREMENT_AT=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "Autosave (automatically save settings to preset and load at startup)",
@@ -481,7 +568,29 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_auto_save/readme.md",
 			"build_flags" : "-D USERMOD_AUTO_SAVE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Delay time after the settings auto-saving routine should be executed",
+					"type" : "number",
+					"minnumber": 1,
+					"build_flags" : "-D AUTOSAVE_AFTER_SEC=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Preset number used by autosave usermod",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D AUTOSAVE_PRESET_NUM=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Preset number used by autosave usermod",
+					"type" : "checkbox",
+					"build_flags" : "-D USERMOD_AUTO_SAVE_ON_BOOT",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "Four line display",
@@ -521,7 +630,36 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI",
-			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire"
+			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire",
+			"options" : [
+				{
+					"name" : "Define DT pin (default: 18)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_DT_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define CLK pin (default: 5)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_CLK_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define SW pin (default: 19)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_SW_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
+					"type" : "defparam",
+					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "Rotary encoder UI ALT (alternative, USE_ALT_DISPlAY)",
@@ -529,7 +667,36 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USE_ALT_DISPlAY",
-			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire"
+			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire",
+			"options" : [
+				{
+					"name" : "Define DT pin (default: 18)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_DT_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define CLK pin (default: 5)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_CLK_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define SW pin (default: 19)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D ENCODER_SW_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
+					"type" : "defparam",
+					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "Animated staircase",
@@ -553,7 +720,100 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Battery/readme.md",
 			"build_flags" : "-D USERMOD_BATTERY",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Select if you use LiPo rechargeables (1S)",
+					"type" : "checkbox",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_USE_LIPO",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define pin for measurement",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_MEASUREMENT_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Battery check interval in ms, defaults to 30000 ms",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Minimum battery voltage in Volts, default is 2.6 (18650 battery standard)",
+					"type" : "number_float",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_MIN_VOLTAGE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Maximum battery voltage in Volts, default is 4.2 (18650 battery standard)",
+					"type" : "number_float",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_MAX_VOLTAGE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "The capacity of all cells in parallel summed up in mAh",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_TOTAL_CAPACITY=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Offset / calibration number, fine tune the measured voltage by the microcontroller",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_CALIBRATION=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Enables auto-off. Please enter <b>true</b> to enable, <b>false</b> to disable",
+					"type" : "defparam",
+					"build_flags" : "-D USERMOD_BATTERY_AUTO_OFF_ENABLED=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "When this threshold (in %, 0 to 100) is reached master power turns off",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_AUTO_OFF_THRESHOLD=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Enables low power indication. Please enter <b>true</b> to enable, <b>false</b> to disable",
+					"type" : "defparam",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_ENABLED=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "When low power is detected then use this preset ID to indicate low power",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_PRESET=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "When this threshold (in %, 0 to 100) is reached low power gets indicated",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_THRESHOLD=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "For this duration (in seconds) the configured preset is played",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_DURATION=",
+					"lib_deps" : ""
+				}
+			]
+			
 		},
 		{
 			"name" : "Sensors to MQTT (BMP280, CCS811 and Si7021 measurements to Home Assistant via MQTT)",
@@ -569,7 +829,16 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
 			"build_flags" : "-D USERMOD_PIRSWITCH",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Define number of PIR sensors",
+					"type" : "number",
+					"minnumber": 1,
+					"build_flags" : "-D PIR_SENSOR_MAX_SENSORS=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "BME280 or BMP280 Sensor",
@@ -596,20 +865,45 @@
 			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0"
 		},
 		{
-			"name" : "PWM Fan",
+			"name" : "PWM Fan (please include also usermod DS18B20 Temperatursensor)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PWM_fan/readme.md",
-			"build_flags" : "-D USERMOD_PWM_FAN -D USERMOD_DALLASTEMPERATURE",
-			"lib_deps" : "OneWire@~2.3.7"
+			"build_flags" : "-D USERMOD_PWM_FAN",
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Define PWM output pin",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D PWM_PIN=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Define tachometer input pin",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D TACHO_PIN=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "PWM Outputs (ESP32 only)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/pwm_outputs/usermod_pwm_outputs.h",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/pwm_outputs/readme.md",
 			"build_flags" : "-D USERMOD_PWM_OUTPUTS",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Define number of PWM outputs (default: 3)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_PWM_OUTPUT_PINS=",
+					"lib_deps" : ""
+				}
+			]
 		},
 		{
 			"name" : "ADS1115 16-Bit ADC with four inputs",
@@ -641,6 +935,138 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/SN_Photoresistor/readme.md",
 			"build_flags" : "-D USERMOD_SN_PHOTORESISTOR",
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Number of milliseconds between measurements. Defaults to 60000 ms",
+					"type" : "number",
+					"minnumber": 100,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_MEASUREMENT_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Number of milliseconds after boot to take first measurement. Defaults to 20000 ms",
+					"type" : "number",
+					"minnumber": 100,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_FIRST_MEASUREMENT_AT=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Voltage supplied to the sensor in Volts. Defaults to 5 V",
+					"type" : "number_float",
+					"minnumber": 100,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_REFERENCE_VOLTAGE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "ADC precision. Defaults to 10 bits",
+					"type" : "number",
+					"minnumber": 8,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_ADC_PRECISION=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Resistor size in Ohm, defaults to 10000.0 (10K Ohms)",
+					"type" : "number_float",
+					"minnumber": 1,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_RESISTOR_VALUE=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Offset value to report on. Defaults to 25",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_ADC_PRECISION=",
+					"lib_deps" : ""
+				}
+			]
+		},
+		{
+			"name" : "WireGuard VPN",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/wireguard/readme.md",
+			"build_flags" : "-D USERMOD_WIREGUARD",
+			"lib_deps" : "https://github.com/kienvu58/WireGuard-ESP32-Arduino.git"
+		},
+		{
+			"name" : "Internal Temperature",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Internal_Temperature_v2/readme.md",
+			"build_flags" : "-D USERMOD_INTERNAL_TEMPERATURE",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "Support various SHT i2c sensors like the SHT30, SHT31, SHT35 and SHT85",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/sht/readme.md",
+			"build_flags" : "-D USERMOD_SHT",
+			"lib_deps" : "robtillaart/SHT85@~0.3.3"
+		},
+		{
+			"name" : "Mode sort: provides data about modes and palettes to other usermods",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_mode_sort/readme.md",
+			"build_flags" : "-D USERMOD_MODE_SORT",
+			"lib_deps" : ""
+		},
+		{
+			"name" : "[WLED>=0.15.x] BME680/BME68X sensors",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/BME68X_v2/README.md",
+			"build_flags" : "-D USERMOD_BME68X",
+			"lib_deps" : "boschsensortec/BSEC Software Library @ ^1.8.1492"
+		},
+		{
+			"name" : "[WLED>=0.15.x] Support of simple hand gestures via a VL53L0X sensor: on/off and brightness adjustment",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/VL53L0X_gestures/readme.md",
+			"build_flags" : "-D USERMOD_VL53L0X_GESTURES",
+			"lib_deps" : "pololu/VL53L0X @ ^1.3.0"
+		},
+		{
+			"name" : "[WLED>=0.15.x] Support AHT10, AHT15 or AHT20 sensors (Temperature, Humidity)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/AHT10_v2/README.md",
+			"build_flags" : "-D USERMOD_AHT10",
+			"lib_deps" : "enjoyneering/AHT10@~1.1.0\n  Wire"
+		},
+		{
+			"name" : "[WLED>=0.15.x] Read from a LD2410 movement/presence sensor (requires second UART, ESP32)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/LD2410_v2/readme.md",
+			"build_flags" : "-D USERMOD_LD2410",
+			"lib_deps" : "ncmreynolds/ld2410@^0.1.3"
+		},
+		{
+			"name" : "[WLED>=0.15.x] Stairway wipe basic",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/stairway_wipe_basic/readme.md",
+			"build_flags" : "-D USERMOD_STAIRCASE_WIPE",
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "Have the LEDs wipe off instead of fading out",
+					"type" : "checkbox",
+					"build_flags" : "-D STAIRCASE_WIPE_OFF",
+					"lib_deps" : ""
+				}
+			]
+		},
+		{
+			"name" : "[WLED>=0.15.x] Read from a Light Dependent Resistor (LDR) and turn on/off specific presets",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/LDR_Dusk_Dawn_v2/README.md",
+			"build_flags" : "-D USERMOD_LDR_DUSK_DAWN",
 			"lib_deps" : ""
 		}
 		

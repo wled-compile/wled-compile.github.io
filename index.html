@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="copyright" content="&copy; 2023 Wladislaw Waag" />
-  <title>WLED Compile helper</title>
+  <title>WLED Online compiler</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <div class="container">
-<h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> c</span><span style="color:brown">o</span><span style="color:hotpink">m</span><span style="color:lightcoral">p</span><span style="color:red">i</span><span style="color:seagreen">l</span><span style="color:crimson">e</span><span style="color:darkgreen"> h</span><span style="color:darkmagemnta">e</span><span style="color:darkblue">l</span><span style="color:red">p</span><span style="color:darksalmon">e</span><span style="color:lightpink">r</span></h3>
+<h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> o</span><span style="color:brown">n</span><span style="color:hotpink">l</span><span style="color:lightcoral">i</span><span style="color:red">n</span><span style="color:seagreen">e</span><span style="color:crimson"> c</span><span style="color:darkgreen">o</span><span style="color:darkmagemnta">m</span><span style="color:darkblue">p</span><span style="color:red">i</span><span style="color:darksalmon">l</span><span style="color:lightpink">e</span><span style="color:red">r</span></h3>
 	<div class="form-floating mb-1">
 	  <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
 			<option value="0">Deutsch</option>
@@ -20,38 +20,21 @@
 	  <label for="lang">Language/Sprache:</label>
 	</div>
 	<div class="form-floating mb-1">
-		<p id="L07">Dieses Werkzeug hilft Ihnen eine Konfiguration vorzubereiten um selbst WLED Software mit speziellen Einstellungen und/oder UserMods zu kompilieren. Es erzeugt die sogenannten „Enviroment“ Einstellungen, die man dann in platformio.ini Datei in VSC/PlattformIO kopieren und mit einem Befehl „pio run -e custom_build“ kompilieren kann.</p>
-		<div class="accordion accordion-flush bottompart" id="accordionTop1">
-			<div class="accordion-item bottompart">
-				<h4 class="accordion-header bottompart" id="headingTop1">
-				  <button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTop1" aria-expanded="true" aria-controls="collapseOne">
-					<span id="L08" style="color:blue;text-decoration: underline;">Details: WLED SW selbst kompilieren mit VSC/PlatformIO</span>
-				  </button>
-				</h4>
-				<div id="collapseTop1" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionTop1">
-				  <div class="accordion-body bottompart">
-					<small><span id="L09"></span></small>
-				  </div>
-				</div>
-			</div>
-		</div>
-		<p id="L25">You also can compile WLED using GitHub using YAML workflow script generated below.</p>
-		<div class="accordion accordion-flush bottompart" id="accordionYAML">
-			<div class="accordion-item bottompart">
-				<h4 class="accordion-header bottompart" id="headingPrivacy">
-				  <button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseYAML" aria-expanded="true" aria-controls="collapseOne">
-					<span id="L23" style="color:blue;text-decoration: underline;">Wie compiliere ich WLED Software auf Github mit diesem YAML Script?</span>
-				  </button>
-				</h4>
-				<div id="collapseYAML" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionYAML">
-				  <div class="accordion-body bottompart">
-					<small><span id="L24">Im Folgenden wird erklärt, wie man WLED Software auf Github kompilieren kann. Der Vorteil diese Methode ist, dass man keine Software (VSC/PlatformIO) auf dem eigenen PC installieren muss. GitHub nutzt dabei eigene Server und das ganze wird durch ein Script gesteuert durchgeführt. Man muss lediglich sich auf GitHub registrieren (alles kostenlos), Repository und Workflow (Skript) anlegen und starten:<br><ol><li>Wenn Du noch kein Account auf GitHub hast, <a href=https://github.com/signup target=“_blank“ rel="noreferrer">registriere Dich</a>. Es reicht ein „free“ Account. Damit kannst Du ca. 600 Mal pro Monat WLED kompilieren.</li><li>Erstelle in deinem Github eine neue Repository (mit dem grünen Knopf „Create a new repository“). Diese kannst du beliebig benennen.</li><li>In deiner Repository gebe den Workflows die Berechtigung diese Repository beschreiben zu dürfen. Dafür gehe in deine Repository, dann oben zu „Settings“, dann in der Spalte links zu „Actions“-> „General“. Jetzt musst Du die Seite „Actions Permissions“ sehen. Weiter unten auf dieser Seite im Bereich „Workflow permissions“ musst Du „Read and write permissions“ anklicken und dann auf „Save“ drunter.</li><li>Gehe jetzt zurück zu „< > Code“ in deiner Repository und erstelle eine Workflow Datei. Dafür klicke auf „Add file“ und dann auf „Create new file“. Oben im Feld „Name your file“ tippe folgendes ein „.github/workflows/wled-compile.yaml“. Dabei jedes Mal wenn man „/“ eintippt, erstellt Github einen Unterverzeichnis. In den Bereich „Edit“ kannst Du jetzt den Inhalt der wled-compile.yaml Datei reinkopieren. Dann klicke auf den grünen Knopf „Commit changes...“ und dann im geöffneten Fenster noch mal auf „Commit changes“.</li><li>Jetzt kann man den Workflow starten damit WLED compiliert wird. Dafür gehe oben zu „Actions“ und links in de rListe der Workflows auf dem Workflow „WLED compile“, Nun in hellblauer Zeile ( wo steht „This workflow has a workflow_dispatch event trigger.“) kannst Du rechts auf „Run workflow“ klicken und dann noch mal auf den grünen Knopf „Run workflow“. Nach paar Sekunden erscheint dann unter dieser hellblauen Zeile dann die Zeile mit „WLED Compile“, wo rechts dann der Status „in progress“ steht.</li><li>Sobald dieser Workflow erfolgreich abgeschlossen ist (dauert normalerweise ca.  3-10 Minuten), erscheint bei „WLED Compile“ links ein grüner Hacken. Dann kannst Du wieder zu „Code“ gehen und da ist dann die kompilierte WLED Software in der Datei custom_build.bin zu finden. Du kannst diese Datei herunterladen: auf die Datei klicken und dann rechts auf Symbol „Download raw file“.<br>Wenn der Workflow nicht erfolgreich war, erscheint kein grüner Hacken, dafür aber ein rotes Kreuz. Man kann dann den Workflow verlauf untersuchen um rauszufinden, woran das Problem liegt. </li><li>Diese Datei kannst du dann auf deinem WLED Controller per „Manual OTA Update“ installieren.</li></ol></span></small>
-				  </div>
-				</div>
-			</div>
-		</div>
+		<h4 id="L07">Kompiliere Dir eigene WLED Software online mit nur wenigen Klicks!</h4>
+		<p><span id="L25">(alter compile helper hier: </span><a href="./index1.html">old compile helper</a>)</p>
 	</div>
-	<br>
+	<div class="form-floating mb-1">
+		<p><span id="L35" style="color:red">Achtung: bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann!</p>
+	</div>
+	<div class="accordion accordion-flush" id="MainAccordion">
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails1">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1">
+		<span id="L30" style="color:blue;text-decoration: underline;">Schritt 1: WLED Software / Release / Controller-Typ auswählen</span>
+	  </button>
+	</h2>
+	<div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingMainDetails1" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
 	<div class="row row-cols-auto">
 		<div class="col mb-1">
 		  <div class="form-floating">
@@ -86,64 +69,126 @@
 		  </div>
 		</div>
 	</div>
-	<hr>
-	<h6><span id="L04">Optionen:</span></h6>
+	</div>
+	</div>
+	</div>
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails2">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
+		<span id="L31" style="color:blue;text-decoration: underline;"> Schritt 2: Optionen auswählen</span>
+	  </button>
+	</h2>
+	<div id="collapseOne2" class="accordion-collapse collapse" aria-labelledby="headingMainDetails2" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
 	<div id="div-options">
 		
 	</div>
-	<hr>
-	<h6><span id="L05">UserMods verwenden:</span></h6>
+	</div>
+	</div>
+	</div>
+	
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails3">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne3">
+		<span id="L32" style="color:blue;text-decoration: underline;"> Schritt 3: UserMods auswählen</span>
+	  </button>
+	</h2>
+	<div id="collapseOne3" class="accordion-collapse collapse" aria-labelledby="headingMainDetails3" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
 	<div id="div-usermods">
 		
 	</div>
-	<hr>
-	<h5><span id="L06">Ergebnisse:</span></h5>
+	</div>
+	</div>
+	</div>
+	
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails4">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne4">
+		<span id="L06" style="color:blue;text-decoration: underline;"> Schritt 4: Prüfe generierte Konfiguration (ignoriere, wenn Du nicht weiss was das ist)</span>
+	  </button>
+	</h2>
+	<div id="collapseOne4" class="accordion-collapse collapse" aria-labelledby="headingMainDetails4" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
 	<div class="input-group">
 	  <span class="input-group-text"></span>
 	  <textarea class="form-control" rows="5" id="env-text"></textarea>
 	</div>
+	</div>
+	</div>
+	</div>
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails5">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne5" aria-expanded="true" aria-controls="collapseOne5">
+		<span id="L33" style="color:blue;text-decoration: underline;"> Schritt 5: Kompilieren starten und nach Abschluss SW herunterladen</span>
+	  </button>
+	</h2>
+	<div id="collapseOne5" class="accordion-collapse collapse" aria-labelledby="headingMainDetails5" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
 	<div class="container m-0 p-2">
-	<button type="button" class="btn btn-primary" onclick="DownloadBuildYAML()"><span span id="L22">YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren</span></button>
+	<button type="button" class="btn btn-primary" onclick="StartBuildOnline()"><span span id="L22">Kompilieren starten</span></button>
 	<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
+	
+	<div class="container m-0 p-2">
+	<div class="row row-cols-auto">
+	  <div class="col mb-1">
+		<h5><span id="L34">Ergebnisse</span></h5>
+	  </div>
+	  <div class="col mb-1">
+		<div class="spinner-border text-primary" role="status" id="spinner"></div>
+	  </div>
 	</div>
-	<div class="accordion accordion-flush bottompart" id="accordionMultEnvs">
-		<div class="accordion-item">
-			<h4 class="accordion-header" id="headingMultEnvs">
-				<button class="accordion-button collapsed bottompart" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMultEnvs" aria-expanded="true" aria-controls="collapseOne">
-				<span id="L28" style="color:blue;text-decoration: underline;">Generate YAML for multiple enviroments</span>
-			    </button>
-			</h4>
-			<div id="collapseMultEnvs" class="accordion-collapse collapse bottompart" aria-labelledby="headingMultEnvs" data-bs-parent="#accordionMultEnvs">
-			  <div class="accordion-body bottompart">
-				<div class="row row-cols-auto mb-2">
-				<span span id="L31">Das folgende YAML-Skript generiert nicht nur eine Datei „custom_build.bin“, sondern eine für jeden Branch und jede ausgewählte Enviroment. Jede kompilierte .bin-Datei erhält den Namen build_<branch name>_<env name>.bin. Die oben genannten Einstellungen werden auf jeden Build angewendet (mit der Ausnahme, dass der Enviroment Name jedes Mal angepasst wird). Bedenken Sie, dass ein kostenloses GitHub-Konto nur 2000 Build-Minuten pro Monat hat und jeder Build etwa 3 Minuten dauert. Sie können also maximal ca. 660 Builds pro Monat bauen. Danach benötigen Sie ein weiteres kostenloses GitHub-Konto.</span>
-				</div>
-				<div class="row row-cols-auto">
-					<div class="col mb-1">
-					  <span span id="L30">Select multiple branches:</span>
-					  <div class="form-floating">
-						<select id="select-branchesMult" onchange="" class="form-select" aria-label="" style="min-height: 10em; min-width: 20em; width:auto;" multiple></select>
-					  </div>
-					</div>
-					<div class="col mb-1">
-					  <span span id="L29">Select multiple enviroments:</span>
-					  <div class="form-floating">
-						<select id="select-enviromentsMult" onchange="" class="form-select" aria-label="" style="min-height: 10em; min-width: 20em; width:auto;" multiple></select>
-					  </div>
-					</div>
-				</div>
-				<div class="container m-0 p-2">
-				<button type="button" class="btn btn-primary" onclick="DownloadBuildYAMLMult()"><span span id="L32">YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren</span></button>
-				<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
-				</div>
-			  </div>
-			  
-			</div>
-		</div>
+	<p id="result_line1"></p>
+	<p id="result_line2"></p>
+	<p id="result_line3"></p>
+	<div><small id="L36">Diese Software ist open source und wird kostenfrei zur Verfügung gestellt. Es werden keine bestimmten Eigenschaften der Software zugesichert. Der Inhaber dieser Webseite haftet nur für Vorsatz und grobe Fahrlässigkeit. Gewährleistungspflichten treffen ihn nur, wenn er Mängel der Software arglistig verschwiegen hat.</small></div>
+    <div><small id="L37">Bitte beachten Sie die Software Lizenzen: <a href="https://wled-install.github.io/WLED_Software_Lizenzen.pdf">WLED licenses</a></small></div>
 	</div>
-</div>
+	
+    </div>
+	</div>
+	</div>
+	</div>
+	
 
- <hr>
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails6">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne6" aria-expanded="true" aria-controls="collapseOne6">
+		<span id="L38" style="color:blue;text-decoration: underline;">Schritt 6: Kompilierte SW direkt über USB installieren</span>
+	  </button>
+	</h2>
+	<div id="collapseOne6" class="accordion-collapse collapse" aria-labelledby="headingMainDetails6" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
+	<div class="container m-0 p-2">
+	<div id="InstallNoteContainer">	
+	</div>
+	<div id="InstallContainer">
+	<h5 id="L23x">Vorgehensweise:</h5>
+      <ol>
+          <li><span id="L01x">Schliessen Sie Ihr ESP8266 / ESP32 / ESP32-xy Board an USB an.</span></li>
+          <div></div>
+          <li><span id="L03x">Klicken Sie auf "Installieren" und wählen dann den korrekten COM-Port aus. </span><u><a onclick="NoComPortHelp()" class="btn btn-secondary btn-sm"><span id="L04x">Kein Board wurde gefunden?</span></a></u></li>
+          <div id="comporthelp"></div>
+          <li><span id="L05x">Klicken Sie auf "Install WLED". Die Installation beginnt. Sollte nach einiger Zeit die Installation beim "Wrapping Up" stehen bleiben, können es es unterbrechen. Die SW ist dann trotzdem i.O. installiert.</span></li>
+      	  <li><span id="L27x">Wichtige Hinweise zu neuen Controller-Typen: </span><u><a onclick="NewTypesHelp()" class="btn btn-secondary btn-sm"><span>ESP32-C3, ESP32-S2, ESP32-S3 etc.</span></a></u></li>
+          <div id="newtypeshelp"></div>
+      </ol>
+	   <div id="ButtonContainer">
+		<div class="container inst-button">
+          <esp-web-install-button id="install_btn" manifest="manifest_file.json" >
+            <button class="btn btn-primary" slot="activate" id="InstallButton"><span id="L09x">Installieren</span></button>
+          </esp-web-install-button>
+		</div>
+	   </div>
+	</div>
+    </div>
+	</div>
+	</div>
+	</div>
+
+	
+	</div>
+<hr>
         <div class="container">
         <h5 id="L14">Nützliche Informationen:</h5>
 		<ul>
@@ -155,6 +200,7 @@
 		  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
         </ul>
       </div>
+	  
 <div class="container">
    <div class="accordion accordion-flush bottompart" id="accordionBottom">
 		<div class="accordion-item">
@@ -165,7 +211,7 @@
 			</h4>
 			<div id="collapseImprint" class="accordion-collapse collapse bottompart" aria-labelledby="headingImprint" data-bs-parent="#accordionBottom">
 			  <div class="accordion-body bottompart">
-				<small><span id="L19"><br><h3>Impressum</h3>Angaben gemäß § 5 TMG:<br>Verantwortlicher: Wladislaw Waag<br>Adresse: Wasserburger Landstr. 29, 81825 München, Deutschland<br>Kontakt: +49 (0) 176 47 11 5206, info@myhome-control.de<br><br>EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Verbraucherstreitbeilegung/Universalschlichtungsstelle: Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</span></small>
+				<small><span id="L19"><br><h3>Impressum</h3>Verantwortlicher: Wladislaw Waag<br>Adresse: Wasserburger Landstr. 29, 81825 München, Deutschland<br>Kontakt: +49 (0) 176 47 11 5206, info@myhome-control.de<br><br>EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Verbraucherstreitbeilegung/Universalschlichtungsstelle: Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</span></small>
 			  </div>
 			</div>
 		</div>
@@ -178,7 +224,7 @@
 			</h4>
 			<div id="collapsePrivacy" class="accordion-collapse collapse bottompart" aria-labelledby="headingPrivacy" data-bs-parent="#accordionBottom">
 			  <div class="accordion-body bottompart">
-				<small><span id="L21"><br><h3>Datenschutzerklärung</h3>Der Betreiber dieser Webseite (https://wled-faq.github.io) sammelt und verarbeitet keinerlei personenbezogenen Daten der Nutzer dierser Webseite. Diese Seite wird jedoch im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github die personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-installer.github.io. Ich habe aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.</span></small>
+				<small><span id="L21"><br><h3>Datenschutzerklärung</h3> Diese Seite wird im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github Ihre personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-compile.github.io. Wir haben aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Außerdem sobald Sie mit Kompilieren starten, werden Ihre IP Adresse sowie alle von Ihnen eingegebenen Daten an https://myhome-control.de weitergeleitet. Das ist für die Ausführung des Auftrags zwingend notwendig. Die Datenschutzerklärung dazu finden Sie unter <a href=‘https://shop.myhome-control.de/Information/Datenschutz/‘>https://shop.myhome-control.de/Information/Datenschutz/</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.</span></small>
 			  </div>
 			</div>
 		</div>
@@ -208,15 +254,6 @@ function SearchForBranchesAndReleases(){
     opt.innerHTML = 'Searching for branches ...';
     sel.appendChild(opt);
 	
-	selM=document.getElementById('select-branchesMult');
-	while (selM.options.length > 0) {
-        selM.remove(0);
-    }
-	var optM = document.createElement('option');
-    optM.value = 0;
-    optM.innerHTML = 'Searching for branches ...';
-    selM.appendChild(optM);
-	
 	sel=document.getElementById('select-enviroments');
 	while (sel.options.length > 0) {
         sel.remove(0);
@@ -225,15 +262,6 @@ function SearchForBranchesAndReleases(){
     opt.value = 0;
     opt.innerHTML = 'Searching for enviroments in platformio.ini ...';
     sel.appendChild(opt);
-	
-	selM=document.getElementById('select-enviromentsMult');
-	while (selM.options.length > 0) {
-        selM.remove(0);
-    }
-	var optM = document.createElement('option');
-	optM.value = 0;
-    optM.innerHTML = 'Searching for enviroments in platformio.ini ...';
-    selM.appendChild(optM);
 	
 	var SS = document.getElementById('select-sources');
 	var SI=SS.selectedIndex;
@@ -248,10 +276,6 @@ function SearchForBranchesAndReleases(){
 			sel=document.getElementById('select-branches');
 			while (sel.options.length > 0) {
 				sel.remove(0);
-			}
-			selM=document.getElementById('select-branchesMult');
-			while (selM.options.length > 0) {
-				selM.remove(0);
 			}
 			var json=this.response;
 			for(let i = 0; i < json.length; i++) {
@@ -268,14 +292,6 @@ function SearchForBranchesAndReleases(){
 				
 				}
 				sel.appendChild(opt);
-				var optM = document.createElement('option');
-				optM.value = i;
-				optM.setAttribute("type","branch");
-				optM.setAttribute("bname",opt.getAttribute("bname"));
-				optM.setAttribute("url",opt.getAttribute("url"));
-				optM.setAttribute("pio_url",opt.getAttribute("pio_url"));
-				optM.innerHTML = opt.innerHTML;
-				selM.appendChild(optM);
 			}
 			// set RECOMMENDED
 			for(i = 0; i < sel.options.length; i++) {
@@ -354,15 +370,6 @@ function BranchChanged() {
     opt.value = 0;
     opt.innerHTML = 'Searching for enviroments in platformio.ini ...';
     sel.appendChild(opt);
-	
-	selM=document.getElementById('select-enviromentsMult');
-	while (selM.options.length > 0) {
-        selM.remove(0);
-    }
-	var optM = document.createElement('option');
-	optM.value = 0;
-    optM.innerHTML = 'Searching for enviroments in platformio.ini ...';
-    selM.appendChild(optM);
 
 	var mReq = new XMLHttpRequest();
 	mReq.open('GET', SB.options[SI].getAttribute("pio_url"));
@@ -374,10 +381,6 @@ function BranchChanged() {
 			sel=document.getElementById('select-enviroments');
 			while (sel.options.length > 0) {
 				sel.remove(0);
-			}
-			selM=document.getElementById('select-enviromentsMult');
-			while (selM.options.length > 0) {
-				selM.remove(0);
 			}
 			splitted=this.response.replaceAll("\r\n","\n").replaceAll("\r","\n").split("\n");
 			var SS = document.getElementById('select-sources');
@@ -395,11 +398,6 @@ function BranchChanged() {
 						if(envname===SS.options[SSI].getAttribute("recommended_esp32")) opt.innerHTML = opt.innerHTML + " (RECOMMENDED for ESP32)";
 						opt.setAttribute("env",envname);
 						sel.appendChild(opt);
-						var optM = document.createElement('option');
-						optM.value = opt.value;
-						optM.innerHTML = opt.innerHTML;
-						optM.setAttribute("env",envname);
-						selM.appendChild(optM);
 					}
 				}
 			}
@@ -410,6 +408,31 @@ function BranchChanged() {
 	mReq.send();
 }
 
+function GetSettingsHtml(setting, DoNotCheckSource, stri) {
+	retval="";
+	var SS=parseInt(document.getElementById('select-sources').selectedIndex);
+	if(setting.type=="checkbox" && (DoNotCheckSource || setting.sources.includes(SS))) {
+		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div></div>';
+	}
+	if((setting.type=="number" || setting.type=="number_float") && (DoNotCheckSource || setting.sources.includes(SS))) {
+		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-number-'+stri+'" type="number" min="-1" data-bind="value:input-number-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 10em;"></div></div>';
+	}
+	if((setting.type=="string" || setting.type=="defparam") && (DoNotCheckSource || setting.sources.includes(SS))) {
+		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-string-'+stri+'" data-bind="value:input-string-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 30em;"></div></div>';
+	}
+	return retval;
+}
+
+function ChangeVisibilityUsermodOptions(i) {
+	options_div=document.getElementById('UMOptionsList'+String(i));
+	if(options_div) {
+		if(document.getElementById('checkbox-setum'+String(i)).checked) {
+			options_div.style.display = "inherit";
+		} else {
+			options_div.style.display = "none";
+		}
+	}
+}
 
 function EnvChanged() {
 	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
@@ -418,15 +441,7 @@ function EnvChanged() {
 	  options_div.innerHTML="";
 	  var SS=parseInt(document.getElementById('select-sources').selectedIndex);
 	  for(var i = 0; i < dataset.settings.length; i++) {
-		if(dataset.settings[i].type=="checkbox" && dataset.settings[i].sources.includes(SS)) {
-			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+String(i)+'" name="option-set'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+dataset.settings[i].name+'</label></div></div></div>';
-		}
-		if(dataset.settings[i].type=="number" && dataset.settings[i].sources.includes(SS)) {
-			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+String(i)+'" name="option-set'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+dataset.settings[i].name+'</label></div></div><div class="col mb-1"><input id="input-number-'+String(i)+'" type="number" min="-1" data-bind="value:input-number-'+String(i)+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 5em;"></div></div>';
-		}
-		if((dataset.settings[i].type=="string" || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SS)) {
-			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+String(i)+'" name="option-set'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+dataset.settings[i].name+'</label></div></div><div class="col mb-1"><input id="input-string-'+String(i)+'" data-bind="value:input-string-'+String(i)+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 30em;"></div></div>';
-		}
+		options_div.innerHTML=options_div.innerHTML+GetSettingsHtml(dataset.settings[i], false, String(i));
       }
 	
 	options_div=document.getElementById('div-usermods');
@@ -434,7 +449,16 @@ function EnvChanged() {
 	  var SS=parseInt(document.getElementById('select-sources').selectedIndex);
 	  for(var i = 0; i < dataset.usermods.length; i++) {
 		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SS)) {
-			options_div.innerHTML=options_div.innerHTML+'<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-setum'+String(i)+'" name="option-setum'+String(i)+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label-um">'+dataset.usermods[i].name+'   <a href="'+dataset.usermods[i].readme+'" target="_blank">README</a></label></div></div></div>';
+			prefix = '<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-setum'+String(i)+'" name="option-setum'+String(i)+'" value="something" onchange="ChangeVisibilityUsermodOptions('+String(i)+');GenerateEnvText();">  <label class="form-check-label-um">'+dataset.usermods[i].name+'   <a href="'+dataset.usermods[i].readme+'" target="_blank">README</a></label><div id="UMOptionsList'+String(i)+'" style="display:none">';
+			
+			middlepart='';
+			if("options" in dataset.usermods[i]) {
+				for(var j = 0; j < dataset.usermods[i].options.length; j++) {
+					middlepart=middlepart+GetSettingsHtml(dataset.usermods[i].options[j], true, 'UMopt'+String(i)+'_'+String(j))
+				}
+			}
+			postfix = '</div></div></div></div>';
+			options_div.innerHTML=options_div.innerHTML+prefix+middlepart+postfix;
 		}
       }
 	GenerateEnvText();
@@ -447,22 +471,56 @@ function LoadDataset() {
       dataset = JSON.parse(this.responseText);
 	  sel=document.getElementById('select-sources');
       for(var i = 0; i < dataset.sources.length; i++) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = dataset.sources[i].name;
-		opt.setAttribute("ghusername",dataset.sources[i].githubusername);
-		opt.setAttribute("ghreponame",dataset.sources[i].githubreponame);
-		opt.setAttribute("custom",dataset.sources[i].custom);
-		opt.setAttribute("recommendedbranch",dataset.sources[i].recommendedbranch);
-		opt.setAttribute("recommended_esp8266",dataset.sources[i].recommended_esp8266);
-		opt.setAttribute("recommended_esp32",dataset.sources[i].recommended_esp32);
-        sel.appendChild(opt);
+	    if(dataset.sources[i].custom==0) {
+			var opt = document.createElement('option');
+			opt.value = i;
+			opt.innerHTML = dataset.sources[i].name;
+			opt.setAttribute("ghusername",dataset.sources[i].githubusername);
+			opt.setAttribute("ghreponame",dataset.sources[i].githubreponame);
+			opt.setAttribute("custom",dataset.sources[i].custom);
+			opt.setAttribute("recommendedbranch",dataset.sources[i].recommendedbranch);
+			opt.setAttribute("recommended_esp8266",dataset.sources[i].recommended_esp8266);
+			opt.setAttribute("recommended_esp32",dataset.sources[i].recommended_esp32);
+			sel.appendChild(opt);
+		}
       }
 	  SourceChanged();	  
     }
   };
   xhttp.open("GET", "dataset.json");
   xhttp.send(); 
+}
+
+function GetFlagsAndDepsForSetting(setting, stri) {
+	var buildflags="";
+	var libdeps="";
+	
+	if(document.getElementById('checkbox-set'+stri).checked) {
+		if(String(setting.build_flags).length>0) {
+		buildflags=buildflags+" "+setting.build_flags;
+			if(setting.type=="number" || setting.type=="number_float") {
+				numval=String(document.getElementById('input-number-'+stri).value);
+				if(numval.length==0) {
+					numval="0";
+				}
+				if(setting.type=="number_float") numval=numval+"f";
+				buildflags=buildflags+numval;
+			}
+			if(setting.type=="string") {
+				stringval=String(document.getElementById('input-string-'+stri).value);
+				buildflags=buildflags+"'\""+stringval+"\"'";
+			}
+			if(setting.type=="defparam") {
+				stringval=String(document.getElementById('input-string-'+stri).value);
+				buildflags=buildflags+stringval;
+			}
+		}
+		if(String(setting.lib_deps).length>0) {
+			libdeps=libdeps+"\n  "+setting.lib_deps;
+		}
+	}
+	
+	return [buildflags, libdeps];
 }
 
 function GenerateEnvText() {
@@ -478,30 +536,10 @@ var buildflags="";
 var libdeps="";
 
 	for(var i = 0; i < dataset.settings.length; i++) {
-		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
-			if(document.getElementById('checkbox-set'+String(i)).checked) {
-				if(String(dataset.settings[i].build_flags).length>0) {
-				buildflags=buildflags+" "+dataset.settings[i].build_flags;
-					if(dataset.settings[i].type=="number") {
-						numval=String(document.getElementById('input-number-'+String(i)).value);
-						if(numval.length==0) {
-							numval="0";
-						}
-						buildflags=buildflags+numval;
-					}
-					if(dataset.settings[i].type=="string") {
-						stringval=String(document.getElementById('input-string-'+String(i)).value);
-						buildflags=buildflags+"'\""+stringval+"\"'";
-					}
-					if(dataset.settings[i].type=="defparam") {
-						stringval=String(document.getElementById('input-string-'+String(i)).value);
-						buildflags=buildflags+stringval;
-					}
-				}
-				if(String(dataset.settings[i].lib_deps).length>0) {
-					libdeps=libdeps+"\n  "+dataset.settings[i].lib_deps;
-				}
-			}
+		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
+			[buildflags_add, libdeps_add] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
+			buildflags=buildflags+buildflags_add;
+			libdeps=libdeps+libdeps_add;
 		}
 
 	}
@@ -509,10 +547,17 @@ var libdeps="";
 		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
 				if(String(dataset.usermods[i].build_flags).length>0) {
-				buildflags=buildflags+" "+dataset.usermods[i].build_flags;
+					buildflags=buildflags+" "+dataset.usermods[i].build_flags;
 				}
 				if(String(dataset.usermods[i].lib_deps).length>0) {
 					libdeps=libdeps+"\n  "+dataset.usermods[i].lib_deps;
+				}
+				if("options" in dataset.usermods[i]) {
+					for(var j = 0; j < dataset.usermods[i].options.length; j++) {
+						[buildflags_add, libdeps_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
+						buildflags=buildflags+buildflags_add;
+						libdeps=libdeps+libdeps_add;
+					}
 				}
 			}
 		}
@@ -535,14 +580,12 @@ function LangChanged() {
 		if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Mikrocontroller Typ auswählen:";
 		if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "Optionen:";
 		if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "UserMods verwenden (ggf. max Anzahl von usermods oben in Optionen anpassen!):";
-		if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Ergebnisse";
-		if(document.getElementById('L07')) document.getElementById('L07').innerHTML = 'Dieses Werkzeug hilft Ihnen eine Konfiguration vorzubereiten um selbst WLED Software mit speziellen Einstellungen und/oder UserMods zu kompilieren. Es erzeugt die sogenannten „Enviroment“ Einstellungen, die man dann in platformio.ini Datei in VSC/PlattformIO kopieren und mit einem Befehl „pio run -e custom_build“ kompilieren kann."'
-		if(document.getElementById('L08')) document.getElementById('L08').innerHTML = 'Details: WLED SW selbst kompilieren mit VSC/PlatformIO'
-		if(document.getElementById('L09')) document.getElementById('L09').innerHTML = '<ol><li>Installiere <a href="https://code.visualstudio.com/download" target="_blank">VSC (Visual Studio Code)</a></li><li>Öffne Visual Studio Code, gehe zu File->Preferences->Extensions und suche nach "PlatformIO IDE" Erweiterung. Installiere dann diese.</li><li>Lade WLED source code von GitHub herunter und entpacke in ein Verzeichnis. Du hast dann in diesem Verzeichnis viele Unterverzeichnisse (unter anderem "wled00") und viele Dateien (unter anderem "platformio.ini")</li><li>Gehe in Visual Studio Code zu File->Open Folder und öffne dein Verzeichnis mit WLED SW (den Hauptverzeichnis, da wo platformio.ini Datei drin ist, nicht in "wled00" rein).</li><li>Öffne in VSC die plattformio.ini Datei und füge am Ende dieser Datei die Zeilen, die unten unter "Ergebnisse:" angezeigt werden. Speichere die Datei (File->Save) ab.</li><li>In VSC starte ein Platformio Terminal: dafür unten links in VSC suche nach einem Symbol ">" in einem Quadrat und klicke dieses Symbol an. Achtung: über Menu Terminal->New terminal öffnet man kein PlatformIO Terminal, sondern "nur" ein Powershell Terminal. Das ist was anderes.</li><li>In PlatformIO Terminal tippe dann "pio run -e custom_build" ein. Damit wird Kompilieren gestartet.</li><li>Es passiert mal, dass Kompilieren mit einem Fehler abbricht. Das kann ein reales Problem bedeuten oder auch nicht. Versuche dann erstmal neu das Kompilieren mit dem Befehl "pio run -e custom_build" zu starten.</li><li>Wird das Kompilieren erfolgreich, findest Du das Ergebnis in der Datei custom_build.bin im Unterverzeichnis "build_output/firmware".</li></ol>';
+		if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Schritt 4: Prüfe generierte Konfiguration (ignoriere, wenn Du nicht weiss was das ist):";
+		if(document.getElementById('L07')) document.getElementById('L07').innerHTML = 'Kompiliere Dir eigene WLED Software online mit nur wenigen Klicks!'
 		if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Impressum';
         if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Datenschutzerklärung';
-		if(document.getElementById('L19')) document.getElementById('L19').innerHTML =  "<br><h3>Impressum</h3>Angaben gemäß § 5 TMG:<br>Verantwortlicher: Wladislaw Waag<br>Adresse: Wasserburger Landstr. 29, 81825 München, Deutschland<br>Kontakt: +49 (0) 176 47 11 5206, info@myhome-control.de<br><br>EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Verbraucherstreitbeilegung/Universalschlichtungsstelle: Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.";
-		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = "<br><h3>Datenschutzerklärung</h3>Der Betreiber dieser Webseite (https://wled-compile.github.io) sammelt und verarbeitet keinerlei personenbezogenen Daten der Nutzer dierser Webseite. Diese Seite wird jedoch im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github die personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-compile.github.io. Ich habe aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.";
+		if(document.getElementById('L19')) document.getElementById('L19').innerHTML =  "<br><h3>Impressum</h3>Verantwortlicher: Wladislaw Waag<br>Adresse: Wasserburger Landstr. 29, 81825 München, Deutschland<br>Kontakt: +49 (0) 176 47 11 5206, info@myhome-control.de<br><br>EU-Streitschlichtung: Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Verbraucherstreitbeilegung/Universalschlichtungsstelle: Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.";
+		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = "<br><h3>Datenschutzerklärung</h3> Diese Seite wird im Rahmen von 'Github Pages' gehostet und betrieben. Es ist möglich und wahrscheinlich, dass Github Ihre personenbezogenen Daten sammelt und verarbeitet. Das betrifft dann auch die Besucher der Webseite wled-compile.github.io. Wir haben aber keinerlei Einfluss darauf. Bitte lesen Sie dazu die Datenschutzerklärung von Github: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Außerdem sobald Sie mit Kompilieren starten, werden Ihre IP Adresse sowie alle von Ihnen eingegebenen Daten an https://myhome-control.de weitergeleitet. Das ist für die Ausführung des Auftrags zwingend notwendig. Die Datenschutzerklärung dazu finden Sie unter <a href=‘https://shop.myhome-control.de/Information/Datenschutz/‘>https://shop.myhome-control.de/Information/Datenschutz/</a><br><br>Unsere Webseite enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte können wir keine Gewähr und keine Haftung übernehmen. Für die Inhalte der verlinkten Seiten ist immer der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren dabei nicht erkennbar. Sollten uns Rechtsverletzungen bekannt werden, werden wir die entsprechende Verlinkung umgehend entfernen.";
 		if(document.getElementById('L14a')) document.getElementById('L14a').innerHTML = 'Offizielle WLED Wiki (Englisch): ';
 		if(document.getElementById('L14f')) document.getElementById('L14f').innerHTML = 'WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a>';
 		if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
@@ -550,17 +593,25 @@ function LangChanged() {
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-basierter WLED Software Installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Nützliche Informationen:";
-		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren";
-		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "Wie compiliere ich WLED Software auf Github mit diesem YAML Script?";
-		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'Im Folgenden wird erklärt, wie man WLED Software auf Github kompilieren kann. Der Vorteil dieser Methode ist, dass man keine Software (VSC/PlatformIO) auf dem eigenen PC installieren muss. GitHub nutzt dabei eigene Server und das ganze wird durch ein Script gesteuert durchgeführt. Man muss lediglich sich auf GitHub registrieren (alles kostenlos), Repository und Workflow (Skript) anlegen und starten:<br><ol><li>Wenn Du noch kein Account auf GitHub hast, <a href=https://github.com/signup target=“_blank“ rel="noreferrer">registriere Dich</a>. Es reicht ein „free“ Account. Damit kannst Du ca. 600 Mal pro Monat WLED kompilieren.</li><li>Erstelle in deinem Github eine neue Repository (mit dem grünen Knopf „Create a new repository“). Diese kannst du beliebig benennen.<br><img src="pictures/pic1.jpg"></li><li>In deiner Repository gebe den Workflows die Berechtigung diese Repository beschreiben zu dürfen. Dafür gehe in deine Repository, dann oben zu „Settings“, dann in der Spalte links zu „Actions“-> „General“. Jetzt musst Du die Seite „Actions Permissions“ sehen.<br><img src="pictures/pic2.jpg"><br>Weiter unten auf dieser Seite im Bereich „Workflow permissions“ musst Du „Read and write permissions“ anklicken und dann auf „Save“ drunter.<br><img src="pictures/pic3.jpg"></li><li>Gehe jetzt zurück zu „< > Code“ in deiner Repository und erstelle eine Workflow Datei. Dafür klicke auf „creating new file“ in dem hellbaluen bereich "Quick Setup". Oben im Feld „Name your file“ tippe folgendes ein „.github/workflows/wled-compile.yaml“. Dabei jedes Mal wenn man „/“ eintippt, erstellt Github einen Unterverzeichnis. In den Bereich „Edit“ kannst Du jetzt den Inhalt der wled-compile.yaml Datei reinkopieren. Dann klicke auf den grünen Knopf „Commit changes...“ und dann im geöffneten Fenster noch mal auf „Commit changes“.<br><img src="pictures/pic4.jpg"></li><li>Jetzt kann man den Workflow starten damit WLED compiliert wird. Dafür gehe oben zu „Actions“ und links in de rListe der Workflows auf dem Workflow „WLED compile“, Nun in hellblauer Zeile ( wo steht „This workflow has a workflow_dispatch event trigger.“) kannst Du rechts auf „Run workflow“ klicken und dann noch mal auf den grünen Knopf „Run workflow“.<br><img src="pictures/pic5.jpg"><br>Nach paar Sekunden erscheint dann unter dieser hellblauen Zeile dann die Zeile mit „WLED Compile“, wo rechts dann der Status „in progress“ steht.</li><li>Sobald dieser Workflow erfolgreich abgeschlossen ist (dauert normalerweise ca.  3-10 Minuten), erscheint bei „WLED Compile“ links ein grüner Hacken. Dann kannst Du wieder zu „Code“ gehen und da ist dann die kompilierte WLED Software in der Datei custom_build.bin zu finden.<br><img src="pictures/pic6.jpg"><br>Du kannst diese Datei herunterladen: auf die Datei klicken und dann rechts auf Symbol „Download raw file“.<br>Wenn der Workflow nicht erfolgreich war, erscheint kein grüner Hacken, dafür aber ein rotes Kreuz. Man kann dann den Workflow verlauf untersuchen um rauszufinden, woran das Problem liegt. </li><li>Diese Datei kannst du dann auf deinem WLED Controller per „Manual OTA Update“ installieren.</li></ol>';
-		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'Sie können WLED auch mit GitHub mit Hilfe des YAML workflow Skiptes (unten im Abschnitt „Ergebnisse“) kompilieren:';
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "Kompilieren starten";
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '(alter compile helper hier: ';
 		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Deine GitHub Account Name';
 		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'Deine GitHub Repository';
-		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'YAML für mehrere Enviroments generieren';
-		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'Mehrere Enviroments auswählen:';
-		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Mehrere Branches auswählen:';
-		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'Das folgende YAML-Skript generiert nicht nur eine Datei „custom_build.bin“, sondern eine für jeden Branch und jede ausgewählte Enviroment. Jede kompilierte .bin-Datei erhält den Namen build_<branch name>_<env name>.bin. Die oben genannten Einstellungen werden auf jeden Build angewendet (mit der Ausnahme, dass der Enviroment Name jedes Mal angepasst wird). Bedenken Sie, dass ein kostenloses GitHub-Konto nur 2000 Build-Minuten pro Monat hat und jeder Build etwa 3 Minuten dauert. Sie können also maximal ca. 660 Builds pro Monat bauen. Danach benötigen Sie ein weiteres kostenloses GitHub-Konto.';
-		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = "YAML Script für Github herunterladen um WLED mit GitHub zu kompilieren (mehrfach)";
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Schritt 1: WLED Software / Release / Controller-Typ auswählen';
+		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'Schritt 2: Optionen wählen';
+		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = 'Schritt 3: UserMods auswählen';
+		if(document.getElementById('L33')) document.getElementById('L33').innerHTML = 'Schritt 5: Kompilieren starten und nach Abschluss SW herunterladen';
+		if(document.getElementById('L34')) document.getElementById('L34').innerHTML = 'Ergebnisse zum Herunterladen:';
+		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann!';
+		if(document.getElementById('L36')) document.getElementById('L36').innerHTML = 'Diese Software ist open source und wird kostenfrei zur Verfügung gestellt. Es werden keine bestimmten Eigenschaften der Software zugesichert. Der Inhaber dieser Webseite haftet nur für Vorsatz und grobe Fahrlässigkeit. Gewährleistungspflichten treffen ihn nur, wenn er Mängel der Software arglistig verschwiegen hat.';
+		if(document.getElementById('L37')) document.getElementById('L37').innerHTML = 'Bitte beachten Sie die Software Lizenzen: <a href="https://wled-install.github.io/WLED_Software_Lizenzen.pdf">WLED licenses</a>';
+		if(document.getElementById('L23x')) document.getElementById('L23x').innerHTML = 'Vorgehensweise:';
+		if(document.getElementById('L01x')) document.getElementById('L01x').innerHTML = "Schliessen Sie Ihr ESP8266 / ESP32 Board an USB an.";
+        if(document.getElementById('L03x')) document.getElementById('L03x').innerHTML = "Klicken Sie auf \"Installieren\" und wählen dann den korrekten COM-Port aus. ";
+        if(document.getElementById('L04x')) document.getElementById('L04x').innerHTML = "Kein Board wurde gefunden?";
+        if(document.getElementById('L05x')) document.getElementById('L05x').innerHTML = "Klicken Sie auf \"Install WLED\". Die Installation beginnt. Sollte nach einiger Zeit die Installation beim \"Wrapping Up\" stehen bleiben, können sie es unterbrechen. Die SW ist dann trotzdem i.O. installiert.";
+        if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Installieren";
+		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -568,14 +619,12 @@ function LangChanged() {
 		if(document.getElementById('L03')) document.getElementById('L03').innerHTML = "Select microcontroller type:";
 		if(document.getElementById('L04')) document.getElementById('L04').innerHTML = "Options:";
 		if(document.getElementById('L05')) document.getElementById('L05').innerHTML = "Include usermods (please eventually change max. number of usermods under Options above):";
-		if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Results:";
-		if(document.getElementById('L07')) document.getElementById('L07').innerHTML = 'This tool helps you with the configuration to compile your own WLED software with special settings and/or usermods. The so-called "environment" settings are generated, which can then be copied into the platformio.ini file in VSC/PlatformIO and compiled with a command "pio run -e custom_build".';
-		if(document.getElementById('L08')) document.getElementById('L08').innerHTML = 'Details: how to compile WLED SW using VSC/PlatformIO'
-		if(document.getElementById('L09')) document.getElementById('L09').innerHTML = '<ol><li>Install <a href="https://code.visualstudio.com/download" target="_blank">VSC (Visual Studio Code)</a></li><li>Open Visual Studio Code, go to File->Preferences->Extensions and look for "PlatformIO IDE" extension. Then install it.</li><li>Download WLED source code from GitHub and extract to a directory. You then have many subdirectories (including "wled00") and many files (including "platformio.ini") in this directory</li><li>In Visual Studio Code go to File->Open Folder and open your directory with WLED SW (the root directory where platformio.ini file is in, not into "wled00").</li><li>In VSC open the platformio.ini file and at the end of this file add the lines shown below under "Results:". Save the file (File->Save).</li><li>In VSC start a Platformio terminal: look for a symbol ">" in a square in the lower left corner of VSC and click on this symbol. Attention: via menu Terminal->New Terminal you do not open a PlatformIO terminal, but "only" a Powershell terminal. Thats different.</li><li>In PlatformIO Terminal type "pio run -e custom_build" and press Enter. This starts compiling.</li><li>It sometimes happens that compiling aborts with an error. This may or may not mean a real problem. Try to start the compilation again with the command "pio run -e custom_build".</li><li>When the compilation is successfully finished, you will find the result in the file custom_build.bin in the subdirectory "build_output/firmware".</li></ol>';
+		if(document.getElementById('L06')) document.getElementById('L06').innerHTML = "Step 4: check generated configuration (ignore if you don't know what this is):";
+		if(document.getElementById('L07')) document.getElementById('L07').innerHTML = 'Compile your own WLED software online with just a few clicks!';
 	    if(document.getElementById('L18')) document.getElementById('L18').innerHTML = 'Legal notice';
         if(document.getElementById('L20')) document.getElementById('L20').innerHTML = 'Data privacy';
-		if(document.getElementById('L19')) document.getElementById('L19').innerHTML =  "<br><h3>Legal notice</h3>Information according to § 5 TMG:<br>Responsible: Wladislaw Waag<br>Address: Wasserburger Landstr. 29, 81825 Munich, Germany<br>Contact: +49 176 47 11 5206, info@myhome-control.de<br><br>EU dispute settlement: The European Commission provides a platform for online dispute resolution (ODR): <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Consumer dispute settlement / universal arbitration board: We are neither willing nor obliged to participate in dispute settlement proceedings before a consumer arbitration board.";
-		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = "<br><h3>Data privacy</h3>The operator of this website (https://wled-compile.github.io) does not collect and process any personal data of the users of this website. However, this page is hosted and operated as part of 'Github Pages'. It is possible and probable that Github collects and processes personal data, which then also affects visitors of the wled-compile.github.io web page. But I have no influence on it. Please read the Github privacy statement: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>Our website contains links to external websites over which we have no control. We cannot accept any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at that time. If we become aware of any legal violations, we will remove the relevant link immediately.";
+		if(document.getElementById('L19')) document.getElementById('L19').innerHTML =  "<br><h3>Legal notice</h3>Responsible: Wladislaw Waag<br>Address: Wasserburger Landstr. 29, 81825 Munich, Germany<br>Contact: +49 176 47 11 5206, info@myhome-control.de<br><br>EU dispute settlement: The European Commission provides a platform for online dispute resolution (ODR): <a href='https://ec.europa.eu/consumers/odr/' target='_blank'>https://ec.europa.eu/consumers/odr/</a>.<br><br>Consumer dispute settlement / universal arbitration board: We are neither willing nor obliged to participate in dispute settlement proceedings before a consumer arbitration board.";
+		if(document.getElementById('L21')) document.getElementById('L21').innerHTML = "<br><h3>Data privacy</h3>This page is hosted and operated as part of 'Github Pages'. It is possible and probable that Github collects and processes personal data, which then also affects visitors of the wled-compile.github.io web page. We have, however, no influence on it. Please read the Github privacy statement: <a href='https://docs.github.com/en/github/site-policy/github-privacy-statement' target='_blank'>https://docs.github.com/en/github/site-policy/github-privacy-statement</a><br><br>In addition, as soon as you start compiling, your IP address and all the data you entered forwarded to https://myhome-control.de. This is absolutely necessary for the execution of the order. The data protection declaration can be found at <a href=‘ https://shop.myhome-control.de/en/Information/Data-privacy/> https://shop.myhome-control.de/en/Information/Data-privacy/</a><br><br>Our website contains links to external websites over which we have no control. We cannot accept any liability for this third-party content. The respective provider or operator of the pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at that time. If we become aware of any legal violations, we will remove the relevant link immediately.";
 		if(document.getElementById('L14a')) document.getElementById('L14a').innerHTML = 'Official WLED Wiki: ';
 		if(document.getElementById('L14f')) document.getElementById('L14f').innerHTML = 'WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a>';
 		if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
@@ -583,19 +632,40 @@ function LangChanged() {
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful links: ";
-		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "Download YAML Script to compile WLED on GitHub";
-		if(document.getElementById('L23')) document.getElementById('L23').innerHTML = "How to compile WLED software on Github using this YAML script?";
-		if(document.getElementById('L24')) document.getElementById('L24').innerHTML = 'The following explains how to compile WLED software on Github. The advantage of this method is that you dont have to install any software (VSC/PlatformIO) on your own PC. GitHub uses its own server and the whole thing is controlled by a script. All you have to do is register on GitHub (for free), create and start repository and workflow (script):<br><ol><li>If you dont have an account on GitHub yet, <a href=https://github. com/signup target=”_blank” rel="noreferrer">sign up</a>. A "free" account is sufficient. With this you can compile WLED about 600 times per month.</li><li>Create a new repository in your Github (with the green button "Create a new repository"). You can name these as you like..<br><img src="pictures/pic1.jpg"></li><li>In your repository, give the workflows permission to write to this repository. To do this, go to your repository, then to "Settings" at the top line, then in the column on the left to "Actions"-> "General". Now you must see the "Actions Permissions" page.<br><img src="pictures/pic2.jpg"><br>At the bottom of this page in the "Workflow permissions" section you need to click "Read and write permissions" and then click "Save" underneath.<br><img src="pictures/pic3.jpg"></li><li>Now go back to "< > Code" in your repository and create the workflow file. To do this, click on “Add file” and then on “Create new file”. At the top in the "Name your file" field, type ".github/workflows/wled-compile.yaml". Every time you type "/", Github creates a subdirectory. You can now copy the content of the wled-compile.yaml file into the "Edit" area. Then click on the green button "Commit changes..." and then in the opened window again on "Commit changes".<br><img src="pictures/pic4.jpg"></li><li>Now you can start the workflow to compile WLED. To do this, go to "Actions" at the top and on the left in the list of workflows on the "WLED compile" workflow. Now in the light blue line (where it says "This workflow has a workflow_dispatch event trigger.") You can click on "Run workflow" on the right and then again on the green button "Run workflow".<br><img src="pictures/pic5.jpg"><br>After a few seconds, the line with "WLED Compile" will appear under this light blue line, where the status "in progress" will appear on the right side.</li><li>Once this workflow has been successfully completed (usually takes about 3-10 minutes), a green tick appears at the left side of "WLED Compile". Then you can go back to "<> Code" and there you will find the compiled WLED software in the custom_build.bin file.<br><img src="pictures/pic6.jpg"><br>You can download this file: click on the file and then at the right side on the "Download raw file" icon.<br>If the workflow was unsuccessful, no green tick but a red cross will appear. You can then examine the workflow history to find out what the problem is. </li><li>You can then install this file on your WLED controller via "Manual OTA Update".</li></ol>';
-		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = 'You also can compile WLED using GitHub using YAML workflow script generated below in the "Results" section:';
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "start compile/build";
+
+		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '(old compile helper here: ';
 		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Your GitHub account name';
 		if(document.getElementById('L27')) document.getElementById('L27').innerHTML = 'Your GitHub repository';
-		if(document.getElementById('L28')) document.getElementById('L28').innerHTML = 'Generate YAML for multiple enviroments';
-		if(document.getElementById('L29')) document.getElementById('L29').innerHTML = 'Select multiple enviroments:';
-		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Select multiple branches:';
-		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'The YAML script below will generate not only one custom_build.bin file, but one for each branch and each enviroment selected. Each .bin file compiled will be named build_<branch name>_<env name>.bin. Settings above will be applied to each build (except that enviroment name will be adapted each time). Keep in mind that one free GitHub account has only 2000 build minutes per month and each build take approximately 3 minutes. So you will be able to build max approx. 660 builds per month. After that you will need another free GitHub account.';
-		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = "Download YAML Script to compile WLED on GitHub (multiple)";
+		if(document.getElementById('L30')) document.getElementById('L30').innerHTML = 'Step 1: select WLED software / release / controller type';
+		if(document.getElementById('L31')) document.getElementById('L31').innerHTML = 'Step 2: select options';
+		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = 'Step 3: select usermods';
+		if(document.getElementById('L33')) document.getElementById('L33').innerHTML = 'Step 5: start compiling and download SW when finished';
+		if(document.getElementById('L34')) document.getElementById('L34').innerHTML = 'Results to download:';
+		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Attention: Please do not enter any personal data (name etc.) or secret information (passwords etc.) when configuring the WLED SW! Compiling takes place on publicly accessible servers so that everyone can see the information you enter!';
+		if(document.getElementById('L36')) document.getElementById('L36').innerHTML = 'This is open source software and is provided for free. It is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the owner of this web page be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software. The exeption are cases defined by the law. In case German law should be applied, the German version of this disclaimer must be used (please select German language above).';
+		if(document.getElementById('L37')) document.getElementById('L37').innerHTML = 'Bitte beachten Sie die Software Lizenzen: <a href="https://wled-install.github.io/WLED_Software_Lizenzen.pdf">WLED licenses</a>';
+		if(document.getElementById('L23x')) document.getElementById('L23x').innerHTML = 'Steps:';
+		if(document.getElementById('L01x')) document.getElementById('L01x').innerHTML = "Connect your ESP8266 / ESP32 board via USB port.";
+        if(document.getElementById('L03x')) document.getElementById('L03x').innerHTML = "Click on \"Install\" and select the correct COM port. ";
+        if(document.getElementById('L04x')) document.getElementById('L04x').innerHTML = "No board found?";
+        if(document.getElementById('L05x')) document.getElementById('L05x').innerHTML = "Click on \"Install WLED\". If after some time the installation stops at \"wrapping up\", you can interrupt it. The SW is then already installed correctly.";
+        if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Install";
+		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Step 6: install compiled SW directly via USB (optionally)";
 	}
-	
+    if(document.getElementById('lang').selectedIndex==0) {
+		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
+		document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:green">noch kein</span>';
+	} else {
+		document.getElementById('result_line1').innerHTML='State: <span style="color:green">not started yet</span>';
+		document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:green">nothing yet</span>';
+	}
+	if(document.getElementById('comporthelp')) {
+		if(document.getElementById('comporthelp').innerHTML!="") NoComPortHelp();
+	}
+	if(document.getElementById('newtypeshelp')) {
+		if(document.getElementById('newtypeshelp').innerHTML!="") NewTypesHelp();
+	}
 }
 
 // $$WLEDPATH$$ Path to zipped source
@@ -603,117 +673,192 @@ function LangChanged() {
 // pio run -e esp32dev || pio run -e esp32dev || true
 // $$WLEDPIORUN$$
 
-var objLastUrl = null;
-function DownloadBuildYAML() {
-    var strText, objBlob, objLink;
+var generator_state='waiting';
+var idreturned='';
+var datereturned='';
+var wait_cycle_counter=0;
+var wait_counter=0;
 
-    if (objLastUrl == null){
-        window.URL.revokeObjectURL(objLastUrl);
-        objLastUrl = null;
-    }
+function GeneratorJob() {
 
-    strText = "";	
-	const xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
+	if(generator_state=='start') {
+		SS=document.getElementById('select-sources');
+		SSI=SS.selectedIndex;
+		SB=document.getElementById('select-branches');
+		SBI=SB.selectedIndex;
+		var mReq = new XMLHttpRequest();
+		console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
+		mReq.open('POST', 'https://can-gateway.myhome-control.de/api/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://","")));
+		mReq.setRequestHeader('Content-type', 'text/plain');
+		mReq.onreadystatechange = function () { 
+		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
+			var resp=mReq.responseText;
+			if(resp.length!=20+1+8) {
+			  //alert("Error returned!");
+			  idreturned='';
+			  datereturned='';
+			  generator_state='interrupted';
+			  if(document.getElementById('lang').selectedIndex==0) {
+					document.getElementById('result_line1').innerHTML='Status: <span style="color:red">Abgebrochen! versuchen Sie erneut!</span>';
+					document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:red">kein</span>';
+				} else {
+					document.getElementById('result_line1').innerHTML='State: <span style="color:red">Interrupted!... please try again!</span>';
+					document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:red">nothing</span>';
+				}
+			  document.getElementById("spinner").style.visibility = "hidden";
+			} else {
+				//alert("ID returned: "+resp);
+				
+				datereturned=resp.split(";")[0];
+				idreturned=resp.split(";")[1];
+				wait_cycle_counter=0;
+				generator_state='waitforbuildfinish';
+				if(document.getElementById('lang').selectedIndex==0) {
+					document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird ausgeführt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 is 10 Minuten</span>';
+					document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:orange">noch kein</span>';
+				} else {
+					document.getElementById('result_line1').innerHTML='State: <span style="color:orange">job is being executed... please wait and DO NOT reload this page ... it takes 5 to 10 minutes usually</span>';
+					document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:orange">nothing yet</span>';
+				}
+			}
 			
-			SS=document.getElementById('select-sources');
-			SSI=SS.selectedIndex;
-			SB=document.getElementById('select-branches');
-			SBI=SB.selectedIndex;
-			
-			strText = this.responseText.replaceAll("$$WLEDPATH$$",SB.options[SBI].getAttribute("url"));
-			strText = strText.replaceAll("$$REPONAME$$",SS.options[SSI].getAttribute("ghreponame"));
-			
-			var piotext="";
-			lines=document.getElementById('env-text').value.split('\n');
-			for(var n = 0; n < lines.length; n++) {
-				piotext=piotext+"echo '"+lines[n].replaceAll("'","'\\''")+"' >>platformio.ini\n        ";
-			}	
-			strText = strText.replace("$$WLEDPIORUN$$", piotext);
-			
-		    objBlob = new Blob([ strText ], { type: "text/plain" });
-			objLink = document.getElementById("downloadLinkYAML");
-			objLastUrl = window.URL.createObjectURL(objBlob);
-			objLink.href = objLastUrl;
-			objLink.click();
+		  }
+		};
+		generator_state='waitforid';
+		if(document.getElementById('lang').selectedIndex==0) {
+			document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird angefragt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 is 10 Minuten</span>';
+			document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:orange">noch kein</span>';
+		} else {
+			document.getElementById('result_line1').innerHTML='State: <span style="color:orange">job is requested ... please wait and DO NOT reload this page ... it takes 5 to 10 minutes usually</span>';
+			document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:orange">nothing yet</span>';
 		}
-	  };
-	  xhttp.open("GET", "wled_compile_template.yaml");
-	  xhttp.send(); 
+		mReq.send(document.getElementById('env-text').value.replaceAll("\n","\\n"));
+	}
+	if(generator_state=='waitforbuildfinish') {
+		if(wait_counter>=10) {
+			wait_cycle_counter=wait_cycle_counter+1;
+			if(wait_cycle_counter>120) {
+				generator_state='interrupted';
+				if(document.getElementById('lang').selectedIndex==0) {
+					document.getElementById('result_line1').innerHTML='Status: <span style="color:red">Abgebrochen wegen Timeout! Versuchen Sie erneut!</span>';
+					document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:red">kein</span>';
+				} else {
+					document.getElementById('result_line1').innerHTML='State: <span style="color:red">Interrupted / timeout!... please try again!</span>';
+					document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:red">nothing</span>';
+				}
+				document.getElementById("spinner").style.visibility = "hidden";
+			} else {
+				var mReq = new XMLHttpRequest();
+				mReq.open('GET', 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/log.txt');
+				mReq.onreadystatechange = function () { 
+				  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforbuildfinish') {
+					generator_state='buildfinished';
+					linktofile='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/log.txt';
+					if(document.getElementById('lang').selectedIndex==0) {
+						document.getElementById('result_line1').innerHTML='Status: <span style="color:green">Abgeschlossen!</span>';
+						document.getElementById('result_line2').innerHTML='Bin-Datei: <span style="color:green">... wird generiert ...</span>';
+						document.getElementById('result_line3').innerHTML='Download-Link zu Log-Datei: <a href="'+linktofile+'" target="_blank">log.txt</a>';
+					} else {
+						document.getElementById('result_line1').innerHTML='State: <span style="color:green">Completed!</span>';
+						document.getElementById('result_line2').innerHTML='Bin file: <span style="color:green">... being generated ...</span>';
+						document.getElementById('result_line3').innerHTML='Download link for the logging file: <a href="'+linktofile+'" target="_blank">log.txt</a>';
+					}
+					var mReq1 = new XMLHttpRequest();
+					mReq1.open('GET', 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin');
+					mReq1.onreadystatechange = function () { 
+						if (mReq.readyState === 4 && this.status == 200 && generator_state=='buildfinished') {
+							generator_state='finished';
+							if(document.getElementById('lang').selectedIndex==0) {
+								document.getElementById('result_line2').innerHTML='Bin-Datei: <a href="'+'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+							} else {
+								document.getElementById('result_line2').innerHTML='Bin file: <a href="'+'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+							}
+							document.getElementById("spinner").style.visibility = "hidden";
+							
+							manifest_file = 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/manifest_file.json';
+							if(document.getElementById('install_btn')) document.getElementById('install_btn').setAttribute('manifest',manifest_file);
+							if(document.getElementById("InstallButton")) document.getElementById("InstallButton").disabled = false;
+						}
+						if (mReq.readyState === 4 && this.status == 404 && generator_state=='buildfinished') {
+							generator_state='interrupted';
+							if(document.getElementById('lang').selectedIndex==0) {
+								document.getElementById('result_line2').innerHTML='Bin-Datei: <span style="color:red">Fehler! Siehe Log Datei</span>';
+							} else {
+								document.getElementById('result_line2').innerHTML='Bin file: <span style="color:red">Error! Please check log file</span>';
+							}
+							document.getElementById("spinner").style.visibility = "hidden";
+						}
+					};
+					mReq1.send();
+				  }
+				};
+				mReq.send();
+				
+			}
+			wait_counter=0;
+		} else {
+			wait_counter=wait_counter+1;
+		}
+	}
+
 }
 
-function DownloadBuildYAMLMult() {
-    var strText, objBlob, objLink;
-
-    if (objLastUrl == null){
-        window.URL.revokeObjectURL(objLastUrl);
-        objLastUrl = null;
-    }
-
-    strText = "";	
-	const xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			strText = this.responseText;
-			  const xhttp1 = new XMLHttpRequest();
-			  xhttp1.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					SE=document.getElementById('select-enviroments');
-					SEI=SE.selectedIndex;
-					SEM=document.getElementById('select-enviromentsMult');
-					
-					SS=document.getElementById('select-sources');
-					SSI=SS.selectedIndex;
-					SB=document.getElementById('select-branches');
-					SBI=SB.selectedIndex;
-					
-					SBM=document.getElementById('select-branchesMult');
-					
-					base_env_name=SE.options[SEI].getAttribute("env");
-					
-					for(var j = 0; j < SBM.options.length; j++) {
-						if(SBM.options[j].selected) {
-							for(var i = 0; i < SEM.options.length; i++) {
-								if(SEM.options[i].selected) {
-									//console.log(SEM.options[i].getAttribute("env"));
-									itemText=this.responseText.replaceAll("$$WLEDPATH$$",SBM.options[j].getAttribute("url"));
-									itemText = itemText.replaceAll("$$REPONAME$$",SS.options[SSI].getAttribute("ghreponame"));
-									itemText = itemText.replaceAll("$$ENVNAME$$",SEM.options[i].getAttribute("env"));
-									itemText = itemText.replaceAll("$$BRANCHNAME$$",SBM.options[j].getAttribute("bname"));
-									var piotext="";
-									lines=document.getElementById('env-text').value.split('\n');
-									for(var n = 0; n < lines.length; n++) {
-										piotext=piotext+"echo '"+lines[n].replaceAll("'","'\\''")+"' >>platformio.ini\n        ";
-									}
-									piotext = piotext.replaceAll("env:"+base_env_name,"env:"+SEM.options[i].getAttribute("env"));
-									itemText = itemText.replace("$$WLEDPIORUN$$", piotext);
-									strText=strText+itemText;
-								}
-							}
-						}
-					}
-					
-					objBlob = new Blob([ strText ], { type: "text/plain" });
-					objLink = document.getElementById("downloadLinkYAML");
-					objLastUrl = window.URL.createObjectURL(objBlob);
-					objLink.href = objLastUrl;
-					objLink.click();
-				}
-			  };
-			  xhttp1.open("GET", "wled_compile_template_multiple_body.yaml");
-			  xhttp1.send(); 
-			
+function StartBuildOnline() {
+	if(generator_state=='waiting' || generator_state=='interrupted' || generator_state=='finished') {
+		// start
+		generator_state='start';
+		if(document.getElementById("InstallButton")) document.getElementById("InstallButton").disabled = true;
+		if(document.getElementById('lang').selectedIndex==0) {
+			document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">gestartet ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 is 10 Minuten</span>';
+			document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:orange">noch kein</span>';
+		} else {
+			document.getElementById('result_line1').innerHTML='State: <span style="color:orange">started ... please wait and DO NOT reload this page ... it takes 5 to 10 minutes usually</span>';
+			document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:orange">nothing yet</span>';
 		}
-	  };
-	  xhttp.open("GET", "wled_compile_template_multiple_prefix.yaml");
-	  xhttp.send(); 
+		document.getElementById('result_line3').innerHTML='';
+		var interval = setInterval(function() {GeneratorJob();}, 1000);
+		document.getElementById("spinner").style.visibility = "visible";
+	}
+}
+
+function NoComPortHelp() {
+    document.getElementById('L04x').innerHTML = "";
+    if(document.getElementById('lang').selectedIndex==0) {
+        if(document.getElementById('comporthelp')) document.getElementById('comporthelp').innerHTML = "Ist Dein USB Kabel geeignet für Datentransfer ?<br>Vielelicht fehlt der USB Treiber für Dein Board. Die meisten Boards verwenden einen von diesen:<br>- <a href=\"https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads\" target=\"_blank\">CP210x (quadratischer Chip)</a><br>-  <a href=\"http://www.wch-ic.com/downloads/CH341SER_EXE.html\" target=\"_blank\">CH34x (Rechteck Chip) oder CH9102x (quadratischer Chip)</a><br>";
+    } else {
+        if(document.getElementById('comporthelp')) document.getElementById('comporthelp').innerHTML = "Check if your USB cable supports data transfer.<br>Eventually you have to install the drivers for your board.<br>Here are drivers commonly used in ESP32 boards:<br>- <a href=\"https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers\" target=\"_blank\">CP210x (small square chip)</a><br>- <a href=\"http://www.wch-ic.com/downloads/CH341SER_EXE.html\" target=\"_blank\">CH34x (rectangular chip) or CH9102x (small square chip)</a><br>";
+    }
+}
+
+function NewTypesHelp() {
+    if(document.getElementById('lang').selectedIndex==0) {
+        if(document.getElementById('newtypeshelp')) document.getElementById('newtypeshelp').innerHTML = "- Die Unterstützung für diese neue Typen ist noch hoch experimentell<br>- Zum Flashen immer erst den zweiten Taster (nicht den Reset!) auf dem Bord drücken und halten, erst dann ins USB einstecken. Dann den Taster loslassen<br>- Nach der Istallation manuell resetten<br>- Es sind einige ESP32-C3 V1.0.0 Boards auf dem Markt, die grundsätzlich nicht funktioneiren";
+    } else {
+        if(document.getElementById('newtypeshelp')) document.getElementById('newtypeshelp').innerHTML = "- The support for these new types is still highly experimental<br>- For flashing, first press and hold the second button (not the reset!) on the board before plugging it into the USB. Then release the button<br>- After installation do reset manually<br>- There are some ESP32-C3 V1.0.0 boards on the market that basically dont work";
+    }
 }
 
 window.onload = function () {
+
+	if (document.getElementById('install_btn').hasAttribute('install-unsupported')) {
+        if(document.getElementById('lang').selectedIndex==0) {
+            document.getElementById('InstallNoteContainer').innerHTML = "<span id=\"L10\">Leider wird Ihr Browser für die Installation über USB aktuell nicht unterstützt!<br>Bitte versuchen Sie mit Google Chrome (für Desktop) oder Microsoft Edge.";
+        } else {
+            document.getElementById('InstallNoteContainer').innerHTML = "<span id=\"L10\">Unfortunately your browser is not yet supported for installation via USB!<br>Please try on Chrome (for Desktop) or Microsoft Edge.";
+        }
+		document.getElementById('InstallContainer').innerHTML = "";
+    } else {
+		document.getElementById('InstallNoteContainer').innerHTML = "";
+	}
 	LoadDataset();
 	LangChanged();
+	document.getElementById("spinner").style.visibility = "hidden";
+	if(document.getElementById("InstallButton")) document.getElementById("InstallButton").disabled = true;
 };
 </script>
+<script
+  type="module"
+  src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+></script>
 </body>
 </html>
