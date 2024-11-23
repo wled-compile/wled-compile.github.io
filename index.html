@@ -172,6 +172,8 @@
           <li><span id="L05x">Klicken Sie auf "Install WLED". Die Installation beginnt. Sollte nach einiger Zeit die Installation beim "Wrapping Up" stehen bleiben, können es es unterbrechen. Die SW ist dann trotzdem i.O. installiert.</span></li>
       	  <li><span id="L27x">Wichtige Hinweise zu neuen Controller-Typen: </span><u><a onclick="NewTypesHelp()" class="btn btn-secondary btn-sm"><span>ESP32-C3, ESP32-S2, ESP32-S3 etc.</span></a></u></li>
           <div id="newtypeshelp"></div>
+	  <li><span id="L28x">ESP32-S2: aktuell nicht möglich. </span></li>
+          <div id="newtypeshelp"></div>
       </ol>
 	   <div id="ButtonContainer">
 		<div class="container inst-button">
@@ -193,11 +195,10 @@
         <h5 id="L14">Nützliche Informationen:</h5>
 		<ul>
           <li><span id="L14a">Offizielle WLED Wiki (Englisch):</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
-		  <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
-          <li><span id="L14b">DIY WLED boards:</span> <a href="https://github.com/wladwnt/wled">Github</a></li>
+          <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
           <li><span id="L14c">Professionelle WLED Boards:<a href="https://shop.myhome-control.de">MyHome-Control Shop</a></span></li>
           <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
-		  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
+	  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
         </ul>
       </div>
 	  
@@ -612,6 +613,7 @@ function LangChanged() {
         if(document.getElementById('L05x')) document.getElementById('L05x').innerHTML = "Klicken Sie auf \"Install WLED\". Die Installation beginnt. Sollte nach einiger Zeit die Installation beim \"Wrapping Up\" stehen bleiben, können sie es unterbrechen. Die SW ist dann trotzdem i.O. installiert.";
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Installieren";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
+	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 wie lolin_mini etc.: WEB installer funktioniert aktuell nicht";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -652,6 +654,7 @@ function LangChanged() {
         if(document.getElementById('L05x')) document.getElementById('L05x').innerHTML = "Click on \"Install WLED\". If after some time the installation stops at \"wrapping up\", you can interrupt it. The SW is then already installed correctly.";
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Install";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Step 6: install compiled SW directly via USB (optionally)";
+	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 such as lolin_mini etc.: WEB installer presently does not work";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
