@@ -72,6 +72,22 @@
 	</div>
 	</div>
 	</div>
+	
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails1a">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1a" aria-expanded="true" aria-controls="collapseOne1a">
+		<span id="L30a" style="color:blue;text-decoration: underline;"> Schritt 1a: Modifikationen</span>
+	  </button>
+	</h2>
+	<div id="collapseOne1a" class="accordion-collapse collapse" aria-labelledby="headingMainDetails1a" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
+	<div id="div-details">
+		
+	</div>
+	</div>
+	</div>
+	</div>
+	
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails2">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
@@ -445,6 +461,12 @@ function EnvChanged() {
 		options_div.innerHTML=options_div.innerHTML+GetSettingsHtml(dataset.settings[i], false, String(i));
       }
 	
+	options_div=document.getElementById('div-details');
+	options_div.innerHTML="";
+	for(var i = 0; i < dataset.details.length; i++) {
+		options_div.innerHTML=options_div.innerHTML+GetSettingsHtml(dataset.details[i], false, "Det"+String(i));
+      }
+	
 	options_div=document.getElementById('div-usermods');
 	  options_div.innerHTML="";
 	  var SS=parseInt(document.getElementById('select-sources').selectedIndex);
@@ -524,6 +546,32 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 	return [buildflags, libdeps];
 }
 
+function GetLinesForDetail(setting, stri) {
+	var newline="";
+	
+	if(document.getElementById('checkbox-set'+stri).checked) {
+		newline=setting.line;
+		if(setting.type=="number" || setting.type=="number_float") {
+			numval=String(document.getElementById('input-number-'+stri).value);
+			if(numval.length==0) {
+				numval="0";
+			}
+			if(setting.type=="number_float") numval=numval+"f";
+			newline=newline+numval;
+		}
+		if(setting.type=="string") {
+			stringval=String(document.getElementById('input-string-'+stri).value);
+			newline=newline+"'\""+stringval+"\"'";
+		}
+		if(setting.type=="defparam") {
+			stringval=String(document.getElementById('input-string-'+stri).value);
+			newline=newline+stringval;
+		}
+	}
+	
+	return newline;
+}
+
 function GenerateEnvText() {
 envtextfield=document.getElementById('env-text');
 SS=document.getElementById('select-sources')
@@ -532,6 +580,14 @@ SE=document.getElementById('select-enviroments');
 SEI=SE.selectedIndex;
 
 var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
+
+for(var i = 0; i < dataset.details.length; i++) {
+		if((dataset.details[i].type=="checkbox" || dataset.details[i].type=="number" || dataset.details[i].type=="number_float" || dataset.details[i].type=="string"  || dataset.details[i].type=="defparam") && dataset.details[i].sources.includes(SSI)) {
+			newline = GetLinesForDetail(dataset.details[i], "Det"+String(i));
+			value=value+"\n"+newline;
+		}
+
+	}
 
 var buildflags="";
 var libdeps="";
@@ -614,6 +670,7 @@ function LangChanged() {
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Installieren";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 wie lolin_mini etc.: WEB installer funktioniert aktuell nicht";
+		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Schritt 1a (optional): ändere Kompiler/Builder Details";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -655,6 +712,7 @@ function LangChanged() {
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Install";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Step 6: install compiled SW directly via USB (optionally)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 such as lolin_mini etc.: WEB installer presently does not work";
+		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Step 1a (optionally): change compile/build details";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';

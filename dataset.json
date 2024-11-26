@@ -39,6 +39,28 @@
 		"recommendedbranch":""
      }
 	],
+	"details" :[
+		{
+			"name" : "Redefine board type (for example use esp32dev as a generic ESP32 board etc.)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"line" : "board = "
+		},
+		{
+			"name" : "Redefine flash mode type (for example dio, qio etc.)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"line" : "board_build.flash_mode = "
+		},
+		{
+			"name" : "Redefine flash frequency (for example 80000000L, 40000000L etc.)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"line" : "board_build.f_flash = "
+		}
+		
+	
+	],
 	"settings":[
 		{
 			"name" : "Include Debug flags",
