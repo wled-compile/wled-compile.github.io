@@ -550,7 +550,7 @@ function GetLinesForDetail(setting, stri) {
 	var newline="";
 	
 	if(document.getElementById('checkbox-set'+stri).checked) {
-		newline=setting.line;
+		newline="\n"+setting.line;
 		if(setting.type=="number" || setting.type=="number_float") {
 			numval=String(document.getElementById('input-number-'+stri).value);
 			if(numval.length==0) {
@@ -584,7 +584,7 @@ var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env
 for(var i = 0; i < dataset.details.length; i++) {
 		if((dataset.details[i].type=="checkbox" || dataset.details[i].type=="number" || dataset.details[i].type=="number_float" || dataset.details[i].type=="string"  || dataset.details[i].type=="defparam") && dataset.details[i].sources.includes(SSI)) {
 			newline = GetLinesForDetail(dataset.details[i], "Det"+String(i));
-			value=value+"\n"+newline;
+			value=value+newline;
 		}
 
 	}
