@@ -526,7 +526,13 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 				if(numval.length==0) {
 					numval="0";
 				}
-				if(setting.type=="number_float") numval=numval+"f";
+				if(setting.type=="number_float") {
+					if(numval.indexOf(".")>-1) {
+						numval=numval+"f";
+					} else {
+						numval=numval+".f";
+					}
+				}
 				buildflags=buildflags+numval;
 			}
 			if(setting.type=="string") {
