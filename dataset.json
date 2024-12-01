@@ -112,7 +112,7 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed)",
+			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed, ATTENTION: Does not compile/work togeter with AudioRective WLED)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_DMX",
