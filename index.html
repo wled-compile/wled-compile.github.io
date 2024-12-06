@@ -69,6 +69,23 @@
 		  </div>
 		</div>
 	</div>
+	
+	<div class="accordion accordion-flush border border-secondary" id="SecAcc"><div class="accordion-item">
+	
+	<h2 class="accordion-header" id="headingSecDetails1">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSec1" aria-expanded="true" aria-controls="collapseSec1">
+		<span id="L39" style="color:blue;text-decoration: underline;">Information about the selected controller type definitions:</span>
+	  </button>
+	</h2>
+	<div id="collapseSec1" class="accordion-collapse collapse" aria-labelledby="headingSecDetails1" data-bs-parent="#SecAcc">
+	<div class="accordion-body">
+	<div class="row"><div class="col">
+		<div id="PioEnvInfoText"></div>
+	</div></div>
+	</div></div>
+	</div>
+	</div>
+	
 	</div>
 	</div>
 	</div>
@@ -250,6 +267,128 @@
 </div>
 <script>
 var dataset;
+var selected_ini_lines="";
+
+
+function proceed_extends(obj) {
+	retval=false;
+	for(var key of Object.keys(obj)) {
+		if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key] !== null && ("extends" in obj[key]) && (((obj[key]["extends"] in obj) && !("extends" in obj[obj[key]["extends"]])) || (("env:"+obj[key]["extends"] in obj) && !("extends" in obj["env:"+obj[key]["extends"]]) )) ) {
+			// obj[key] uses extends
+			// obj[key]["extends"] is the referenced one
+			console.log(key+ " USES " + obj[key]["extends"]);
+			retval=true;
+			ref="";
+			if("env:"+obj[key]["extends"] in obj) {
+				ref="env:"+obj[key]["extends"];
+			} else {
+				ref=obj[key]["extends"];
+			}
+			obj[key]["extends_proceeded"]=obj[key]["extends"];
+			//obj[key]["extends_proceeded"] = obj[key]["extends_proceeded"]+" -> "+ref;
+			
+			if("extends_proceeded" in obj[ref]) obj[key]["extends_proceeded"] = obj[key]["extends_proceeded"]+" -> "+obj[ref]["extends_proceeded"];
+			
+			// for each subobject in referenced object
+			for(var key1 of Object.keys(obj[ref])) {
+				// if not exist, copy from referenced one
+				if( !(key1 in obj[key])) {
+					obj[key][key1]=obj[ref][key1];
+				}
+			}
+			delete obj[key]["extends"];
+		}
+	}
+	console.log("ONE TURN ###############################################");
+	console.log(obj);
+	return retval;
+}
+
+function proceed_dollar_includes(obj) {
+	retval=false;
+	for(var key of Object.keys(obj)) {
+		if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key] !== null) {
+			//
+			obj1=obj[key];
+			for(var key1 of Object.keys(obj1)) {
+				if (typeof obj1[key1] === 'string' || obj1[key1] instanceof String) {
+					regexp1=/\${[^}]*\.[^}]*}/g;
+					var match_arr = obj1[key1].match(regexp1);
+					if (match_arr!=null) {
+						for (const el of match_arr) {
+							regexp2=/\${([^}]*)\.([^}]*)}/;
+							match = el.match(regexp2);
+							// match[1], match[2]
+							if(match[1] in obj && match[2] in obj[match[1]]) {
+								retval=true;
+								//console.log("SBSTITUTE "+el+ " by "+obj[match[1]][match[2]])
+								obj[key][key1] = obj[key][key1].replace(el,obj[match[1]][match[2]]);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	//console.log(obj);
+	return retval;
+}
+
+function TestIni() {
+	//pioenvinfo=document.getElementById('PioEnvInfo');
+	//pioenvinfo.innerHTML="";
+	var value = {};
+	var regex = {
+		section: /^\s*\[\s*([^\]]*)\s*\]\s*.*$/,
+		param: /^\s*([\w\.\-\_]+)\s*=\s*(.*?)\s*$/,
+		comment: /^\s*[;#].*$/,
+		param_newline: /  (.*?)\s*$/,
+		start_with_minus: /^\s*-.*/
+	};
+	
+	if(selected_ini_lines.length>1) {
+		last="";
+		last_param="";
+		
+		var section = null;
+		lines=selected_ini_lines;
+		for(x=0;x<lines.length;x++) {
+			line=lines[x].split(';')[0]
+			if(regex.comment.test(lines[x])){
+				//other
+				//console.log(lines[x]);
+			}else if(regex.param.test(lines[x]) && !regex.start_with_minus.test(lines[x])){
+				var match = lines[x].match(regex.param);
+				state="param";
+				if(section){
+					value[section][match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+				}else{
+					value[match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+				}
+				last_param=match[1].trim();
+			}else if(regex.section.test(lines[x])){
+				var match = lines[x].match(regex.section);
+				value[match[1]] = {};
+				section = match[1].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].trim();
+				last="section";
+				last_param="";
+			}else if(last_param!="" && regex.param_newline.test(lines[x])){
+				//console.log("EXT to "+last_param+": "+lines[x]);
+				
+				if(section){
+					value[section][last_param] = value[section][last_param] + " " + lines[x].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+				}else{
+					value[last_param] = value[last_param] + " " +lines[x].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+				}
+			}
+
+		}
+		while(proceed_dollar_includes(value));
+		while(proceed_extends(value));
+		//console.log(value);
+	}
+	return value;
+}
 
 function UserRepoChanged() {
 	var SS = document.getElementById('select-sources');
@@ -383,6 +522,7 @@ function BranchChanged() {
 	while (sel.options.length > 0) {
         sel.remove(0);
     }
+	selected_ini_lines="";			   
 	var opt = document.createElement('option');
     opt.value = 0;
     opt.innerHTML = 'Searching for enviroments in platformio.ini ...';
@@ -400,6 +540,7 @@ function BranchChanged() {
 				sel.remove(0);
 			}
 			splitted=this.response.replaceAll("\r\n","\n").replaceAll("\r","\n").split("\n");
+			selected_ini_lines=splitted;				   
 			var SS = document.getElementById('select-sources');
 			var SSI=SS.selectedIndex;
 			for (var i = 0; i < splitted.length; i++) {
@@ -484,6 +625,63 @@ function EnvChanged() {
 			options_div.innerHTML=options_div.innerHTML+prefix+middlepart+postfix;
 		}
       }
+	var obj = TestIni();
+	//PioEnvInfo=document.getElementById('PioEnvInfo');
+	PioEnvInfoText=document.getElementById('PioEnvInfoText');
+	PioEnvInfoText.innerHTML="";
+	SE=document.getElementById('select-enviroments');
+	SEI=SE.selectedIndex;
+	for(var key of Object.keys(obj)) {
+		if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key] !== null && key=="env:"+SE.options[SEI].getAttribute("env")) {	
+			for(var key1 of Object.keys(obj[key])) {
+				//PioEnvInfo.innerHTML=PioEnvInfo.innerHTML+key1+" = " + String(obj[key][key1])+"\n";
+			}
+				if(obj[key].hasOwnProperty("board")) {
+					key1="board";
+					if(PioEnvInfoText.innerHTML!="") PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br>";
+					PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<b>Board definition</b> : "+String(obj[key][key1])+"&nbsp;&nbsp;(Definition ";
+					
+					if(obj[key].hasOwnProperty("build_flags") && obj[key]["build_flags"].includes("ARDUINO_ARCH_ESP32")) {
+						PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<a target='_blank' href='https://docs.platformio.org/en/latest/boards/espressif32/"+String(obj[key][key1])+".html'>here</a>)"
+					} else {
+						PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<a target='_blank' href='https://docs.platformio.org/en/latest/boards/espressif8266/"+String(obj[key][key1])+".html'>here</a>)"
+					}
+					board_ext="";
+					for(var key2 of Object.keys(obj[key])) {
+						//PioEnvInfo.innerHTML=PioEnvInfo.innerHTML+key1+" = " + String(obj[key][key1])+"\n";
+						if(key2.includes("board_build")) {
+							if(board_ext!="") board_ext=board_ext+"<br>";
+							board_ext=board_ext+"&nbsp;&nbsp;"+key2+" = "+obj[key][key2];
+						}
+					}
+					if(board_ext!="") PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br><b>Board modifications</b> :<br>"+board_ext;
+				}
+				if(obj[key].hasOwnProperty("build_flags")) {
+					key1="build_flags";
+					if(PioEnvInfoText.innerHTML!="") PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br>";
+					PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<b>Build flags/options</b> :"
+					str1=String(obj[key][key1]);
+					split1=str1.split(" -");
+					for (var s1 of split1) {
+						if(s1.substr(1).trim()!="" && s1.trim()[0]=="D") {
+							PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br>&nbsp;&nbsp;"+s1.substr(1).trim()+"";
+						}
+					}
+				}
+				if(obj[key].hasOwnProperty("lib_deps")) {
+					key1="lib_deps";
+					if(PioEnvInfoText.innerHTML!="") PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br>";
+					PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<b>Libraries included</b> :"
+					str1=String(obj[key][key1]);
+					split1=str1.split(" ");
+					for (var s1 of split1) {
+						if(s1.trim()!="") {
+							PioEnvInfoText.innerHTML=PioEnvInfoText.innerHTML+"<br>&nbsp;&nbsp;"+s1.trim()+"";
+						}
+					}
+				}
+		}
+	}
 	GenerateEnvText();
 }
 
@@ -677,6 +875,7 @@ function LangChanged() {
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 wie lolin_mini etc.: WEB installer funktioniert aktuell nicht";
 		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Schritt 1a (optional): ändere Kompiler/Builder Details";
+		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information über die Definitionen für das gewählte Controller Typ:";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -719,6 +918,7 @@ function LangChanged() {
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Step 6: install compiled SW directly via USB (optionally)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 such as lolin_mini etc.: WEB installer presently does not work";
 		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Step 1a (optionally): change compile/build details";
+		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information about the selected controller type definitions:";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
