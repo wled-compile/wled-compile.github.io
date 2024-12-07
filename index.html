@@ -224,16 +224,62 @@
 	
 	</div>
 <hr>
-        <div class="container">
-        <h5 id="L14">Nützliche Informationen:</h5>
-		<ul>
-          <li><span id="L14a">Offizielle WLED Wiki (Englisch):</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
-          <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
-          <li><span id="L14c">Professionelle WLED Boards:<a href="https://shop.myhome-control.de">MyHome-Control Shop</a></span></li>
-          <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
-	  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
-        </ul>
-      </div>
+    <div class="container">
+	   <div class="row">
+		<div class="col-md">
+				<h5 id="L14">Nützliche Informationen:</h5>
+				<ul>
+				  <li><span id="L14a">Offizielle WLED Wiki (Englisch):</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
+				  <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
+				  <li><span id="L14c">Professionelle WLED Boards:<a href="https://shop.myhome-control.de">MyHome-Control Shop</a></span></li>
+				  <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
+				  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
+				</ul>
+		</div>
+	   <div class="col-md">
+	   
+			<div id="carousel1" class="carousel carousel-dark slide img-fluid" data-bs-ride="carousel" data-bs-interval="3000">
+			  <div class="carousel-indicators">
+				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="3" aria-label="Slide 4"></button>
+			  </div>
+			  <div class="carousel-inner">
+				<div class="carousel-item active">
+				 <a target="_blank" href="https://shop.myhome-control.de">
+				  <img src="pictures/werbung1.jpg" class="d-block w-100" alt="WLED Controller Board V43">
+				 </a> 
+				</div>
+				<div class="carousel-item">
+				  <a target="_blank" href="https://shop.myhome-control.de">
+				  <img src="pictures/werbung2.jpg" class="d-block w-100" alt="WLED Controller Board mini V73">
+				 </a> 
+				</div>
+				<div class="carousel-item">
+				  <a target="_blank" href="https://shop.myhome-control.de">
+				  <img src="pictures/werbung3.jpg" class="d-block w-100" alt="WLED LineIn-to-I2S Adapter">
+				 </a> 
+				</div>
+				<div class="carousel-item">
+				  <a target="_blank" href="https://shop.myhome-control.de">
+				  <img src="pictures/werbung4.jpg" class="d-block w-100" alt="WLED Ethernet Adapter for WLED Controller V43">
+				 </a> 
+				</div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carousel1" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carousel1" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+	   
+	   </div>
+	  </div>
+    </div>
 	  
 <div class="container">
    <div class="accordion accordion-flush bottompart" id="accordionBottom">
@@ -933,9 +979,11 @@ function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
 		document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:green">noch kein</span>';
+		document.getElementById("carousel1").style.display = "block";
 	} else {
 		document.getElementById('result_line1').innerHTML='State: <span style="color:green">not started yet</span>';
 		document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:green">nothing yet</span>';
+		document.getElementById("carousel1").style.display = "none";
 	}
 	if(document.getElementById('comporthelp')) {
 		if(document.getElementById('comporthelp').innerHTML!="") NoComPortHelp();
