@@ -569,14 +569,23 @@ function BranchChanged() {
 function GetSettingsHtml(setting, DoNotCheckSource, stri) {
 	retval="";
 	var SS=parseInt(document.getElementById('select-sources').selectedIndex);
-	if(setting.type=="checkbox" && (DoNotCheckSource || setting.sources.includes(SS))) {
-		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div></div>';
-	}
-	if((setting.type=="number" || setting.type=="number_float") && (DoNotCheckSource || setting.sources.includes(SS))) {
-		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-number-'+stri+'" type="number" min="-1" data-bind="value:input-number-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 10em;"></div></div>';
-	}
-	if((setting.type=="string" || setting.type=="defparam") && (DoNotCheckSource || setting.sources.includes(SS))) {
-		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-string-'+stri+'" data-bind="value:input-string-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 30em;"></div></div>';
+	if("value_list" in setting && Object.keys(setting).length>0) {
+		retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><select id="input-string-'+stri+'" data-bind="value:input-string-'+stri+'" onchange="GenerateEnvText();" class="form-select" aria-label="" style="min-width: 20em; width:auto;">';
+		for(key of Object.keys(setting.value_list)) {
+			retval=retval+'<option value="'+key+'">'+key+' ('+setting.value_list[key]+')'+'</option>'
+		}		
+		retval=retval+'</select></div></div>';
+	} else {
+	
+		if(setting.type=="checkbox" && (DoNotCheckSource || setting.sources.includes(SS))) {
+			retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div></div>';
+		}
+		if((setting.type=="number" || setting.type=="number_float") && (DoNotCheckSource || setting.sources.includes(SS))) {
+			retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-number-'+stri+'" type="number" min="-1" data-bind="value:input-number-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 10em;"></div></div>';
+		}
+		if((setting.type=="string" || setting.type=="defparam") && (DoNotCheckSource || setting.sources.includes(SS))) {
+			retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div><div class="col mb-1"><input id="input-string-'+stri+'" data-bind="value:input-string-'+stri+'" onchange="GenerateEnvText();" class="form-control" aria-label="" style="width: 30em;"></div></div>';
+		}
 	}
 	return retval;
 }
@@ -649,7 +658,7 @@ function EnvChanged() {
 					board_ext="";
 					for(var key2 of Object.keys(obj[key])) {
 						//PioEnvInfo.innerHTML=PioEnvInfo.innerHTML+key1+" = " + String(obj[key][key1])+"\n";
-						if(key2.includes("board_build")) {
+						if(key2.includes("board_build") || key2.includes("board_upload")) {
 							if(board_ext!="") board_ext=board_ext+"<br>";
 							board_ext=board_ext+"&nbsp;&nbsp;"+key2+" = "+obj[key][key2];
 						}
@@ -777,24 +786,25 @@ function GetLinesForDetail(setting, stri) {
 }
 
 function GenerateEnvText() {
-envtextfield=document.getElementById('env-text');
-SS=document.getElementById('select-sources')
-SSI=SS.selectedIndex;
-SE=document.getElementById('select-enviroments');
-SEI=SE.selectedIndex;
+	envtextfield=document.getElementById('env-text');
+	SS=document.getElementById('select-sources')
+	SSI=SS.selectedIndex;
+	SE=document.getElementById('select-enviroments');
+	SEI=SE.selectedIndex;
 
-var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
+	var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
 
-for(var i = 0; i < dataset.details.length; i++) {
-		if((dataset.details[i].type=="checkbox" || dataset.details[i].type=="number" || dataset.details[i].type=="number_float" || dataset.details[i].type=="string"  || dataset.details[i].type=="defparam") && dataset.details[i].sources.includes(SSI)) {
-			newline = GetLinesForDetail(dataset.details[i], "Det"+String(i));
-			value=value+newline;
+	for(var i = 0; i < dataset.details.length; i++) {
+			if((dataset.details[i].type=="checkbox" || dataset.details[i].type=="number" || dataset.details[i].type=="number_float" || dataset.details[i].type=="string"  || dataset.details[i].type=="defparam") && dataset.details[i].sources.includes(SSI)) {
+			// ("value_list" in dataset.details[i] && Object.keys(dataset.details[i]).length>0)
+				newline = GetLinesForDetail(dataset.details[i], "Det"+String(i));
+				value=value+newline;
+			}
+
 		}
 
-	}
-
-var buildflags="";
-var libdeps="";
+	var buildflags="";
+	var libdeps="";
 
 	for(var i = 0; i < dataset.settings.length; i++) {
 		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {

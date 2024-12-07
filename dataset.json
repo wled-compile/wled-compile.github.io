@@ -41,22 +41,101 @@
 	],
 	"details" :[
 		{
-			"name" : "Redefine board type (for example use esp32dev as a generic ESP32 board etc.)",
+			"name" : "Redefine board type (List of boards <a target='_blank' href='https://docs.platformio.org/en/latest/boards/index.html#espressif-32'>here</a>)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
 			"line" : "board = "
 		},
 		{
-			"name" : "Redefine flash mode type (for example dio, qio etc.)",
+			"name" : "Redefine flash mode type",
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
+			"value_list": {
+				"dout": "Dual Output, 2 pins used for data, approx. 50% slower than qio",
+				"dio": "Dual I/O, 2 pins used for address & data, approx. 45% slower than qio",
+				"qout": "Quad Output, 4 pins used for data, approx. 15% slower than qio",
+				"qio": "Quad I/O, 4 pins used for address & data, fastest"
+				
+			},
 			"line" : "board_build.flash_mode = "
 		},
 		{
-			"name" : "Redefine flash frequency (for example 80000000L, 40000000L etc.)",
+			"name" : "Redefine flash frequency",
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
+			"value_list": {
+				"40000000L": "40 MHz - typical value ",
+				"20000000L": "20 MHz",
+				"26000000L": "26 MHz",
+				"80000000L": "80 MHz"
+			},
 			"line" : "board_build.f_flash = "
+		},
+		{
+			"name" : "Redefine flash size",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"1MB": "some very cheap ESP8266 boards",
+				"2MB": "some cheap ESP8266 or ESP32-C3 boards",
+				"4MB": "typical value",
+				"8MB": "some ESP32(-xx) boards",
+				"16MB": "some ESP32(-xx) boards"
+			},
+			"line" : "board_upload.flash_size = "
+		},
+		{
+			"name" : "Redefine MCU type",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"esp8266": "ESP8266",
+				"esp32": "ESP32 - classic",
+				"esp32c3": "ESP32-C3",
+				"esp32s2": "ESP32-S2",
+				"esp32s3": "ESP32-S3",
+				"esp32c6": "ESP32-C6"
+				
+			},
+			"line" : "board_build.mcu = "
+		},
+		{
+			"name" : "Redefine CPU frequency",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"80000000L": "80 MHz - typical value for ESP8266",
+				"160000000L": "160 MHz - typical value for ESP32-C3 and -C6",
+				"240000000L": "240 MHz - typical for ESP32, ESP32-S2, ESP32-S3",
+				"40000000L": "40 MHz"
+			},
+			"line" : "board_build.f_cpu = "
+		},
+		{
+			"name" : "Redefine PSRAM type",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"qspi": "Quad SPI PSRAM (usually 2 and 4 MB)",
+				"opi": "Octal SPI PSRAM"
+			},
+			"line" : "board_build.psram_type = "
+		},
+		{
+			"name" : "Redefine memory type (Flash & PSRAM, must fit to flash mode and PSRAM type def.)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"dio_qspi": "Dual I/O flash, Quad SPI PSRAM",
+				"dout_qspi": "Dual Output flash, Quad SPI PSRAM",
+				"dio_opi": "Dual I/O flash, Octal SPI PSRAM",
+				"qio_qspi": "Quad I/O flash, Quad SPI PSRAM",
+				"qout_qspi": "Quad Output flash, Quad SPI PSRAM",
+				"qio_opi": "Quad I/O flash, Octal SPI PSRAM",
+				"opi_qspi": "Octal I/O flash, Quad SPI PSRAM",
+				"opi_opi": "Octal I/O flash, Octal SPI PSRAM"
+			},
+			"line" : "board_build.arduino.memory_type = "
 		}
 		
 	
