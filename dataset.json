@@ -1115,6 +1115,14 @@
 			"lib_deps" : ""
 		},
 		{
+			"name" : "Controlling Wiz lights that are part of the same network as the WLED controller",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/wizlights/readme.md",
+			"build_flags" : "-D USERMOD_WIZLIGHTS",
+			"lib_deps" : ""
+		},
+		{
 			"name" : "[WLED>=0.15.x] BME680/BME68X sensors",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
