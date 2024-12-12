@@ -553,15 +553,6 @@
 			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
 		},
 		{
-			"name" : "Remove Audio Reactive Usermod if included per default",
-			"sources" : [0, 3],
-			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
-			"build_flags" : "",
-			"lib_deps" : "",
-			"build_unflags" : "-D USERMOD_AUDIOREACTIVE",
-		},
-		{
 			"name" : "DS18B20 Temperatursensor",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
