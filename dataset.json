@@ -191,7 +191,7 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed, ATTENTION: Does not compile/work togeter with AudioRective WLED)",
+			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed, ATTENTION: Does not compile/work togeter with AudioRective WLED, use AR disable option if required)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_DMX",
@@ -551,6 +551,15 @@
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "-D USERMOD_AUDIOREACTIVE",
 			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
+		},
+		{
+			"name" : "Remove Audio Reactive Usermod if included per default",
+			"sources" : [0, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"build_flags" : "",
+			"lib_deps" : "",
+			"build_unflags" : "-D USERMOD_AUDIOREACTIVE",
 		},
 		{
 			"name" : "DS18B20 Temperatursensor",
