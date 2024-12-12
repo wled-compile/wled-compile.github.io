@@ -851,6 +851,7 @@ function GenerateEnvText() {
 
 	var buildflags="";
 	var libdeps="";
+	var buildunflags="";
 
 	for(var i = 0; i < dataset.settings.length; i++) {
 		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
@@ -865,6 +866,9 @@ function GenerateEnvText() {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
 				if(String(dataset.usermods[i].build_flags).length>0) {
 					buildflags=buildflags+" "+dataset.usermods[i].build_flags;
+				}
+				if("build_unflags" in dataset.usermods[i] && String(dataset.usermods[i].build_unflags).length>0) {
+					buildunflags=buildunflags+" "+dataset.usermods[i].build_unflags;
 				}
 				if(String(dataset.usermods[i].lib_deps).length>0) {
 					libdeps=libdeps+"\n  "+dataset.usermods[i].lib_deps;
@@ -882,6 +886,9 @@ function GenerateEnvText() {
 	
 	if(String(buildflags).length>0) {
 		value=value+"\nbuild_flags = ${env:"+SE.options[SEI].getAttribute("env")+".build_flags}"+buildflags;
+	}
+	if(String(buildunflags).length>0) {
+		value=value+"\nbuild_unflags = "+buildunflags;
 	}
 	if(String(libdeps).length>0) {
 		value=value+"\nlib_deps = \n  ${env:"+SE.options[SEI].getAttribute("env")+".lib_deps}"+libdeps;
