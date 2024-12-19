@@ -335,7 +335,7 @@
 			"name" : "Set default LED pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
-			"build_flags" : "-D LEDPIN=",
+			"build_flags" : "-D DATA_PINS=",
 			"lib_deps" : ""
 		},
 		{
@@ -427,7 +427,7 @@
 			"name" : "Define default number of LEDs (default: 30)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
-			"build_flags" : "-D DEFAULT_LED_COUNT=",
+			"build_flags" : "-D PIXEL_COUNTS=",
 			"lib_deps" : ""
 		},
 		{
@@ -443,7 +443,7 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
 			"minnumber": 0,
-			"build_flags" : "-D DEFAULT_LED_TYPE=",
+			"build_flags" : "-D LED_TYPES=",
 			"lib_deps" : ""
 		},
 		{
