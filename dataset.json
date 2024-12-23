@@ -136,6 +136,20 @@
 				"opi_opi": "Octal I/O flash, Octal SPI PSRAM"
 			},
 			"line" : "board_build.arduino.memory_type = "
+		},
+		{
+			"name" : "Redefine memory partitions (ESP32-xx only, WLED >= 0.15.x & MoonMod)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"value_list": {
+				"${esp32.tiny_partitions}": "2 MB Flash, 384 KB for FS, 1x 1.5 MB for program (no OTA)",
+				"${esp32.default_partitions}": "4 MB Flash: 1 MB for FS, 2x 1.5 MB for program",
+				"${esp32.extended_partitions}": "4 MB Flash: 700KB for FS, 2x 1.625 MB for program",
+				"${esp32.big_partitions}": "4 MB Flash: 256 KB for FS, 2x 1.8125 MB for program",
+				"${esp32.large_partitions}": "8 MB Flash: 3.875 MB for FS, 2x 2 MB for program",
+				"${esp32.extreme_partitions}": "16 MB Flash: 9.875 MB for FS, 2x 3 MB for program"
+			},
+			"line" : "board_build.partitions = "
 		}
 		
 	
