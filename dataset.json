@@ -154,6 +154,15 @@
 		
 	
 	],
+	"hacks":[
+		{
+			"id" : 0,
+			"name" : "Increase number of 2-pin LED busses from 1 to 4 [WLED 0.15.x or MoonModules, hack to settings_leds.htm]",
+			"file" : "wled00/data/settings_leds.htm",
+			"search" : "twopinB >= 1",
+			"replace" : "twopinB >= 4"
+		}
+	],
 	"settings":[
 		{
 			"name" : "Include Debug flags",

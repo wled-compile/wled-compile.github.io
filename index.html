@@ -105,6 +105,22 @@
 	</div>
 	</div>
 	
+	
+	<div class="accordion-item">
+	<h2 class="accordion-header" id="headingMainDetails1b">
+	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1b" aria-expanded="true" aria-controls="collapseOne1b">
+		<span id="L30b" style="color:blue;text-decoration: underline;"> Schritt 1b: Hacks & tweaks</span>
+	  </button>
+	</h2>
+	<div id="collapseOne1b" class="accordion-collapse collapse" aria-labelledby="headingMainDetails1b" data-bs-parent="#MainAccordion">
+	<div class="accordion-body">
+	<div id="div-hacks">
+		
+	</div>
+	</div>
+	</div>
+	</div>
+	
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails2">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
@@ -662,6 +678,18 @@ function EnvChanged() {
 	for(var i = 0; i < dataset.details.length; i++) {
 		options_div.innerHTML=options_div.innerHTML+GetSettingsHtml(dataset.details[i], false, "Det"+String(i));
       }
+	  
+	options_div=document.getElementById('div-hacks');
+	options_div.innerHTML="";
+	for(var i = 0; i < dataset.hacks.length; i++) {
+	
+		var stri="Hack"+String(i);
+		var setting = dataset.hacks[i];
+		
+		var retval='<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-set'+stri+'" name="option-set'+stri+'" value="something" onchange="GenerateEnvText();">  <label class="form-check-label">'+setting.name+'</label></div></div></div>';
+		
+		options_div.innerHTML=options_div.innerHTML+retval; //GetSettingsHtml(dataset.hacks[i], false, "Hack"+String(i));
+    }
 	
 	options_div=document.getElementById('div-usermods');
 	  options_div.innerHTML="";
@@ -861,6 +889,7 @@ function GenerateEnvText() {
 		}
 
 	}
+	
 	for(var i = 0; i < dataset.usermods.length; i++) {
 		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
@@ -937,7 +966,8 @@ function LangChanged() {
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Installieren";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 wie lolin_mini etc.: WEB installer funktioniert aktuell nicht";
-		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Schritt 1a (optional): ändere Compiler/Builder Details";
+		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Schritt 1a (optional, für Fortgeschrittene): ändere Compiler/Builder Details";
+		if(document.getElementById('L30b')) document.getElementById('L30b').innerHTML = "Schritt 1b (optional, für Fortgeschrittene): verwende spezielle hacks/tweaks";
 		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information über die Definitionen für das gewählte Controller Typ:";
 		
 	} else {
@@ -980,7 +1010,8 @@ function LangChanged() {
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Install";
 		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Step 6: install compiled SW directly via USB (optionally)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 such as lolin_mini etc.: WEB installer presently does not work";
-		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Step 1a (optionally): change compile/build details";
+		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Step 1a (optionally, for advanced users): change compile/build details";
+		if(document.getElementById('L30b')) document.getElementById('L30b').innerHTML = "Step 1b (optionally, for advanced users): apply special hacks/tweaks";
 		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information about the selected controller type definitions:";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
@@ -1018,9 +1049,24 @@ function GeneratorJob() {
 		SSI=SS.selectedIndex;
 		SB=document.getElementById('select-branches');
 		SBI=SB.selectedIndex;
+		
+		var hacks="";
+		for(var i = 0; i < dataset.hacks.length; i++) {
+			if(document.getElementById('checkbox-setHack'+String(i)).checked) {
+				if(hacks!="") {
+					hacks=hacks+";";
+				}
+				hacks=hacks+String(dataset.hacks[i].id);
+			}
+		}
+		
+		if(hacks!="") {
+			hacks="&hacks="+encodeURIComponent(hacks);
+		}
+		
 		var mReq = new XMLHttpRequest();
 		console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
-		mReq.open('POST', 'https://can-gateway.myhome-control.de/api/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://","")));
+		mReq.open('POST', 'https://can-gateway.myhome-control.de/api/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
 		mReq.setRequestHeader('Content-type', 'text/plain');
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
