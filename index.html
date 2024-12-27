@@ -1069,7 +1069,7 @@ function GeneratorJob() {
 		
 		var mReq = new XMLHttpRequest();
 		console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
-		mReq.open('POST', 'https://can-gateway.myhome-control.de/api/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
+		mReq.open('POST', 'https://wled-api.myhome-control.de/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
 		mReq.setRequestHeader('Content-type', 'text/plain');
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
