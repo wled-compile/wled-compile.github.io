@@ -214,6 +214,13 @@
 			"lib_deps" : ""
 		},
 		{
+			"name" : "Add some delay (in ms) at boot before startup (WLED>=0.15 or moonmod version; helps stabilize voltage for some not well designed boards)",
+			"sources" : [0, 2, 3],
+			"type" : "number",
+			"build_flags" : "-D WLED_BOOTUPDELAY=",
+			"lib_deps" : ""
+		},
+		{
 			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed, ATTENTION: Does not compile/work togeter with AudioRective WLED, use AR disable option if required)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
