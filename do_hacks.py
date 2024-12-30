@@ -33,7 +33,7 @@ try:
     with open("wled00/data/settings_sec.htm", 'r') as file:
         data=file.read()
         data = data.replace("##VERSION##", '##VERSION##<br>Compiled using <a href="https://wled-compile.github.io/" target="_blank">online wled compiler</a> provided by <a href="https://wshop.myhome-control.de" target="_blank">MyHome-Control</a><br>(compile UTC date/time: '+datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')+')')
-    with open(hack["file"], 'w') as file:
+    with open("wled00/data/settings_sec.htm", 'w') as file:
         file.write(data)
 except Exception:
     print("cannot add version info")
