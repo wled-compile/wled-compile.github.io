@@ -1092,7 +1092,7 @@ function GeneratorJob() {
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
 			var resp=mReq.responseText;
-			if(resp.length!=20+1+8) {
+			if(resp.length!=14+10+1+8) {
 			  //alert("Error returned!");
 			  idreturned='';
 			  datereturned='';
