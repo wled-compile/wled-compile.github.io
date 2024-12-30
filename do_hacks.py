@@ -5,7 +5,6 @@ from datetime import datetime
 
 
 hacks_str=""
-sys.argv[1]
 if(len(sys.argv) > 1):
     hacks_str=sys.argv[1]
 dataset={}
