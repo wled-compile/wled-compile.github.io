@@ -44,6 +44,7 @@
 			"name" : "Redefine board type (List of boards <a target='_blank' href='https://docs.platformio.org/en/latest/boards/index.html#espressif-32'>here</a>)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
+			"tooltip" : "Newest boards may not be supported",
 			"line" : "board = "
 		},
 		{
@@ -159,6 +160,7 @@
 			"id" : 0,
 			"name" : "Increase number of 2-pin LED busses from 1 to 4 [WLED >=0.15.x, hack to settings_leds.htm]",
 			"file" : "wled00/data/settings_leds.htm",
+			"tooltip" : "This does not work correctly with some GPIOs",
 			"search" : "twopinB >= 1",
 			"replace" : "twopinB >= 4"
 		}
@@ -214,9 +216,10 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Add some delay (in ms) at boot before startup (WLED>=0.15 or moonmod version; helps stabilize voltage for some not well designed boards)",
+			"name" : "Add some delay (in ms) at boot before startup (WLED>=0.15 or moonmod version)",
 			"sources" : [0, 2, 3],
 			"type" : "number",
+			"tooltip" : "Helps stabilize voltage for some not well designed boards",
 			"build_flags" : "-D WLED_BOOTUPDELAY=",
 			"lib_deps" : ""
 		},
@@ -249,9 +252,10 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Define host for NET debug (for example an IP like 192.168.1.20, FQDN is also possible)",
+			"name" : "Define host for NET debug (for example an IP like 192.168.1.20, )",
 			"sources" : [0, 1, 2, 3],
 			"type" : "string",
+			"tooltip" : "FQDN is also possible",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_DEBUG_HOST=",
 			"lib_deps" : ""
@@ -549,7 +553,7 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Define the password for the internal WiFI Access Point (default: wled1234)",
+			"name" : "Define the password for the internal WiFI Access Point (default: wled1234, you must also define WiFi AP name - see option above)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "string",
 			"minnumber": 0,
