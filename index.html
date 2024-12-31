@@ -13,7 +13,7 @@
 <div class="container">
 <h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> o</span><span style="color:brown">n</span><span style="color:hotpink">l</span><span style="color:lightcoral">i</span><span style="color:red">n</span><span style="color:seagreen">e</span><span style="color:crimson"> c</span><span style="color:darkgreen">o</span><span style="color:darkmagemnta">m</span><span style="color:darkblue">p</span><span style="color:red">i</span><span style="color:darksalmon">l</span><span style="color:lightpink">e</span><span style="color:red">r</span></h3>
 	<div class="form-floating mb-1">
-	  <select id="lang" onchange="LangChanged();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
+	  <select id="lang" onchange="LangChangedByUser();" class="form-select" aria-label="" style="min-width: 200px; width:auto;">
 			<option value="0">Deutsch</option>
 			<option value="1">English</option>
 	  </select>
@@ -944,7 +944,21 @@ function GenerateEnvText() {
 envtextfield.value=value;
 }
 
+function LangChangedByUser() {
+	url_params_object = new URLSearchParams( window.location.search );
+	if(document.getElementById('lang').selectedIndex==0) {
+		url_params_object.set( 'lang', 'de');
+	} else {
+		url_params_object.set( 'lang', 'en');
+	}
+	const url_params_string = url_params_object.toString();
+	const new_url           = window.location.origin + window.location.pathname + '?' + url_params_string;	
+	window.history.replaceState({}, document.getElementsByTagName("title")[0].innerHTML, new_url);
+	LangChanged();
+}
+
 function LangChanged() {
+	
     if(document.getElementById('lang').selectedIndex==0) {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Quelle der WLED SW auswählen (Abzweigung):";
 		if(document.getElementById('L02')) document.getElementById('L02').innerHTML = "Branch / Release auswählen:";
@@ -1063,6 +1077,9 @@ var datereturned='';
 var wait_cycle_counter=0;
 var wait_counter=0;
 
+const base_url_gate='https://wled-api.myhome-control.de/';
+const base_url_repo='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/';
+
 function GeneratorJob() {
 
 	if(generator_state=='start') {
@@ -1087,7 +1104,7 @@ function GeneratorJob() {
 		
 		var mReq = new XMLHttpRequest();
 		console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
-		mReq.open('POST', 'https://wled-api.myhome-control.de/gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
+		mReq.open('POST', base_url_gate+'gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
 		mReq.setRequestHeader('Content-type', 'text/plain');
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
@@ -1148,11 +1165,11 @@ function GeneratorJob() {
 				document.getElementById("spinner").style.visibility = "hidden";
 			} else {
 				var mReq = new XMLHttpRequest();
-				mReq.open('GET', 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/log.txt');
+				mReq.open('GET', base_url_repo+datereturned+'/'+idreturned+'/log.txt');
 				mReq.onreadystatechange = function () { 
 				  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforbuildfinish') {
 					generator_state='buildfinished';
-					linktofile='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/log.txt';
+					linktofile=base_url_repo+datereturned+'/'+idreturned+'/log.txt';
 					if(document.getElementById('lang').selectedIndex==0) {
 						document.getElementById('result_line1').innerHTML='Status: <span style="color:green">Abgeschlossen!</span>';
 						document.getElementById('result_line2').innerHTML='Bin-Datei: <span style="color:green">... wird generiert ...</span>';
@@ -1163,18 +1180,18 @@ function GeneratorJob() {
 						document.getElementById('result_line3').innerHTML='Download link for the logging file: <a href="'+linktofile+'" target="_blank">log.txt</a>';
 					}
 					var mReq1 = new XMLHttpRequest();
-					mReq1.open('GET', 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin');
+					mReq1.open('GET', base_url_repo+datereturned+'/'+idreturned+'/wled.bin');
 					mReq1.onreadystatechange = function () { 
 						if (mReq.readyState === 4 && this.status == 200 && generator_state=='buildfinished') {
 							generator_state='finished';
 							if(document.getElementById('lang').selectedIndex==0) {
-								document.getElementById('result_line2').innerHTML='Bin-Datei: <a href="'+'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+								document.getElementById('result_line2').innerHTML='Bin-Datei: <a href="'+base_url_repo+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
 							} else {
-								document.getElementById('result_line2').innerHTML='Bin file: <a href="'+'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+								document.getElementById('result_line2').innerHTML='Bin file: <a href="'+base_url_repo+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
 							}
 							document.getElementById("spinner").style.visibility = "hidden";
 							
-							manifest_file = 'https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/'+datereturned+'/'+idreturned+'/manifest_file.json';
+							manifest_file = base_url_repo+datereturned+'/'+idreturned+'/manifest_file.json';
 							if(document.getElementById('install_btn')) document.getElementById('install_btn').setAttribute('manifest',manifest_file);
 							if(document.getElementById("InstallButton")) document.getElementById("InstallButton").disabled = false;
 						}
@@ -1238,7 +1255,15 @@ function NewTypesHelp() {
 }
 
 window.onload = function () {
-
+	const searchParams = new URLSearchParams(window.location.search);
+	lang=searchParams.get('lang');
+	if(lang=="en") {
+		document.getElementById('lang').value="1";
+	} else {
+		document.getElementById('lang').value="0"
+		lang="de";
+	}
+	
 	if (document.getElementById('install_btn').hasAttribute('install-unsupported')) {
         if(document.getElementById('lang').selectedIndex==0) {
             document.getElementById('InstallNoteContainer').innerHTML = "<span id=\"L10\">Leider wird Ihr Browser für die Installation über USB aktuell nicht unterstützt!<br>Bitte versuchen Sie mit Google Chrome (für Desktop) oder Microsoft Edge.";
