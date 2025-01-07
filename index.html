@@ -23,8 +23,28 @@
 		<h4 id="L07">Kompiliere Dir eigene WLED Software online mit nur wenigen Klicks!</h4>
 		<p><span id="L25">(alter compile helper hier: </span><a href="./index1.html">old compile helper</a>)</p>
 	</div>
-	<div class="form-floating mb-1">
-		<p><span id="L35" style="color:red">Achtung: bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann!</p>
+	<div id="PrivateModeMSG" class="form-floating mb-1 p-1 border border-success border-2 rounded" style="background-color:white;display: none;">
+		<b><p id="L45" class="m-0 p-0">Privater Modus: Ihre Daten werden durch Kompilieren auf privaten Servern geschützt.</p></b>
+		<div id="PrivateModeMSG_validating" style="display: none;"> 
+			<span id="L41" class="text-warning">Ihre Abonnement-Daten (Login, Passwort) werden geprüft ... </span>
+			<div class="spinner-border spinner-border-sm text-warning" role="status" id="validate_spinner"></div>
+		</div>
+		<div id="PrivateModeMSG_expired" style="display: none;"> 
+			<span id="L42" class="text-danger">Achtung: Ihr Abonnement ist <b>abgelaufen</b>! Bitte bestellen Sie hier ein neues.</span>
+		</div>
+		<div id="PrivateModeMSG_error" style="display: none;"> 
+			<span id="L43"  class="text-danger">Achtung: Ihr Abonnement ist <b>nicht korrekt</b>! Bitte bestellen Sie hier eine neues oder wenden Sie sich an support via Email info@myhome-control.de</span>
+		</div>
+		<div id="PrivateModeMSG_valid" style="display: none;"> 
+			<span id="L44"  class="text-success">Ihr Abonnement ist erfolgreich geprüft und ist <b>gültig</b>!</span>
+		</div>
+		<div id="PrivateModeMSG_servererror" style="display: none;"> 
+			<span id="L47"  class="text-danger">Ein <b>Fehler</b> des Servers! Bitte versuchen Sie es etwas später erneut. Bei erneuten Fehlern wenden Sie sich an support via Email <a href="mailto:info@myhome-control.de">info@myhome-control.de</a></span>
+		</div>
+
+	</div>
+	<div id="AttentionMSG" class="form-floating mb-1 p-1 border border-danger border-2 rounded" style="background-color:white">
+		<span id="L35" style="color:red">Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="https://myhome-control.de" target="_blank">Ticket in unserem Shop</a>.</span>
 	</div>
 	<div class="accordion accordion-flush" id="MainAccordion">
 	<div class="accordion-item">
@@ -93,7 +113,7 @@
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails1a">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1a" aria-expanded="true" aria-controls="collapseOne1a">
-		<span id="L30a" style="color:blue;text-decoration: underline;"> Schritt 1a: Modifikationen</span>
+		<span id="L30a" style="color:blue;text-decoration: underline;"> Schritt 1a (optional, für Fortgeschrittene): ändere Compiler/Builder Details</span>
 	  </button>
 	</h2>
 	<div id="collapseOne1a" class="accordion-collapse collapse" aria-labelledby="headingMainDetails1a" data-bs-parent="#MainAccordion">
@@ -109,7 +129,7 @@
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails1b">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne1b" aria-expanded="true" aria-controls="collapseOne1b">
-		<span id="L30b" style="color:blue;text-decoration: underline;"> Schritt 1b: Hacks & tweaks</span>
+		<span id="L30b" style="color:blue;text-decoration: underline;"> Schritt 1b (optional, für Fortgeschrittene): verwende spezielle hacks/tweaks</span>
 	  </button>
 	</h2>
 	<div id="collapseOne1b" class="accordion-collapse collapse" aria-labelledby="headingMainDetails1b" data-bs-parent="#MainAccordion">
@@ -125,7 +145,7 @@
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails2">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne2">
-		<span id="L31" style="color:blue;text-decoration: underline;"> Schritt 2: Optionen auswählen</span>
+		<span id="L31" style="color:blue;text-decoration: underline;"> Schritt 2: Optionen wählen</span>
 	  </button>
 	</h2>
 	<div id="collapseOne2" class="accordion-collapse collapse" aria-labelledby="headingMainDetails2" data-bs-parent="#MainAccordion">
@@ -176,7 +196,7 @@
 	<div id="collapseOne5" class="accordion-collapse collapse" aria-labelledby="headingMainDetails5" data-bs-parent="#MainAccordion">
 	<div class="accordion-body">
 	<div class="container m-0 p-2">
-	<button type="button" class="btn btn-primary" onclick="StartBuildOnline()"><span span id="L22">Kompilieren starten</span></button>
+	<button type="button" class="btn btn-primary" onclick="ClickBuildOnline()"><span span id="L22">Kompilieren starten</span><span span id="L46">Kompilieren auf einem privaten Server starten</span></button>
 	<a id="downloadLinkYAML" href="" download="wled_compile.yaml" style="display: none;"></a>
 	
 	<div class="container m-0 p-2">
@@ -204,7 +224,7 @@
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails6">
 	  <button class="accordion-button collapsed" style="padding-left:0;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne6" aria-expanded="true" aria-controls="collapseOne6">
-		<span id="L38" style="color:blue;text-decoration: underline;">Schritt 6: Kompilierte SW direkt über USB installieren</span>
+		<span id="L38" style="color:blue;text-decoration: underline;">Schritt 6: Kompilierte SW direkt über USB installieren (optional)</span>
 	  </button>
 	</h2>
 	<div id="collapseOne6" class="accordion-collapse collapse" aria-labelledby="headingMainDetails6" data-bs-parent="#MainAccordion">
@@ -240,6 +260,32 @@
 
 	
 	</div>
+	
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+  </symbol>
+</svg>
+
+<div class="modal fade" id="WarnPublicData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="WarnPublicDataLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert alert-danger">
+		<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <h5 class="modal-title" id="WarnPublicDataLabel">Achtung: Sicherheit Ihrer Daten!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="L50"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" id="L48">Abbrechen</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="L49" onClick="StartBuildOnline(false);">Ignorieren und kompilieren starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	
 <hr>
     <div class="container">
 	   <div class="row">
@@ -248,8 +294,8 @@
 				<ul>
 				  <li><span id="L14a">Offizielle WLED Wiki (Englisch):</span> <a href="https://kno.wled.ge">https://kno.wled.ge</a></li>
 				  <li><span id="L14f">WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a></span></li>
-				  <li><span id="L14c">Professionelle WLED Boards:<a href="https://shop.myhome-control.de">MyHome-Control Shop</a></span></li>
-				  <li><span id="L14d">WEB-based WLED software installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
+				  <li><span id="L14c">Professionelle WLED Controller: <a href="https://shop.myhome-control.de">MyHome-Control Shop</a></span></li>
+				  <li><span id="L14d">WEB-basierter WLED software Installer:</span> <a href="https://wled-install.github.io">WLED-INSTALL</a></li>
 				  <li><span id="L14e">WLED power calculator: </span><a href="https://wled-calculator.github.io">https://wled-calculator.github.io</a></li>
 				</ul>
 		</div>
@@ -331,6 +377,9 @@
 <script>
 var dataset;
 var selected_ini_lines="";
+var PrivateModeState="off";
+const TicketShopLinkEN="https://shop.myhome-control.de/en/Ticket-for-WLED-COMPILE-Web-Service-on-a-protected-server-NO-auto-renewal/SW10004";
+const TicketShopLinkDE="https://shop.myhome-control.de/Ticket-fuer-WLED-COMPILE-Web-Service-auf-einem-geschuetzten-Server-KEINE-autom.-Verlaengerung/SW10004";
 
 
 function proceed_extends(obj) {
@@ -987,7 +1036,7 @@ function LangChanged() {
 		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = 'Schritt 3: UserMods auswählen';
 		if(document.getElementById('L33')) document.getElementById('L33').innerHTML = 'Schritt 5: Kompilieren starten und nach Abschluss SW herunterladen';
 		if(document.getElementById('L34')) document.getElementById('L34').innerHTML = 'Ergebnisse zum Herunterladen:';
-		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann!';
+		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="'+TicketShopLinkDE+'" target="_blank">Ticket in unserem Shop</a>.';
 		if(document.getElementById('L36')) document.getElementById('L36').innerHTML = 'Diese Software ist open source und wird kostenfrei zur Verfügung gestellt. Es werden keine bestimmten Eigenschaften der Software zugesichert. Der Inhaber dieser Webseite haftet nur für Vorsatz und grobe Fahrlässigkeit. Gewährleistungspflichten treffen ihn nur, wenn er Mängel der Software arglistig verschwiegen hat.';
 		if(document.getElementById('L37')) document.getElementById('L37').innerHTML = 'Bitte beachten Sie die Software Lizenzen: <a href="https://wled-install.github.io/WLED_Software_Lizenzen.pdf">WLED licenses</a>';
 		if(document.getElementById('L23x')) document.getElementById('L23x').innerHTML = 'Vorgehensweise:';
@@ -996,12 +1045,23 @@ function LangChanged() {
         if(document.getElementById('L04x')) document.getElementById('L04x').innerHTML = "Kein Board wurde gefunden?";
         if(document.getElementById('L05x')) document.getElementById('L05x').innerHTML = "Klicken Sie auf \"Install WLED\". Die Installation beginnt. Sollte nach einiger Zeit die Installation beim \"Wrapping Up\" stehen bleiben, können sie es unterbrechen. Die SW ist dann trotzdem i.O. installiert.";
         if(document.getElementById('L09x')) document.getElementById('L09x').innerHTML = "Installieren";
-		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optionall)";
+		if(document.getElementById('L38')) document.getElementById('L38').innerHTML = "Schritt 6: Kompilierte SW direkt über USB installieren (optional)";
 	    if(document.getElementById('L28x')) document.getElementById('L28x').innerHTML = "ESP32-S2 wie lolin_mini etc.: WEB installer funktioniert aktuell nicht";
 		if(document.getElementById('L30a')) document.getElementById('L30a').innerHTML = "Schritt 1a (optional, für Fortgeschrittene): ändere Compiler/Builder Details";
 		if(document.getElementById('L30b')) document.getElementById('L30b').innerHTML = "Schritt 1b (optional, für Fortgeschrittene): verwende spezielle hacks/tweaks";
 		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information über die Definitionen für das gewählte Controller Typ:";
 		if(document.getElementById('L40')) document.getElementById('L40').innerHTML = "Achtung: diese Hacks/Tweaks funktionieren evtl. nicht immer bzw. ggf. nur unter bestimmten Bedienungen.";
+		if(document.getElementById('L41')) document.getElementById('L41').innerHTML = "Ihre Abonnement-Daten (Login, Passwort) werden geprüft ... ";
+		if(document.getElementById('L42')) document.getElementById('L42').innerHTML = "Achtung: Ihr Abonnement ist <b>abgelaufen</b>! Bitte bestellen Sie <a href='"+TicketShopLinkDE+"' target='_blank'>hier</a> ein neues.";
+		if(document.getElementById('L43')) document.getElementById('L43').innerHTML = "Achtung: Ihr Abonnement ist <b>nicht korrekt</b>! Bitte bestellen Sie <a href='"+TicketShopLinkDE+"' target='_blank'>hier</a> eine neues oder wenden Sie sich an support via Email <a href='mailto:info@myhome-control.de'>info@myhome-control.de</a>";
+		if(document.getElementById('L44')) document.getElementById('L44').innerHTML = "Ihr Abonnement ist erfolgreich geprüft und ist <b>gültig</b>!";
+		if(document.getElementById('L45')) document.getElementById('L45').innerHTML = "Privater Modus: Ihre Daten werden durch Kompilieren auf privaten Servern geschützt.";
+		if(document.getElementById('L46')) document.getElementById('L46').innerHTML = "Kompilieren auf einem privaten Server starten";
+		if(document.getElementById('L47')) document.getElementById('L47').innerHTML = "Ein <b>Fehler</b> des Servers! Bitte versuchen Sie es etwas später erneut. Bei erneuten Fehlern wenden Sie sich an support via Email <a href='mailto:info@myhome-control.de'>info@myhome-control.de</a>";
+		if(document.getElementById('WarnPublicDataLabel')) document.getElementById('WarnPublicDataLabel').innerHTML = "Achtung: Sicherheit Ihrer Daten!";
+		if(document.getElementById('L48')) document.getElementById('L48').innerHTML = "Abbrechen";
+		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignorieren und kompilieren starten";
+		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'Sie kompilieren auf einem öffentlichen Server, wo jeder Ihre Daten einsehen kann. Sie haben aber Ihre persönlichen Daten (WiFi SSID und/oder Password) definiert. Jeder kann diese einsehen! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="'+TicketShopLinkDE+'" target="_blank">Ticket in unserem Shop</a>';
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -1022,7 +1082,7 @@ function LangChanged() {
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful links: ";
-		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "start compile/build";
+		if(document.getElementById('L22')) document.getElementById('L22').innerHTML = "Start compile/build";
 
 		if(document.getElementById('L25')) document.getElementById('L25').innerHTML = '(old compile helper here: ';
 		if(document.getElementById('L26')) document.getElementById('L26').innerHTML = 'Your GitHub account name';
@@ -1032,7 +1092,7 @@ function LangChanged() {
 		if(document.getElementById('L32')) document.getElementById('L32').innerHTML = 'Step 3: select usermods';
 		if(document.getElementById('L33')) document.getElementById('L33').innerHTML = 'Step 5: start compiling and download SW when finished';
 		if(document.getElementById('L34')) document.getElementById('L34').innerHTML = 'Results to download:';
-		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Attention: Please do not enter any personal data (name etc.) or secret information (passwords etc.) when configuring the WLED SW! Compiling takes place on publicly accessible servers so that everyone can see the information you enter!';
+		if(document.getElementById('L35')) document.getElementById('L35').innerHTML = 'Attention: Please do not enter any personal data (name etc.) or secret information (passwords etc.) when configuring the WLED SW! Compiling takes place on publicly accessible servers so that everyone can see the information you enter! For a small fee we can also compile in a protected area. To do this, please purchase a <a href="'+TicketShopLinkEN+'" target="_blank">ticket in our shop</a>.';
 		if(document.getElementById('L36')) document.getElementById('L36').innerHTML = 'This is open source software and is provided for free. It is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the owner of this web page be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software. The exeption are cases defined by the law. In case German law should be applied, the German version of this disclaimer must be used (please select German language above).';
 		if(document.getElementById('L37')) document.getElementById('L37').innerHTML = 'Bitte beachten Sie die Software Lizenzen: <a href="https://wled-install.github.io/WLED_Software_Lizenzen.pdf">WLED licenses</a>';
 		if(document.getElementById('L23x')) document.getElementById('L23x').innerHTML = 'Steps:';
@@ -1047,6 +1107,18 @@ function LangChanged() {
 		if(document.getElementById('L30b')) document.getElementById('L30b').innerHTML = "Step 1b (optionally, for advanced users): apply special hacks/tweaks";
 		if(document.getElementById('L39')) document.getElementById('L39').innerHTML = "Information about the selected controller type definitions:";
 		if(document.getElementById('L40')) document.getElementById('L40').innerHTML = "Attention: these hacks do not always work or only under certain circumstances. No support for them.";
+		if(document.getElementById('L41')) document.getElementById('L41').innerHTML = "Your subscription details (login, password) are being validated ...";
+		if(document.getElementById('L42')) document.getElementById('L42').innerHTML = "Attention: Your subscription has <b>expired</b>! Please order a new one <a href='"+TicketShopLinkEN+"' target='_blank'>here</a>.";
+		if(document.getElementById('L43')) document.getElementById('L43').innerHTML = "Attention: Your subscription is <b>incorrect</b>! Please order a new one <a href='"+TicketShopLinkEN+"' target='_blank'>here</a> or contact support via email <a href='mailto:info@myhome-control.de'>info@myhome-control.de</a>";
+		
+		if(document.getElementById('L44')) document.getElementById('L44').innerHTML = "Your subscription has been successfully verified and is <b>valid</b>!";
+		if(document.getElementById('L45')) document.getElementById('L45').innerHTML = "Private Mode: Your data is protected by compiling on private servers.";
+		if(document.getElementById('L46')) document.getElementById('L46').innerHTML = "Start compile/build on private server";
+		if(document.getElementById('L47')) document.getElementById('L47').innerHTML = "An <b>Error</b> of the server! Please try again a little later. If errors occur again, contact support via email <a href='mailto:info@myhome-control.de'>info@myhome-control.de</a>";
+		if(document.getElementById('WarnPublicDataLabel')) document.getElementById('WarnPublicDataLabel').innerHTML = "Attention: Security of your data!";
+		if(document.getElementById('L48')) document.getElementById('L48').innerHTML = "Cancel";
+		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignore and start compiling";
+		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'You compile on a public server where anyone can see your data. However, you have defined your personal data (WiFi SSID and/or password). Anyone can see these! For a small fee we can also compile in a protected area. To do this, purchase a <a href="'+TicketShopLinkEN+'" target="_blank">ticket in our shop</a>';
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
@@ -1066,11 +1138,6 @@ function LangChanged() {
 
 }
 
-// $$WLEDPATH$$ Path to zipped source
-// echo " " >> platformio.ini
-// pio run -e esp32dev || pio run -e esp32dev || true
-// $$WLEDPIORUN$$
-
 var generator_state='waiting';
 var idreturned='';
 var datereturned='';
@@ -1078,9 +1145,13 @@ var wait_cycle_counter=0;
 var wait_counter=0;
 
 const base_url_gate='https://wled-api.myhome-control.de/';
-const base_url_repo='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/';
+const base_url_gate_private='https://wled-api.myhome-control.de/cs-api/';
+//const base_url_gate='https://10.254.3.100';
 
-function GeneratorJob() {
+const base_url_repo='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/';
+const base_url_repo_private=base_url_gate_private;
+
+function GeneratorJob(PrivateMode) {
 
 	if(generator_state=='start') {
 		SS=document.getElementById('select-sources');
@@ -1103,13 +1174,21 @@ function GeneratorJob() {
 		}
 		
 		var mReq = new XMLHttpRequest();
-		console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
-		mReq.open('POST', base_url_gate+'gate_post2.php?repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
+		//console.log(encodeURIComponent(SB.options[SBI].getAttribute("url")));
+		url_gate="";
+		
+		if(PrivateMode) {
+			const searchParams = new URLSearchParams(window.location.search);
+			url_gate=base_url_gate_private+'gate_post2.php?'+searchParams.toString()+'&';
+		} else {
+			url_gate=base_url_gate+'gate_post2.php?';
+		}
+		mReq.open('POST', url_gate +'repo='+encodeURIComponent(SB.options[SBI].getAttribute("url").replace("https://","").replace("http://",""))+hacks);
 		mReq.setRequestHeader('Content-type', 'text/plain');
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
 			var resp=mReq.responseText;
-			if(resp.length!=14+10+1+8) {
+			if(resp.length!=14+10+1+8 && resp.length!=99) {
 			  //alert("Error returned!");
 			  idreturned='';
 			  datereturned='';
@@ -1151,9 +1230,9 @@ function GeneratorJob() {
 		mReq.send(document.getElementById('env-text').value.replaceAll("\n","\\n"));
 	}
 	if(generator_state=='waitforbuildfinish') {
-		if(wait_counter>=10) {
+		if(wait_counter>=30) {
 			wait_cycle_counter=wait_cycle_counter+1;
-			if(wait_cycle_counter>120) {
+			if(wait_cycle_counter>40) {
 				generator_state='interrupted';
 				if(document.getElementById('lang').selectedIndex==0) {
 					document.getElementById('result_line1').innerHTML='Status: <span style="color:red">Abgebrochen wegen Timeout! Versuchen Sie erneut!</span>';
@@ -1165,11 +1244,25 @@ function GeneratorJob() {
 				document.getElementById("spinner").style.visibility = "hidden";
 			} else {
 				var mReq = new XMLHttpRequest();
-				mReq.open('GET', base_url_repo+datereturned+'/'+idreturned+'/log.txt');
+				
+				linktofile="";
+				if(PrivateMode) {
+					linktofile=base_url_repo_private+'log.txt?resultdate='+datereturned+'&resultid='+idreturned;
+				} else {
+					linktofile=base_url_repo+datereturned+'/'+idreturned+'/log.txt';
+				}
+				mReq.open('GET', linktofile);
 				mReq.onreadystatechange = function () { 
 				  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforbuildfinish') {
 					generator_state='buildfinished';
-					linktofile=base_url_repo+datereturned+'/'+idreturned+'/log.txt';
+					
+					linktofile="";
+					if(PrivateMode) {
+						linktofile=base_url_repo_private+'log.txt?resultdate='+datereturned+'&resultid='+idreturned;
+					} else {
+						linktofile=base_url_repo+datereturned+'/'+idreturned+'/log.txt';
+					}
+					
 					if(document.getElementById('lang').selectedIndex==0) {
 						document.getElementById('result_line1').innerHTML='Status: <span style="color:green">Abgeschlossen!</span>';
 						document.getElementById('result_line2').innerHTML='Bin-Datei: <span style="color:green">... wird generiert ...</span>';
@@ -1180,18 +1273,40 @@ function GeneratorJob() {
 						document.getElementById('result_line3').innerHTML='Download link for the logging file: <a href="'+linktofile+'" target="_blank">log.txt</a>';
 					}
 					var mReq1 = new XMLHttpRequest();
-					mReq1.open('GET', base_url_repo+datereturned+'/'+idreturned+'/wled.bin');
+					
+					linktofile="";
+					if(PrivateMode) {
+						linktofile=base_url_repo_private+'wled.bin?resultdate='+datereturned+'&resultid='+idreturned;
+					} else {
+						linktofile=base_url_repo+datereturned+'/'+idreturned+'/wled.bin';
+					}
+					
+					mReq1.open('GET', linktofile);
 					mReq1.onreadystatechange = function () { 
 						if (mReq.readyState === 4 && this.status == 200 && generator_state=='buildfinished') {
 							generator_state='finished';
-							if(document.getElementById('lang').selectedIndex==0) {
-								document.getElementById('result_line2').innerHTML='Bin-Datei: <a href="'+base_url_repo+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+							
+							linktofile="";
+							if(PrivateMode) {
+								linktofile=base_url_repo_private+'wled.bin?resultdate='+datereturned+'&resultid='+idreturned;
 							} else {
-								document.getElementById('result_line2').innerHTML='Bin file: <a href="'+base_url_repo+datereturned+'/'+idreturned+'/wled.bin'+'" download>wled.bin</a>';
+								linktofile=base_url_repo+datereturned+'/'+idreturned+'/wled.bin';
+							}
+							
+							if(document.getElementById('lang').selectedIndex==0) {
+								document.getElementById('result_line2').innerHTML='Bin-Datei: <a href="'+linktofile+'" download>wled.bin</a>';
+							} else {
+								document.getElementById('result_line2').innerHTML='Bin file: <a href="'+linktofile+'" download>wled.bin</a>';
 							}
 							document.getElementById("spinner").style.visibility = "hidden";
 							
-							manifest_file = base_url_repo+datereturned+'/'+idreturned+'/manifest_file.json';
+							manifest_file="";
+							if(PrivateMode) {
+								manifest_file=base_url_repo_private+'manifest_file.json?resultdate='+datereturned+'&resultid='+idreturned;
+							} else {
+								manifest_file = base_url_repo+datereturned+'/'+idreturned+'/manifest_file.json';
+							}
+							
 							if(document.getElementById('install_btn')) document.getElementById('install_btn').setAttribute('manifest',manifest_file);
 							if(document.getElementById("InstallButton")) document.getElementById("InstallButton").disabled = false;
 						}
@@ -1219,7 +1334,35 @@ function GeneratorJob() {
 
 }
 
-function StartBuildOnline() {
+PrivateBuild=false;
+
+function ClickBuildOnline() {
+	if(document.getElementById('L46').style.display === "none") {
+		//public build
+		if(CheckPrivateDataUsed()) {
+			var myModal = new bootstrap.Modal(document.getElementById('WarnPublicData'), {});
+			myModal.show();
+		} else {
+			StartBuildOnline(false);
+		}
+	} else {
+		//privateBuild
+		StartBuildOnline(true);
+	}
+
+}
+
+function CheckPrivateDataUsed() {
+	envstr=document.getElementById('env-text').value.toString();
+	if(envstr.includes("CLIENT_SSID") || envstr.includes("CLIENT_PASS") || envstr.includes("WLED_AP_SSID") || envstr.includes("WLED_AP_PASS")) {
+		return true;
+	} else {
+		return false;
+	}
+
+}
+
+function StartBuildOnline(PrivateMode) {
 	if(generator_state=='waiting' || generator_state=='interrupted' || generator_state=='finished') {
 		// start
 		generator_state='start';
@@ -1232,7 +1375,7 @@ function StartBuildOnline() {
 			document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:orange">nothing yet</span>';
 		}
 		document.getElementById('result_line3').innerHTML='';
-		var interval = setInterval(function() {GeneratorJob();}, 1000);
+		var interval = setInterval(GeneratorJob, 1000, PrivateMode);
 		document.getElementById("spinner").style.visibility = "visible";
 	}
 }
@@ -1254,6 +1397,79 @@ function NewTypesHelp() {
     }
 }
 
+function startvalidation() {
+	const searchParams = new URLSearchParams(window.location.search);
+	var mReq = new XMLHttpRequest();
+	mReq.open('GET', base_url_gate+'/cs-api/validate.php?'+searchParams.toString());
+	mReq.setRequestHeader('Content-type', 'text/plain');
+	mReq.timeout = 20000;
+	mReq.ontimeout = function () {
+		PrivateModeState="servererror";
+		document.getElementById('L22').style.display = "inherit";
+		document.getElementById('L46').style.display = "none";
+		
+		document.getElementById('PrivateModeMSG_validating').style.display = "none";
+		document.getElementById('PrivateModeMSG_expired').style.display = "none";
+		document.getElementById('PrivateModeMSG_error').style.display = "none";
+		document.getElementById('PrivateModeMSG_valid').style.display = "none";
+		document.getElementById('PrivateModeMSG_servererror').style.display = "inherit";
+	}
+
+	mReq.onreadystatechange = function () { 
+		if (mReq.readyState === 4) {
+			if(this.status == 200) {
+				var resp=mReq.responseText;
+				if(resp==="OK") {
+					PrivateModeState="valid";
+					document.getElementById('L22').style.display = "none";
+					document.getElementById('L46').style.display = "inherit";
+					
+					document.getElementById('PrivateModeMSG_validating').style.display = "none";
+					document.getElementById('PrivateModeMSG_expired').style.display = "none";
+					document.getElementById('PrivateModeMSG_error').style.display = "none";
+					document.getElementById('PrivateModeMSG_valid').style.display = "inherit";
+					document.getElementById('PrivateModeMSG_servererror').style.display = "none";
+					return;
+				}
+				if(resp==="EXPIRED") {
+					PrivateModeState="expired";
+					document.getElementById('L22').style.display = "inherit";
+					document.getElementById('L46').style.display = "none";
+					
+					document.getElementById('PrivateModeMSG_validating').style.display = "none";
+					document.getElementById('PrivateModeMSG_expired').style.display = "inherit";
+					document.getElementById('PrivateModeMSG_error').style.display = "none";
+					document.getElementById('PrivateModeMSG_valid').style.display = "none";
+					document.getElementById('PrivateModeMSG_servererror').style.display = "none";
+					return;
+				}
+				if(resp==="ERROR") {
+					PrivateModeState="error";
+					document.getElementById('L22').style.display = "inherit";
+					document.getElementById('L46').style.display = "none";
+					
+					document.getElementById('PrivateModeMSG_validating').style.display = "none";
+					document.getElementById('PrivateModeMSG_expired').style.display = "none";
+					document.getElementById('PrivateModeMSG_error').style.display = "inherit";
+					document.getElementById('PrivateModeMSG_valid').style.display = "none";
+					document.getElementById('PrivateModeMSG_servererror').style.display = "none";
+					return;
+				}
+			}
+			PrivateModeState="servererror";
+			document.getElementById('L22').style.display = "inherit";
+			document.getElementById('L46').style.display = "none";
+			
+			document.getElementById('PrivateModeMSG_validating').style.display = "none";
+			document.getElementById('PrivateModeMSG_expired').style.display = "none";
+			document.getElementById('PrivateModeMSG_error').style.display = "none";
+			document.getElementById('PrivateModeMSG_valid').style.display = "none";
+			document.getElementById('PrivateModeMSG_servererror').style.display = "inherit";
+		}
+	};
+	mReq.send();
+}
+
 window.onload = function () {
 	const searchParams = new URLSearchParams(window.location.search);
 	lang=searchParams.get('lang');
@@ -1262,6 +1478,24 @@ window.onload = function () {
 	} else {
 		document.getElementById('lang').value="0"
 		lang="de";
+	}
+	
+	document.getElementById('L22').style.display = "inherit";
+	document.getElementById('L46').style.display = "none";
+	
+	if(searchParams.has("login") || searchParams.has("startdate") || searchParams.has("enddate") || searchParams.has("pwd")) {
+		document.getElementById('AttentionMSG').style.display = "none";
+		document.getElementById('PrivateModeMSG').style.display = "inherit";
+		document.getElementById('PrivateModeMSG_validating').style.display = "inherit";
+		document.getElementById('PrivateModeMSG_expired').style.display = "none";
+		document.getElementById('PrivateModeMSG_error').style.display = "none";
+		document.getElementById('PrivateModeMSG_valid').style.display = "none";
+		document.getElementById('PrivateModeMSG_servererror').style.display = "none";
+		PrivateModeState="validating";
+		startvalidation();
+	} else {
+		document.getElementById('AttentionMSG').style.display = "inherit";
+		document.getElementById('PrivateModeMSG').style.display = "none";
 	}
 	
 	if (document.getElementById('install_btn').hasAttribute('install-unsupported')) {
