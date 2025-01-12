@@ -471,13 +471,23 @@ function TestIni() {
 				//console.log(lines[x]);
 			}else if(regex.param.test(lines[x]) && !regex.start_with_minus.test(lines[x])){
 				var match = lines[x].match(regex.param);
-				state="param";
-				if(section){
-					value[section][match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
-				}else{
-					value[match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+				if (last_param=="lib_deps" && ( match[2].trim().startsWith("symlink:") || match[2].trim().startsWith("https:") || match[2].trim().startsWith("http:") ) && regex.param_newline.test(lines[x])) {
+					
+					if(section){
+						value[section][last_param] = value[section][last_param] + " " + match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+					}else{
+						value[last_param] = value[last_param] + " " +match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+					}
+					
+				} else {
+					state="param";
+					if(section){
+						value[section][match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+					}else{
+						value[match[1]] = match[2].split(';')[0].split(' #')[0].split(/\s*#\s*-.*/)[0].replace(/\s*@\s*/,"@").trim();
+					}
+					last_param=match[1].trim();
 				}
-				last_param=match[1].trim();
 			}else if(regex.section.test(lines[x])){
 				var match = lines[x].match(regex.section);
 				value[match[1]] = {};
