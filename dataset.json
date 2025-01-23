@@ -849,7 +849,7 @@
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_four_line_display_ALT/readme.md",
 			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "U8g2@~2.34.4\n  Wire"
-		}
+		},
 		{
 			"name" : "Animated staircase",
 			"sources" : [0, 1, 2, 3],
