@@ -25,7 +25,7 @@
 		"custom": 0,
         "name": "MoonModules Fork",
 		"githubusername": "moonmodules",
-		"githubreponame": "WLED",
+		"githubreponame": "WLED-MM",
 		"recommendedbranch":"mdev",
 		"recommended_esp8266":"nodemcuv2",
 		"recommended_esp32":"esp32_4MB_S"
