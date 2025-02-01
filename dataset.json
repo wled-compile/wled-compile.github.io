@@ -806,11 +806,11 @@
 			]
 		},
 		{
-			"name" : "Rotary encoder UI ALT (alternative, includes USERMOD__LINE_DISPLAY)",
+			"name" : "Rotary encoder UI ALT (alternative, includes USERMOD_FOUR_LINE_DISPLAY)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
-			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USE_ALT_DISPlAY",
+			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "U8g2@~2.34.4\n  Wire",
 			"options" : [
 				{
