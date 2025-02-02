@@ -737,7 +737,7 @@
 			]
 		},
 		{
-			"name" : "Four line display (old WLED versions only, <0.15.x, for new versions use "I2C/SPI 4 Line Display Usermod ALTernative")",
+			"name" : "Four line display (old WLED versions only, <0.15.x, for new versions use 'I2C/SPI 4 Line Display Usermod ALTernative')",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_four_line_display/readme.md",
