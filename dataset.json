@@ -4,7 +4,7 @@
         "id": 0,
 		"custom": 0,
         "name": "Original Aircoookie",
-		"githubusername": "Aircoookie",
+		"githubusername": "wled-dev",
 		"githubreponame": "WLED",
 		"recommendedbranch":"main",
 		"recommended_esp8266":"nodemcuv2",
