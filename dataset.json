@@ -574,7 +574,7 @@
 			"name" : "Audio Reactive (for use with newest versions Aircoookie WLED)",
 			"sources" : [0],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "${esp32.AR_build_flags}",
 			"lib_deps" : "${esp32.AR_lib_deps}"
 		},
@@ -582,7 +582,7 @@
 			"name" : "Audio Reactive (for use with some older Aircoookie WLED (<0.14.1))",
 			"sources" : [0],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "-D USERMOD_AUDIOREACTIVE",
 			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
 		},
@@ -590,7 +590,7 @@
 			"name" : "Remove Audio Reactive Usermod if included per default",
 			"sources" : [0, 2],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/audioreactive/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "",
 			"lib_deps" : "",
 			"build_unflags" : "-D USERMOD_AUDIOREACTIVE"
@@ -599,7 +599,7 @@
 			"name" : "DS18B20 Temperatursensor",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Temperature/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Temperature/readme.md",
 			"build_flags" : "-D USERMOD_DALLASTEMPERATURE",
 			"lib_deps" : "paulstoffregen/OneWire @ ~2.3.8",
 			"options" : [
@@ -616,7 +616,7 @@
 			"name" : "DHT22 and DHT11 humidity and temperature sensors",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/DHT/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/DHT/readme.md",
 			"build_flags" : "-D USERMOD_DHT",
 			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking",
 			"options" : [
@@ -672,7 +672,7 @@
 			"name" : "BH1750 ambient light sensor",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/BH1750_v2/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/BH1750_v2/readme.md",
 			"build_flags" : "-D USERMOD_BH1750",
 			"lib_deps" : "claws/BH1750 @ ^1.2.0",
 			"options" : [
@@ -710,7 +710,7 @@
 			"name" : "Autosave (automatically save settings to preset and load at startup)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_auto_save/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_auto_save/readme.md",
 			"build_flags" : "-D USERMOD_AUTO_SAVE",
 			"lib_deps" : "",
 			"options" : [
@@ -740,7 +740,7 @@
 			"name" : "Four line display (old WLED versions only, <0.15.x, for new versions use 'I2C/SPI 4 Line Display Usermod ALTernative')",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_four_line_display/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_four_line_display/readme.md",
 			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "olikraus/U8g2 @ ^2.28.8"
 		},
@@ -748,7 +748,7 @@
 			"name" : "Ping pong clock",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_ping_pong_clock/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_ping_pong_clock/readme.md",
 			"build_flags" : "-D USERMOD_PING_PONG_CLOCK",
 			"lib_deps" : ""
 		},
@@ -756,7 +756,7 @@
 			"name" : "Word clock",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_word_clock/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_word_clock/readme.md",
 			"build_flags" : "-D USERMOD_WORDCLOCK",
 			"lib_deps" : ""
 		},
@@ -764,7 +764,7 @@
 			"name" : "Analog clock",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/tree/main/usermods/Analog_Clock",
+			"readme" : "https://github.com/wled/WLED/tree/main/usermods/Analog_Clock",
 			"build_flags" : "-D USERMOD_ANALOG_CLOCK",
 			"lib_deps" : ""
 		},
@@ -772,7 +772,7 @@
 			"name" : "Rotary encoder UI (Old, WLED < 0.15.x)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_13/usermods/usermod_v2_rotary_encoder_ui/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_13/usermods/usermod_v2_rotary_encoder_ui/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI",
 			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire",
 			"options" : [
@@ -809,7 +809,7 @@
 			"name" : "Rotary encoder UI ALT (alternative, includes USERMOD_FOUR_LINE_DISPLAY)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire",
 			"options" : [
@@ -846,7 +846,7 @@
 			"name" : "I2C/SPI 4 Line Display Usermod ALTernative (New)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_four_line_display_ALT/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_four_line_display_ALT/readme.md",
 			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire"
 		},
@@ -854,7 +854,7 @@
 			"name" : "Animated staircase",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Animated_Staircase/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Animated_Staircase/README.md",
 			"build_flags" : "-D USERMOD_ANIMATED_STAIRCASE",
 			"lib_deps" : ""
 		},
@@ -862,7 +862,7 @@
 			"name" : "Multirelay",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/multi_relay/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/multi_relay/readme.md",
 			"build_flags" : "-D USERMOD_MULTI_RELAY",
 			"lib_deps" : ""
 		},
@@ -870,7 +870,7 @@
 			"name" : "Battery",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Battery/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Battery/readme.md",
 			"build_flags" : "-D USERMOD_BATTERY",
 			"lib_deps" : "",
 			"options" : [
@@ -971,7 +971,7 @@
 			"name" : "Sensors to MQTT (BMP280, CCS811 and Si7021 measurements to Home Assistant via MQTT)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/sensors_to_mqtt/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/sensors_to_mqtt/readme.md",
 			"build_flags" : "-D USERMOD_SENSORSTOMQTT",
 			"lib_deps" : "adafruit/Adafruit BMP280 Library @ 2.6.8\n  adafruit/Adafruit CCS811 Library @ 1.1.3\n  adafruit/Adafruit Si7021 Library @ 1.5.3\n  adafruit/Adafruit Unified Sensor\n  adafruit/Adafruit BusIO @ 1.9.6"
 		},
@@ -979,7 +979,7 @@
 			"name" : "PIR sensor switch",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
 			"build_flags" : "-D USERMOD_PIRSWITCH",
 			"lib_deps" : "",
 			"options" : [
@@ -996,7 +996,7 @@
 			"name" : "BME280 or BMP280 Sensor",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/BME280_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/BME280_v2/README.md",
 			"build_flags" : "-D USERMOD_BME280",
 			"lib_deps" : "BME280@~3.0.0\n  Wire"
 		},
@@ -1004,7 +1004,7 @@
 			"name" : "RTC usermod",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/RTC/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/RTC/readme.md",
 			"build_flags" : "-D USERMOD_RTC",
 			"lib_deps" : ""
 		},
@@ -1012,7 +1012,7 @@
 			"name" : "RGB rotary encoder",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/rgb-rotary-encoder/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/rgb-rotary-encoder/readme.md",
 			"build_flags" : "-D RGB_ROTARY_ENCODER",
 			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0"
 		},
@@ -1020,7 +1020,7 @@
 			"name" : "PWM Fan (please include also usermod DS18B20 Temperatursensor)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/PWM_fan/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/PWM_fan/readme.md",
 			"build_flags" : "-D USERMOD_PWM_FAN",
 			"lib_deps" : "",
 			"options" : [
@@ -1044,7 +1044,7 @@
 			"name" : "PWM Outputs (ESP32 only)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/pwm_outputs/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/pwm_outputs/readme.md",
 			"build_flags" : "-D USERMOD_PWM_OUTPUTS",
 			"lib_deps" : "",
 			"options" : [
@@ -1061,7 +1061,7 @@
 			"name" : "ADS1115 16-Bit ADC with four inputs",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/ADS1115_v2/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/ADS1115_v2/readme.md",
 			"build_flags" : "-D USERMOD_ADS1115",
 			"lib_deps" : "adafruit/Adafruit BusIO @ 1.13.2\n  adafruit/Adafruit ADS1X15 @ 2.4.0\n  adafruit/Adafruit Unified Sensor"
 		},
@@ -1069,7 +1069,7 @@
 			"name" : "Seven segment display",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/seven_segment_display/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/seven_segment_display/readme.md",
 			"build_flags" : "-D USERMOD_SEVEN_SEGMENT",
 			"lib_deps" : ""
 		},
@@ -1077,7 +1077,7 @@
 			"name" : "Seven segment display reloaded",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/seven_segment_display_reloaded/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/seven_segment_display_reloaded/readme.md",
 			"build_flags" : "-D USERMOD_SSDR",
 			"lib_deps" : ""
 		},
@@ -1085,7 +1085,7 @@
 			"name" : "SN photoresistor (like the KY-018)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/SN_Photoresistor/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/SN_Photoresistor/readme.md",
 			"build_flags" : "-D USERMOD_SN_PHOTORESISTOR",
 			"lib_deps" : "",
 			"options" : [
@@ -1137,7 +1137,7 @@
 			"name" : "WireGuard VPN",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/wireguard/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/wireguard/readme.md",
 			"build_flags" : "-D USERMOD_WIREGUARD",
 			"lib_deps" : "https://github.com/kienvu58/WireGuard-ESP32-Arduino.git"
 		},
@@ -1145,7 +1145,7 @@
 			"name" : "Internal Temperature",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/Internal_Temperature_v2/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Internal_Temperature_v2/readme.md",
 			"build_flags" : "-D USERMOD_INTERNAL_TEMPERATURE",
 			"lib_deps" : ""
 		},
@@ -1153,7 +1153,7 @@
 			"name" : "Support various SHT i2c sensors like the SHT30, SHT31, SHT35 and SHT85",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/sht/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/sht/readme.md",
 			"build_flags" : "-D USERMOD_SHT",
 			"lib_deps" : "robtillaart/SHT85@~0.3.3"
 		},
@@ -1161,7 +1161,7 @@
 			"name" : "Mode sort: provides data about modes and palettes to other usermods",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/usermod_v2_mode_sort/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_mode_sort/readme.md",
 			"build_flags" : "-D USERMOD_MODE_SORT",
 			"lib_deps" : ""
 		},
@@ -1169,7 +1169,7 @@
 			"name" : "Controlling Wiz lights that are part of the same network as the WLED controller",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/main/usermods/wizlights/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/wizlights/readme.md",
 			"build_flags" : "-D USERMOD_WIZLIGHTS",
 			"lib_deps" : ""
 		},
@@ -1177,7 +1177,7 @@
 			"name" : "[WLED>=0.15.x] BME680/BME68X sensors",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/BME68X_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/BME68X_v2/README.md",
 			"build_flags" : "-D USERMOD_BME68X",
 			"lib_deps" : "boschsensortec/BSEC Software Library @ ^1.8.1492"
 		},
@@ -1185,7 +1185,7 @@
 			"name" : "[WLED>=0.15.x] Support of simple hand gestures via a VL53L0X sensor: on/off and brightness adjustment",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/VL53L0X_gestures/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/VL53L0X_gestures/readme.md",
 			"build_flags" : "-D USERMOD_VL53L0X_GESTURES",
 			"lib_deps" : "pololu/VL53L0X @ ^1.3.0"
 		},
@@ -1193,7 +1193,7 @@
 			"name" : "[WLED>=0.15.x] Support AHT10, AHT15 or AHT20 sensors (Temperature, Humidity)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/AHT10_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/AHT10_v2/README.md",
 			"build_flags" : "-D USERMOD_AHT10",
 			"lib_deps" : "enjoyneering/AHT10@~1.1.0\n  Wire"
 		},
@@ -1201,7 +1201,7 @@
 			"name" : "[WLED>=0.15.x] Read from a LD2410 movement/presence sensor (requires second UART, ESP32)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/LD2410_v2/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LD2410_v2/readme.md",
 			"build_flags" : "-D USERMOD_LD2410",
 			"lib_deps" : "ncmreynolds/ld2410@^0.1.3"
 		},
@@ -1209,7 +1209,7 @@
 			"name" : "[WLED>=0.15.x] Stairway wipe basic",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/stairway_wipe_basic/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/stairway_wipe_basic/readme.md",
 			"build_flags" : "-D USERMOD_STAIRCASE_WIPE",
 			"lib_deps" : "",
 			"options" : [
@@ -1225,9 +1225,45 @@
 			"name" : "[WLED>=0.15.x] Read from a Light Dependent Resistor (LDR) and turn on/off specific presets",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/Aircoookie/WLED/blob/0_15/usermods/LDR_Dusk_Dawn_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LDR_Dusk_Dawn_v2/README.md",
 			"build_flags" : "-D USERMOD_LDR_DUSK_DAWN",
 			"lib_deps" : ""
+		},
+		{
+			"name" : "[WLED>=0.15.x] Http Pull Light Control",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_HttpPullLightControl/readme.md",
+			"build_flags" : "-D USERMOD_HTTP_PULL_LIGHT_CONTROL",
+			"lib_deps" : "",
+			"options" : [
+				{
+					"name" : "URL which will be requested all the time to set the lights/effects (like http://mydomain.com/json-response.php)",
+					"type" : "string",
+					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_URL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "A secret SALT which will help by making the ID more safe (like my_very-S3cret_C0de)",
+					"type" : "string",
+					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_SALT=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Interval at which the URL is requested, in seconds",
+					"type" : "number",
+					"minnumber": 1,
+					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_INTERVAL=",
+					"lib_deps" : ""
+				},
+				{
+					"name" : "Hide the SALT in the User Interface",
+					"type" : "checkbox",
+					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_HIDE_SALT",
+					"lib_deps" : ""
+				}
+				
+			]
 		}
 		
 	]
