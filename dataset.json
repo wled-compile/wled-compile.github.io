@@ -1230,7 +1230,7 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "[WLED>=0.15.x] Http Pull Light Control",
+			"name" : "[WLED>=0.15.x] Http Pull Light Control (not for ESP8266)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_HttpPullLightControl/readme.md",
