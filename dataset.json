@@ -4,7 +4,7 @@
         "id": 0,
 		"custom": 0,
         "name": "Original Aircoookie",
-		"githubusername": "wled-dev",
+		"githubusername": "wled",
 		"githubreponame": "WLED",
 		"recommendedbranch":"main",
 		"recommended_esp8266":"nodemcuv2",
@@ -571,7 +571,7 @@
 	],
 	"usermods":[
 		{
-			"name" : "Audio Reactive (for use with newest versions Aircoookie WLED)",
+			"name" : "Audio Reactive (for use with >=0.15.x WLED versions)",
 			"sources" : [0],
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
@@ -587,7 +587,7 @@
 			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
 		},
 		{
-			"name" : "Remove Audio Reactive Usermod if included per default",
+			"name" : "Remove Audio Reactive Usermod if included per default in Version 0.15.x",
 			"sources" : [0, 2],
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
@@ -764,7 +764,7 @@
 			"name" : "Analog clock",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/tree/main/usermods/Analog_Clock",
+			"readme" : "https://github.com/wled/WLED/tree/main/usermods/Analog_Clock/",
 			"build_flags" : "-D USERMOD_ANALOG_CLOCK",
 			"lib_deps" : ""
 		},

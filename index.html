@@ -165,6 +165,7 @@
 	</h2>
 	<div id="collapseOne3" class="accordion-collapse collapse" aria-labelledby="headingMainDetails3" data-bs-parent="#MainAccordion">
 	<div class="accordion-body">
+	<div style="color:red;" id="L51">Attention:</div><br>
 	<div id="div-usermods">
 		
 	</div>
@@ -388,7 +389,7 @@ function proceed_extends(obj) {
 		if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key] !== null && ("extends" in obj[key]) && (((obj[key]["extends"] in obj) && !("extends" in obj[obj[key]["extends"]])) || (("env:"+obj[key]["extends"] in obj) && !("extends" in obj["env:"+obj[key]["extends"]]) )) ) {
 			// obj[key] uses extends
 			// obj[key]["extends"] is the referenced one
-			console.log(key+ " USES " + obj[key]["extends"]);
+			// console.log(key+ " USES " + obj[key]["extends"]);
 			retval=true;
 			ref="";
 			if("env:"+obj[key]["extends"] in obj) {
@@ -411,8 +412,8 @@ function proceed_extends(obj) {
 			delete obj[key]["extends"];
 		}
 	}
-	console.log("ONE TURN ###############################################");
-	console.log(obj);
+	//console.log("ONE TURN ###############################################");
+	//console.log(obj);
 	return retval;
 }
 
@@ -938,10 +939,12 @@ function GetLinesForDetail(setting, stri) {
 
 function GenerateEnvText() {
 	envtextfield=document.getElementById('env-text');
-	SS=document.getElementById('select-sources')
+	SS=document.getElementById('select-sources');
 	SSI=SS.selectedIndex;
 	SE=document.getElementById('select-enviroments');
 	SEI=SE.selectedIndex;
+	SB=document.getElementById('select-branches');
+	SBI=SB.selectedIndex;
 
 	var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
 
@@ -957,6 +960,7 @@ function GenerateEnvText() {
 	var buildflags="";
 	var libdeps="";
 	var buildunflags="";
+	var custom_usermods=""
 
 	for(var i = 0; i < dataset.settings.length; i++) {
 		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
@@ -967,18 +971,32 @@ function GenerateEnvText() {
 
 	}
 	
+	let newUsermodHandling=false;
+	if(SS.value==0 && (SB.options[SBI].getAttribute("bname")=="main" || SB.options[SBI].getAttribute("bname")=="nightly" || SB.options[SBI].getAttribute("bname").includes("0.16"))) {
+		newUsermodHandling=true;
+	}
+	
 	for(var i = 0; i < dataset.usermods.length; i++) {
 		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
-				if(String(dataset.usermods[i].build_flags).length>0) {
-					buildflags=buildflags+" "+dataset.usermods[i].build_flags;
+			
+				if(newUsermodHandling) {
+					const readmelist=dataset.usermods[i].readme.split("/");
+					const usermodname=readmelist[readmelist.length-2];
+					custom_usermods = custom_usermods+" "+usermodname.replace("_v2","").replace("usermod_v2_","");
+					
+				} else {
+					if(String(dataset.usermods[i].build_flags).length>0) {
+						buildflags=buildflags+" "+dataset.usermods[i].build_flags;
+					}
+					if("build_unflags" in dataset.usermods[i] && String(dataset.usermods[i].build_unflags).length>0) {
+						buildunflags=buildunflags+" "+dataset.usermods[i].build_unflags;
+					}
+					if(String(dataset.usermods[i].lib_deps).length>0) {
+						libdeps=libdeps+"\n  "+dataset.usermods[i].lib_deps;
+					}
 				}
-				if("build_unflags" in dataset.usermods[i] && String(dataset.usermods[i].build_unflags).length>0) {
-					buildunflags=buildunflags+" "+dataset.usermods[i].build_unflags;
-				}
-				if(String(dataset.usermods[i].lib_deps).length>0) {
-					libdeps=libdeps+"\n  "+dataset.usermods[i].lib_deps;
-				}
+				
 				if("options" in dataset.usermods[i]) {
 					for(var j = 0; j < dataset.usermods[i].options.length; j++) {
 						[buildflags_add, libdeps_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
@@ -998,6 +1016,10 @@ function GenerateEnvText() {
 	}
 	if(String(libdeps).length>0) {
 		value=value+"\nlib_deps = \n  ${env:"+SE.options[SEI].getAttribute("env")+".lib_deps}"+libdeps;
+	}
+	
+	if(newUsermodHandling && String(custom_usermods).length>0) {
+		value=value+"\ncustom_usermods = "+custom_usermods;
 	}
 	
 envtextfield.value=value;
@@ -1072,6 +1094,7 @@ function LangChanged() {
 		if(document.getElementById('L48')) document.getElementById('L48').innerHTML = "Abbrechen";
 		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignorieren und kompilieren starten";
 		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'Sie kompilieren auf einem öffentlichen Server, wo jeder Ihre Daten einsehen kann. Sie haben aber Ihre persönlichen Daten (WiFi SSID und/oder Password) definiert. Jeder kann diese einsehen! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="'+TicketShopLinkDE+'" target="_blank">Ticket in unserem Shop</a>';
+		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Achtung: in WLED version 0.16.x (inkl. aktuell main branch) wurde die Vorgehensweise geändert, wie UserMods hinzugefügt werden. Es kann aktuell mit einigen UserMods nicht funktionieren.";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -1129,6 +1152,7 @@ function LangChanged() {
 		if(document.getElementById('L48')) document.getElementById('L48').innerHTML = "Cancel";
 		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignore and start compiling";
 		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'You compile on a public server where anyone can see your data. However, you have defined your personal data (WiFi SSID and/or password). Anyone can see these! For a small fee we can also compile in a protected area. To do this, purchase a <a href="'+TicketShopLinkEN+'" target="_blank">ticket in our shop</a>';
+		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Attention: In WLED version 0.16.x (including actual main branch), the procedure for adding usermods has been changed. It may currently not work with some usermods.";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
