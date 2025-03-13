@@ -983,7 +983,7 @@ function GenerateEnvText() {
 				if(newUsermodHandling) {
 					const readmelist=dataset.usermods[i].readme.split("/");
 					const usermodname=readmelist[readmelist.length-2];
-					custom_usermods = custom_usermods+" "+usermodname.replace("_v2","").replace("usermod_v2_","");
+					custom_usermods = custom_usermods+" "+usermodname.replace("usermod_v2_","").replace("_v2","");
 					
 				} else {
 					if(String(dataset.usermods[i].build_flags).length>0) {
