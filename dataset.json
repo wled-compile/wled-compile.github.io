@@ -1109,7 +1109,7 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
 			"build_flags" : "-D USERMOD_PIRSWITCH",
 			"lib_deps" : "",
-			"id": 1900
+			"id": 1900,
 			"options" : [
 				{
 					"name" : "Define number of PIR sensors",
