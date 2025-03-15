@@ -971,7 +971,7 @@ function GenerateEnvText() {
 			[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
 			buildflags=buildflags+buildflags_add;
 			libdeps=libdeps+libdeps_add;
-			buildunflags=buildunflags+buildflags_add;
+			buildunflags=buildunflags+buildunflags_add;
 			
 		}
 
@@ -1008,7 +1008,7 @@ function GenerateEnvText() {
 						[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
 						buildflags=buildflags+buildflags_add;
 						libdeps=libdeps+libdeps_add;
-						buildunflags=buildunflags+buildflags_add;
+						buildunflags=buildunflags+buildunflags_add;
 					}
 				}
 			}
