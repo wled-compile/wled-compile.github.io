@@ -985,7 +985,7 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Battery/readme.md",
 			"build_flags" : "-D USERMOD_BATTERY",
 			"lib_deps" : "",
-			"id": 1700
+			"id": 1700,
 			"options" : [
 				{
 					"name" : "Select if you use LiPo rechargeables (1S)",
