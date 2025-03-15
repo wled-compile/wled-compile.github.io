@@ -1182,7 +1182,7 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/pwm_outputs/readme.md",
 			"build_flags" : "-D USERMOD_PWM_OUTPUTS",
 			"lib_deps" : "",
-			"id": 2400
+			"id": 2400,
 			"options" : [
 				{
 					"name" : "Define number of PWM outputs (default: 3)",
