@@ -561,12 +561,21 @@
 			"lib_deps" : ""
 		},
 		{
-			"name" : "Define the whatchdog timout in milliseconds (default: 0 (deactivated))",
+			"name" : "Define the watchdog tiemout in milliseconds (default: 0 (deactivated))",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_WATCHDOG_TIMEOUT=",
 			"lib_deps" : ""
+		},
+		{
+			"name" : "Undefine PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "number",
+			"minnumber": 0,
+			"build_flags" : "",
+			"lib_deps" : "",
+			"build_unflags" : "-D BOARD_HAS_PSRAM -D WLED_USE_PSRAM -D WLED_USE_PSRAM_JSON -D ALL_JSON_TO_PSRAM"
 		}
 	],
 	"usermods":[
