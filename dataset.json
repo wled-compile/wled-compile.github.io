@@ -1,9 +1,9 @@
 {
     "sources" :
     [{
-        "id": 0,
+        	"id": 0,
 		"custom": 0,
-        "name": "Original Aircoookie",
+	        "name": "Original Aircoookie",
 		"githubusername": "wled",
 		"githubreponame": "WLED",
 		"recommendedbranch":"main",
@@ -13,7 +13,7 @@
 	 {
 		"id": 1,
 		"custom": 0,
-        "name": "Sound Reactive",
+        	"name": "Sound Reactive",
 		"githubusername": "atuline",
 		"githubreponame": "WLED",
 		"recommendedbranch":"dev",
@@ -23,7 +23,7 @@
 	 {
 		"id": 2,
 		"custom": 0,
-        "name": "MoonModules Fork",
+        	"name": "MoonModules Fork",
 		"githubusername": "moonmodules",
 		"githubreponame": "WLED-MM",
 		"recommendedbranch":"mdev",
@@ -33,7 +33,7 @@
 	 {
 		"id": 3,
 		"custom": 1,
-        "name": "Your own Fork/Repository",
+        	"name": "Your own Fork/Repository",
 		"githubusername": "",
 		"githubreponame": "",
 		"recommendedbranch":""
@@ -46,7 +46,7 @@
 			"type" : "defparam",
 			"tooltip" : "Newest boards may not be supported",
 			"line" : "board = ",
-			"id" : "details_board"
+			"id" : 100
 		},
 		{
 			"name" : "Redefine flash mode type",
@@ -60,7 +60,7 @@
 				
 			},
 			"line" : "board_build.flash_mode = ",
-			"id" : "details_flash_mode"
+			"id" : 200
 		},
 		{
 			"name" : "Redefine flash frequency",
@@ -73,7 +73,7 @@
 				"80000000L": "80 MHz"
 			},
 			"line" : "board_build.f_flash = ",
-			"id" : "details_f_flash"
+			"id" : 300
 		},
 		{
 			"name" : "Redefine flash size",
@@ -87,7 +87,7 @@
 				"16MB": "some ESP32(-xx) boards"
 			},
 			"line" : "board_upload.flash_size = ",
-			"id" : "details_flash_size"
+			"id" : 400
 		},
 		{
 			"name" : "Redefine MCU type",
@@ -103,7 +103,7 @@
 				
 			},
 			"line" : "board_build.mcu = ",
-			"id" : "details_mcu"
+			"id" : 500
 		},
 		{
 			"name" : "Redefine CPU frequency",
@@ -116,7 +116,7 @@
 				"40000000L": "40 MHz"
 			},
 			"line" : "board_build.f_cpu = ",
-			"id" : "details_f_cpu"
+			"id" : 600
 		},
 		{
 			"name" : "Redefine PSRAM type",
@@ -127,7 +127,7 @@
 				"opi": "Octal SPI PSRAM"
 			},
 			"line" : "board_build.psram_type = ",
-			"id" : "details_psram_type"
+			"id" : 700
 		},
 		{
 			"name" : "Redefine memory type (Flash & PSRAM, must fit to flash mode and PSRAM type def.)",
@@ -144,7 +144,7 @@
 				"opi_opi": "Octal I/O flash, Octal SPI PSRAM"
 			},
 			"line" : "board_build.arduino.memory_type = ",
-			"id" : "details_memory_type"
+			"id" : 800
 		},
 		{
 			"name" : "Redefine memory partitions (ESP32-xx only, WLED >= 0.15.x & MoonMod)",
@@ -159,7 +159,7 @@
 				"${esp32.extreme_partitions}": "16 MB Flash: 9.875 MB for FS, 2x 3 MB for program"
 			},
 			"line" : "board_build.partitions = ",
-			"id" : "details_partitions"
+			"id" : 900
 		}
 		
 	
