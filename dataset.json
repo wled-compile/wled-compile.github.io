@@ -916,7 +916,7 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire",
-			"id": 1300
+			"id": 1300,
 			"options" : [
 				{
 					"name" : "Define DT pin (default: 18)",
