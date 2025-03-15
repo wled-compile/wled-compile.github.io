@@ -876,6 +876,7 @@ function LoadDataset() {
 function GetFlagsAndDepsForSetting(setting, stri) {
 	var buildflags="";
 	var libdeps="";
+	var buildunflags="";
 	
 	if(document.getElementById('checkbox-set'+stri).checked) {
 		if(String(setting.build_flags).length>0) {
@@ -906,9 +907,12 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 		if(String(setting.lib_deps).length>0) {
 			libdeps=libdeps+"\n  "+setting.lib_deps;
 		}
+		if("build_unflags" in setting && String(setting.build_unflags).length>0) {
+			buildunflags=buildunflags+" "+setting.build_unflags;
+		}
 	}
 	
-	return [buildflags, libdeps];
+	return [buildflags, libdeps, buildunflags];
 }
 
 function GetLinesForDetail(setting, stri) {
@@ -964,9 +968,11 @@ function GenerateEnvText() {
 
 	for(var i = 0; i < dataset.settings.length; i++) {
 		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
-			[buildflags_add, libdeps_add] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
+			[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
 			buildflags=buildflags+buildflags_add;
 			libdeps=libdeps+libdeps_add;
+			buildunflags=buildunflags+buildflags_add;
+			
 		}
 
 	}
@@ -999,9 +1005,10 @@ function GenerateEnvText() {
 				
 				if("options" in dataset.usermods[i]) {
 					for(var j = 0; j < dataset.usermods[i].options.length; j++) {
-						[buildflags_add, libdeps_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
+						[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
 						buildflags=buildflags+buildflags_add;
 						libdeps=libdeps+libdeps_add;
+						buildunflags=buildunflags+buildflags_add;
 					}
 				}
 			}
