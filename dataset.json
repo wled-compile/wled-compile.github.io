@@ -45,7 +45,8 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "defparam",
 			"tooltip" : "Newest boards may not be supported",
-			"line" : "board = "
+			"line" : "board = ",
+			"id" : "details_board"
 		},
 		{
 			"name" : "Redefine flash mode type",
@@ -58,7 +59,8 @@
 				"qio": "Quad I/O, 4 pins used for address & data, fastest"
 				
 			},
-			"line" : "board_build.flash_mode = "
+			"line" : "board_build.flash_mode = ",
+			"id" : "details_flash_mode"
 		},
 		{
 			"name" : "Redefine flash frequency",
@@ -70,7 +72,8 @@
 				"26000000L": "26 MHz",
 				"80000000L": "80 MHz"
 			},
-			"line" : "board_build.f_flash = "
+			"line" : "board_build.f_flash = ",
+			"id" : "details_f_flash"
 		},
 		{
 			"name" : "Redefine flash size",
@@ -83,7 +86,8 @@
 				"8MB": "some ESP32(-xx) boards",
 				"16MB": "some ESP32(-xx) boards"
 			},
-			"line" : "board_upload.flash_size = "
+			"line" : "board_upload.flash_size = ",
+			"id" : "details_flash_size"
 		},
 		{
 			"name" : "Redefine MCU type",
@@ -98,7 +102,8 @@
 				"esp32c6": "ESP32-C6"
 				
 			},
-			"line" : "board_build.mcu = "
+			"line" : "board_build.mcu = ",
+			"id" : "details_mcu"
 		},
 		{
 			"name" : "Redefine CPU frequency",
@@ -110,7 +115,8 @@
 				"240000000L": "240 MHz - typical for ESP32, ESP32-S2, ESP32-S3",
 				"40000000L": "40 MHz"
 			},
-			"line" : "board_build.f_cpu = "
+			"line" : "board_build.f_cpu = ",
+			"id" : "details_f_cpu"
 		},
 		{
 			"name" : "Redefine PSRAM type",
@@ -120,7 +126,8 @@
 				"qspi": "Quad SPI PSRAM (usually 2 and 4 MB)",
 				"opi": "Octal SPI PSRAM"
 			},
-			"line" : "board_build.psram_type = "
+			"line" : "board_build.psram_type = ",
+			"id" : "details_psram_type"
 		},
 		{
 			"name" : "Redefine memory type (Flash & PSRAM, must fit to flash mode and PSRAM type def.)",
@@ -136,7 +143,8 @@
 				"opi_qspi": "Octal I/O flash, Quad SPI PSRAM",
 				"opi_opi": "Octal I/O flash, Octal SPI PSRAM"
 			},
-			"line" : "board_build.arduino.memory_type = "
+			"line" : "board_build.arduino.memory_type = ",
+			"id" : "details_memory_type"
 		},
 		{
 			"name" : "Redefine memory partitions (ESP32-xx only, WLED >= 0.15.x & MoonMod)",
@@ -150,7 +158,8 @@
 				"${esp32.large_partitions}": "8 MB Flash: 3.875 MB for FS, 2x 2 MB for program",
 				"${esp32.extreme_partitions}": "16 MB Flash: 9.875 MB for FS, 2x 3 MB for program"
 			},
-			"line" : "board_build.partitions = "
+			"line" : "board_build.partitions = ",
+			"id" : "details_partitions"
 		}
 		
 	
@@ -171,49 +180,56 @@
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "${common.debug_flags}",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 100
 		},
 		{
 			"name" : "Include sound reactive debug flags",
 			"sources" : [1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D SR_DEBUG",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 200
 		},
 		{
 			"name" : "Enable microphone logger",
 			"sources" : [1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D MIC_LOGGER",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 300
 		},
 		{
 			"name" : "Disable ESP-NOW Interface",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_ESPNOW",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 400
 		},
 		{
 			"name" : "Disable brownout detection",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_BROWNOUT_DET",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 500
 		},
 		{
 			"name" : "Disable OTA",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_OTA",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 600
 		},
 		{
 			"name" : "Enable WiFi fix for boards like Lolin C3 mini",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D LOLIN_WIFI_FIX",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 700
 		},
 		{
 			"name" : "Add some delay (in ms) at boot before startup (WLED>=0.15 or moonmod version)",
@@ -221,35 +237,40 @@
 			"type" : "number",
 			"tooltip" : "Helps stabilize voltage for some not well designed boards",
 			"build_flags" : "-D WLED_BOOTUPDELAY=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 800
 		},
 		{
 			"name" : "Enable DMX support (hardware: MAX485 on TX Pin needed, ATTENTION: Does not compile/work togeter with AudioRective WLED, use AR disable option if required)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_DMX",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 900
 		},
 		{
 			"name" : "Enable Ethernet support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_USE_ETHERNET",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1000
 		},
 		{
 			"name" : "Enable adds the MAC address to the WLED AP SSID",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_AP_SSID_UNIQUE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1100
 		},
 		{
 			"name" : "Enable debug messages to serial console (WLED_DEBUG)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DEBUG",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1200
 		},
 		{
 			"name" : "Define host for NET debug (for example an IP like 192.168.1.20, )",
@@ -258,133 +279,152 @@
 			"tooltip" : "FQDN is also possible",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_DEBUG_HOST=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1300
 		},
 		{
 			"name" : "Define port for NET debug (WLED_DEBUG_PORT, default: 7868)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D WLED_DEBUG_PORT=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1400
 		},
 		{
 			"name" : "Enable NTP debug",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DEBUG_NTP",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1500
 		},
 		{
 			"name" : "Enable debug improv serial",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DEBUG_IMPROV",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1600
 		},
 		{
 			"name" : "Enable simplified UI (User Interface)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_SIMPLE_UI",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1700
 		},
 		{
 			"name" : "Enable MQTT",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_MQTT",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1800
 		},
 		{
 			"name" : "Disable MQTT",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_MQTT",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1900
 		},
 		{
 			"name" : "Enable Loxone support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_LOXONE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2000
 		},
 		{
 			"name" : "Disable Loxone support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_LOXONE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2100
 		},
 		{
 			"name" : "Enable websockets support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_WEBSOCKETS",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2200
 		},
 		{
 			"name" : "Disable websockets support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_WEBSOCKETS",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2300
 		},
 		{
 			"name" : "Enable Adalight support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_ADALIGHT",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2400
 		},
 		{
 			"name" : "Enable Pixart",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_ENABLE_PIXART",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2500
 		},
 		{
 			"name" : "Disable Alexa support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_ALEXA",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2600
 		},
 		{
 			"name" : "Disable Philips Hue support",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_HUESYNC",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2700
 		},
 		{
 			"name" : "Disable 2D features",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
 			"build_flags" : "-D WLED_DISABLE_2D",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2800
 		},
 		{
 			"name" : "Set default LED pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D DATA_PINS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2900
 		},
 		{
 			"name" : "Set default button pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D BTNPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3000
 		},
 		{
 			"name" : "Set default relay pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D RLYPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3100
 		},
 		{
 			"name" : "Set default relay mode: 1=active high, 0=active low (default: 1)",
@@ -392,77 +432,88 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D RLYMDE=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3200
 		},
 		{
 			"name" : "Set default infrared pin GPIO number: ",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D IRPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3300
 		},	
 		{
 			"name" : "Set default audio pin GPIO number: ",
 			"sources" : [1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D AUDIOPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3400
 		},
 		{
 			"name" : "Enable and define dig. mic. type by number: ",
 			"sources" : [1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D DMENABLED=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3500
 		},
 		{
 			"name" : "Define I2S SD pin number: ",
 			"sources" : [1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D I2S_SDPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3600
 		},
 		{
 			"name" : "Define I2S WS pin number: ",
 			"sources" : [1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D I2S_WSPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3700
 		},
 		{
 			"name" : "Define I2S SCK pin number: ",
 			"sources" : [1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D I2S_CKPIN=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3800
 		},
 		{
 			"name" : "Define max number of buttons (default: 2 for ESP8266, 4 for ESP32)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_BUTTONS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3900
 		},
 		{
 			"name" : "Define max number of usermods (default: 4 for ESP8266, 6 for ESP32)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_USERMODS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4000
 		},
 		{
 			"name" : "Define max number of LED busses (defaults: 4 on ESP8266 and on ESP32C3, 20 on ESP32, 6 on ESP32S3, 7 on ESP32S2)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D WLED_MAX_BUSSES=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4100
 		},
 		{
 			"name" : "Define default number of LEDs (default: 30)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "number",
 			"build_flags" : "-D PIXEL_COUNTS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4200
 		},
 		{
 			"name" : "Define default value for automatic brightness limiter (ABL) in mA (default: 850, enter 0 to disable ABL, minimum: 250)",
@@ -470,7 +521,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D ABL_MILLIAMPS_DEFAULT=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4300
 		},
 		{
 			"name" : "Define default LED type (defalt: TYPE_WS2812_RGB, see wled00/const.h for possible values)",
@@ -478,7 +530,8 @@
 			"type" : "defparam",
 			"minnumber": 0,
 			"build_flags" : "-D LED_TYPES=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4400
 		},
 		{
 			"name" : "Define default LED color order (defalt: COL_ORDER_GRB, see wled00/const.h for possible values)",
@@ -486,7 +539,8 @@
 			"type" : "defparam",
 			"minnumber": 0,
 			"build_flags" : "-D DEFAULT_LED_COLOR_ORDER=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4500
 		},
 		{
 			"name" : "Define number of LEDMAPs (default: 10 on ESP8266, 156 on ESP32)",
@@ -494,7 +548,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_MAX_LEDMAPS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4600
 		},
 		{
 			"name" : "Define max number of LEDs (default: 1664 on ESP8266, 8192 on ESP32)",
@@ -502,7 +557,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D MAX_LEDS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4700
 		},
 		{
 			"name" : "Define max number of LEDs per bus (default: 2048)",
@@ -510,7 +566,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D MAX_LEDS_PER_BUS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4800
 		},
 		{
 			"name" : "Define max LEDs memory (default: 4000 on ESP8266, 32000 on ESP32C3 and ESP32S2, 64000 on ESP32 and ESP32S3)",
@@ -518,7 +575,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D MAX_LED_MEMORY=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 4900
 		},
 		{
 			"name" : "Define WLED PWM frequency (default: 880 on ESP8266, 19531 on ESP32)",
@@ -526,7 +584,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_PWM_FREQ=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5000
 		},
 		{
 			"name" : "Define the default WiFi SSID",
@@ -534,7 +593,8 @@
 			"type" : "string",
 			"minnumber": 0,
 			"build_flags" : "-D CLIENT_SSID=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5100
 		},
 		{
 			"name" : "Define the default WiFi password",
@@ -542,7 +602,8 @@
 			"type" : "string",
 			"minnumber": 0,
 			"build_flags" : "-D CLIENT_PASS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5200
 		},
 		{
 			"name" : "Define the name of the internal WiFI Access Point (default: WLED-AP)",
@@ -550,7 +611,8 @@
 			"type" : "string",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_AP_SSID=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5300
 		},
 		{
 			"name" : "Define the password for the internal WiFI Access Point (default: wled1234, you must also define WiFi AP name - see option above)",
@@ -558,7 +620,8 @@
 			"type" : "string",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_AP_PASS=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5400
 		},
 		{
 			"name" : "Define the watchdog tiemout in milliseconds (default: 0 (deactivated))",
@@ -566,7 +629,8 @@
 			"type" : "number",
 			"minnumber": 0,
 			"build_flags" : "-D WLED_WATCHDOG_TIMEOUT=",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 5500
 		},
 		{
 			"name" : "Undefine PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)",
@@ -574,7 +638,8 @@
 			"type" : "checkbox",
 			"build_flags" : "",
 			"lib_deps" : "",
-			"build_unflags" : "-D BOARD_HAS_PSRAM -D WLED_USE_PSRAM -D WLED_USE_PSRAM_JSON -D ALL_JSON_TO_PSRAM"
+			"build_unflags" : "-D BOARD_HAS_PSRAM -D WLED_USE_PSRAM -D WLED_USE_PSRAM_JSON -D ALL_JSON_TO_PSRAM",
+			"id": 5600
 		}
 	],
 	"usermods":[
@@ -584,7 +649,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "${esp32.AR_build_flags}",
-			"lib_deps" : "${esp32.AR_lib_deps}"
+			"lib_deps" : "${esp32.AR_lib_deps}",
+			"id": 100
 		},
 		{
 			"name" : "Audio Reactive (for use with some older Aircoookie WLED (<0.14.1))",
@@ -592,7 +658,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "-D USERMOD_AUDIOREACTIVE",
-			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git"
+			"lib_deps" : "https://github.com/blazoncek/arduinoFFT.git",
+			"id": 200
 		},
 		{
 			"name" : "Remove Audio Reactive Usermod if included per default in Version 0.15.x",
@@ -601,7 +668,8 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "",
 			"lib_deps" : "",
-			"build_unflags" : "-D USERMOD_AUDIOREACTIVE"
+			"build_unflags" : "-D USERMOD_AUDIOREACTIVE",
+			"id": 300
 		},
 		{
 			"name" : "DS18B20 Temperatursensor",
@@ -610,13 +678,15 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Temperature/readme.md",
 			"build_flags" : "-D USERMOD_DALLASTEMPERATURE",
 			"lib_deps" : "paulstoffregen/OneWire @ ~2.3.8",
+			"id": 400,
 			"options" : [
 				{
 					"name" : "number of milliseconds between measurements, defaults to 60000 ms (60s)",
 					"type" : "number",
 					"minnumber": 1000,
 					"build_flags" : "-D USERMOD_DALLASTEMPERATURE_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 401
 				}
 			]
 		},
@@ -627,52 +697,60 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/DHT/readme.md",
 			"build_flags" : "-D USERMOD_DHT",
 			"lib_deps" : "https://github.com/alwynallan/DHT_nonblocking",
+			"id": 500,
 			"options" : [
 				{
 					"name" : "DHT model: 11, 21, 22 for DHT11, DHT21, or DHT22, defaults to 22/DHT22",
 					"type" : "number",
 					"minnumber": 11,
 					"build_flags" : "-D USERMOD_DHT_DHTTYPE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 501
 				},
 				{
 					"name" : "Pin to which DHT is connected",
 					"type" : "number",
 					"minnumber":  0,
 					"build_flags" : "-D USERMOD_DHT_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 502
 				},
 				{
 					"name" : "Report temperatures in degrees Celsius, otherwise Fahrenheit will be reported",
 					"type" : "checkbox",
 					"build_flags" : "-D USERMOD_DHT_CELSIUS",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 503
 				},
 				{
 					"name" : "The number of milliseconds between measurements, defaults to 60000 ms",
 					"type" : "number",
 					"minnumber":  1000,
 					"build_flags" : "-D USERMOD_DHT_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 504
 				},
 				{
 					"name" : "The number of milliseconds after boot to take first measurement, defaults to 90000 ms",
 					"type" : "number",
 					"minnumber":  1000,
 					"build_flags" : "-D USERMOD_DHT_FIRST_MEASUREMENT_AT=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 505
 				},
 				{
 					"name" : "Publish measurements to an MQTT broker",
 					"type" : "checkbox",
 					"build_flags" : "-D USERMOD_DHT_MQTT",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 506
 				},
 				{
 					"name" : "For debug, report delay stats",
 					"type" : "checkbox",
 					"build_flags" : "-D USERMOD_DHT_STATS",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 507
 				}
 			]
 		},
@@ -683,34 +761,39 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/BH1750_v2/readme.md",
 			"build_flags" : "-D USERMOD_BH1750",
 			"lib_deps" : "claws/BH1750 @ ^1.2.0",
+			"id": 600,
 			"options" : [
 				{
 					"name" : "The max number of milliseconds between measurements, defaults to 10000 ms",
 					"type" : "number",
 					"minnumber": 1000,
 					"build_flags" : "-D USERMOD_BH1750_MAX_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 601
 				},
 				{
 					"name" : "The min number of milliseconds between measurements, defaults to 500 ms",
 					"type" : "number",
 					"minnumber": 10,
 					"build_flags" : "-D USERMOD_BH1750_MIN_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 602
 				},
 				{
 					"name" : "The offset value to report on, defaults to 1",
 					"type" : "number",
 					"minnumber": 1,
 					"build_flags" : "-D USERMOD_BH1750_OFFSET_VALUE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 603
 				},
 				{
 					"name" : "The number of milliseconds after boot to take first measurement, defaults to 10000 ms",
 					"type" : "number",
 					"minnumber": 1000,
 					"build_flags" : "-D USERMOD_BH1750_FIRST_MEASUREMENT_AT=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 604
 				}
 			]
 		},
@@ -721,26 +804,30 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_auto_save/readme.md",
 			"build_flags" : "-D USERMOD_AUTO_SAVE",
 			"lib_deps" : "",
+			"id": 700,
 			"options" : [
 				{
 					"name" : "Delay time after the settings auto-saving routine should be executed",
 					"type" : "number",
 					"minnumber": 1,
 					"build_flags" : "-D AUTOSAVE_AFTER_SEC=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 701
 				},
 				{
 					"name" : "Preset number used by autosave usermod",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D AUTOSAVE_PRESET_NUM=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 702
 				},
 				{
 					"name" : "Preset number used by autosave usermod",
 					"type" : "checkbox",
 					"build_flags" : "-D USERMOD_AUTO_SAVE_ON_BOOT",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 703
 				}
 			]
 		},
@@ -750,7 +837,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_four_line_display/readme.md",
 			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
-			"lib_deps" : "olikraus/U8g2 @ ^2.28.8"
+			"lib_deps" : "olikraus/U8g2 @ ^2.28.8",
+			"id": 800
 		},
 		{
 			"name" : "Ping pong clock",
@@ -758,7 +846,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_ping_pong_clock/readme.md",
 			"build_flags" : "-D USERMOD_PING_PONG_CLOCK",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 900
 		},
 		{
 			"name" : "Word clock",
@@ -766,7 +855,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_word_clock/readme.md",
 			"build_flags" : "-D USERMOD_WORDCLOCK",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1000
 		},
 		{
 			"name" : "Analog clock",
@@ -774,7 +864,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/tree/main/usermods/Analog_Clock/",
 			"build_flags" : "-D USERMOD_ANALOG_CLOCK",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1100
 		},
 		{
 			"name" : "Rotary encoder UI (Old, WLED < 0.15.x)",
@@ -783,33 +874,38 @@
 			"readme" : "https://github.com/wled/WLED/blob/0_13/usermods/usermod_v2_rotary_encoder_ui/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI",
 			"lib_deps" : "olikraus/U8g2 @ ^2.28.8\n  Wire",
+			"id": 1200,
 			"options" : [
 				{
 					"name" : "Define DT pin (default: 18)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_DT_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1201
 				},
 				{
 					"name" : "Define CLK pin (default: 5)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_CLK_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1202
 				},
 				{
 					"name" : "Define SW pin (default: 19)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_SW_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1203
 				},
 				{
 					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
 					"type" : "defparam",
 					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1204
 				}
 			]
 		},
@@ -820,33 +916,38 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_rotary_encoder_ui_ALT/readme.md",
 			"build_flags" : "-D USERMOD_ROTARY_ENCODER_UI -D USERMOD_FOUR_LINE_DISPLAY",
 			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire",
+			"id": 1300
 			"options" : [
 				{
 					"name" : "Define DT pin (default: 18)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_DT_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1301
 				},
 				{
 					"name" : "Define CLK pin (default: 5)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_CLK_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1302
 				},
 				{
 					"name" : "Define SW pin (default: 19)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D ENCODER_SW_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1303
 				},
 				{
 					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
 					"type" : "defparam",
 					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1304
 				}
 			]
 		},
@@ -856,7 +957,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_four_line_display_ALT/readme.md",
 			"build_flags" : "-D USERMOD_FOUR_LINE_DISPLAY",
-			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire"
+			"lib_deps" : "olikraus/U8g2@~2.34.4\n  Wire",
+			"id": 1400
 		},
 		{
 			"name" : "Animated staircase",
@@ -864,7 +966,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Animated_Staircase/README.md",
 			"build_flags" : "-D USERMOD_ANIMATED_STAIRCASE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1500
 		},
 		{
 			"name" : "Multirelay",
@@ -872,7 +975,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/multi_relay/readme.md",
 			"build_flags" : "-D USERMOD_MULTI_RELAY",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 1600
 		},
 		{
 			"name" : "Battery",
@@ -881,96 +985,110 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Battery/readme.md",
 			"build_flags" : "-D USERMOD_BATTERY",
 			"lib_deps" : "",
+			"id": 1700
 			"options" : [
 				{
 					"name" : "Select if you use LiPo rechargeables (1S)",
 					"type" : "checkbox",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_USE_LIPO",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1701
 				},
 				{
 					"name" : "Define pin for measurement",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_MEASUREMENT_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1702
 				},
 				{
 					"name" : "Battery check interval in ms, defaults to 30000 ms",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1703
 				},
 				{
 					"name" : "Minimum battery voltage in Volts, default is 2.6 (18650 battery standard)",
 					"type" : "number_float",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_MIN_VOLTAGE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1704
 				},
 				{
 					"name" : "Maximum battery voltage in Volts, default is 4.2 (18650 battery standard)",
 					"type" : "number_float",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_MAX_VOLTAGE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1705
 				},
 				{
 					"name" : "The capacity of all cells in parallel summed up in mAh",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_TOTAL_CAPACITY=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1706
 				},
 				{
 					"name" : "Offset / calibration number, fine tune the measured voltage by the microcontroller",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_CALIBRATION=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1707
 				},
 				{
 					"name" : "Enables auto-off. Please enter <b>true</b> to enable, <b>false</b> to disable",
 					"type" : "defparam",
 					"build_flags" : "-D USERMOD_BATTERY_AUTO_OFF_ENABLED=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1708
 				},
 				{
 					"name" : "When this threshold (in %, 0 to 100) is reached master power turns off",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_AUTO_OFF_THRESHOLD=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1709
 				},
 				{
 					"name" : "Enables low power indication. Please enter <b>true</b> to enable, <b>false</b> to disable",
 					"type" : "defparam",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_ENABLED=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1710
 				},
 				{
 					"name" : "When low power is detected then use this preset ID to indicate low power",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_PRESET=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1711
 				},
 				{
 					"name" : "When this threshold (in %, 0 to 100) is reached low power gets indicated",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_THRESHOLD=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1712
 				},
 				{
 					"name" : "For this duration (in seconds) the configured preset is played",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_DURATION=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1713
 				}
 			]
 			
@@ -981,7 +1099,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/sensors_to_mqtt/readme.md",
 			"build_flags" : "-D USERMOD_SENSORSTOMQTT",
-			"lib_deps" : "adafruit/Adafruit BMP280 Library @ 2.6.8\n  adafruit/Adafruit CCS811 Library @ 1.1.3\n  adafruit/Adafruit Si7021 Library @ 1.5.3\n  adafruit/Adafruit Unified Sensor\n  adafruit/Adafruit BusIO @ 1.9.6"
+			"lib_deps" : "adafruit/Adafruit BMP280 Library @ 2.6.8\n  adafruit/Adafruit CCS811 Library @ 1.1.3\n  adafruit/Adafruit Si7021 Library @ 1.5.3\n  adafruit/Adafruit Unified Sensor\n  adafruit/Adafruit BusIO @ 1.9.6",
+			"id" : 1800
 		},
 		{
 			"name" : "PIR sensor switch",
@@ -990,13 +1109,15 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/PIR_sensor_switch/readme.md",
 			"build_flags" : "-D USERMOD_PIRSWITCH",
 			"lib_deps" : "",
+			"id": 1900
 			"options" : [
 				{
 					"name" : "Define number of PIR sensors",
 					"type" : "number",
 					"minnumber": 1,
 					"build_flags" : "-D PIR_SENSOR_MAX_SENSORS=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 1901
 				}
 			]
 		},
@@ -1006,7 +1127,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/BME280_v2/README.md",
 			"build_flags" : "-D USERMOD_BME280",
-			"lib_deps" : "BME280@~3.0.0\n  Wire"
+			"lib_deps" : "BME280@~3.0.0\n  Wire",
+			"id": 2000
 		},
 		{
 			"name" : "RTC usermod",
@@ -1014,7 +1136,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/RTC/readme.md",
 			"build_flags" : "-D USERMOD_RTC",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2100
 		},
 		{
 			"name" : "RGB rotary encoder",
@@ -1022,7 +1145,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/rgb-rotary-encoder/readme.md",
 			"build_flags" : "-D RGB_ROTARY_ENCODER",
-			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0"
+			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0",
+			"id": 2200
 		},
 		{
 			"name" : "PWM Fan (please include also usermod DS18B20 Temperatursensor)",
@@ -1031,20 +1155,23 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/PWM_fan/readme.md",
 			"build_flags" : "-D USERMOD_PWM_FAN",
 			"lib_deps" : "",
+			"id": 2300,
 			"options" : [
 				{
 					"name" : "Define PWM output pin",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D PWM_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2301
 				},
 				{
 					"name" : "Define tachometer input pin",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D TACHO_PIN=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2302
 				}
 			]
 		},
@@ -1055,13 +1182,15 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/pwm_outputs/readme.md",
 			"build_flags" : "-D USERMOD_PWM_OUTPUTS",
 			"lib_deps" : "",
+			"id": 2400
 			"options" : [
 				{
 					"name" : "Define number of PWM outputs (default: 3)",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_PWM_OUTPUT_PINS=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2401
 				}
 			]
 		},
@@ -1071,7 +1200,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/ADS1115_v2/readme.md",
 			"build_flags" : "-D USERMOD_ADS1115",
-			"lib_deps" : "adafruit/Adafruit BusIO @ 1.13.2\n  adafruit/Adafruit ADS1X15 @ 2.4.0\n  adafruit/Adafruit Unified Sensor"
+			"lib_deps" : "adafruit/Adafruit BusIO @ 1.13.2\n  adafruit/Adafruit ADS1X15 @ 2.4.0\n  adafruit/Adafruit Unified Sensor",
+			"id": 2500
 		},
 		{
 			"name" : "Seven segment display",
@@ -1079,7 +1209,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/seven_segment_display/readme.md",
 			"build_flags" : "-D USERMOD_SEVEN_SEGMENT",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2600
 		},
 		{
 			"name" : "Seven segment display reloaded",
@@ -1087,7 +1218,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/seven_segment_display_reloaded/readme.md",
 			"build_flags" : "-D USERMOD_SSDR",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 2700
 		},
 		{
 			"name" : "SN photoresistor (like the KY-018)",
@@ -1096,48 +1228,55 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/SN_Photoresistor/readme.md",
 			"build_flags" : "-D USERMOD_SN_PHOTORESISTOR",
 			"lib_deps" : "",
+			"id": 2800,
 			"options" : [
 				{
 					"name" : "Number of milliseconds between measurements. Defaults to 60000 ms",
 					"type" : "number",
 					"minnumber": 100,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_MEASUREMENT_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2801
 				},
 				{
 					"name" : "Number of milliseconds after boot to take first measurement. Defaults to 20000 ms",
 					"type" : "number",
 					"minnumber": 100,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_FIRST_MEASUREMENT_AT=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2802
 				},
 				{
 					"name" : "Voltage supplied to the sensor in Volts. Defaults to 5 V",
 					"type" : "number_float",
 					"minnumber": 100,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_REFERENCE_VOLTAGE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2803
 				},
 				{
 					"name" : "ADC precision. Defaults to 10 bits",
 					"type" : "number",
 					"minnumber": 8,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_ADC_PRECISION=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2804
 				},
 				{
 					"name" : "Resistor size in Ohm, defaults to 10000.0 (10K Ohms)",
 					"type" : "number_float",
 					"minnumber": 1,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_RESISTOR_VALUE=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2805
 				},
 				{
 					"name" : "Offset value to report on. Defaults to 25",
 					"type" : "number",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_SN_PHOTORESISTOR_ADC_PRECISION=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 2806
 				}
 			]
 		},
@@ -1147,7 +1286,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/wireguard/readme.md",
 			"build_flags" : "-D USERMOD_WIREGUARD",
-			"lib_deps" : "https://github.com/kienvu58/WireGuard-ESP32-Arduino.git"
+			"lib_deps" : "https://github.com/kienvu58/WireGuard-ESP32-Arduino.git",
+			"id": 2900
 		},
 		{
 			"name" : "Internal Temperature",
@@ -1155,7 +1295,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/Internal_Temperature_v2/readme.md",
 			"build_flags" : "-D USERMOD_INTERNAL_TEMPERATURE",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3000
 		},
 		{
 			"name" : "Support various SHT i2c sensors like the SHT30, SHT31, SHT35 and SHT85",
@@ -1163,7 +1304,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/sht/readme.md",
 			"build_flags" : "-D USERMOD_SHT",
-			"lib_deps" : "robtillaart/SHT85@~0.3.3"
+			"lib_deps" : "robtillaart/SHT85@~0.3.3",
+			"id": 3100
 		},
 		{
 			"name" : "Mode sort: provides data about modes and palettes to other usermods",
@@ -1171,7 +1313,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_mode_sort/readme.md",
 			"build_flags" : "-D USERMOD_MODE_SORT",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3200
 		},
 		{
 			"name" : "Controlling Wiz lights that are part of the same network as the WLED controller",
@@ -1179,7 +1322,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/wizlights/readme.md",
 			"build_flags" : "-D USERMOD_WIZLIGHTS",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3300
 		},
 		{
 			"name" : "[WLED>=0.15.x] BME680/BME68X sensors",
@@ -1187,7 +1331,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/BME68X_v2/README.md",
 			"build_flags" : "-D USERMOD_BME68X",
-			"lib_deps" : "boschsensortec/BSEC Software Library @ ^1.8.1492"
+			"lib_deps" : "boschsensortec/BSEC Software Library @ ^1.8.1492",
+			"id": 3400
 		},
 		{
 			"name" : "[WLED>=0.15.x] Support of simple hand gestures via a VL53L0X sensor: on/off and brightness adjustment",
@@ -1195,7 +1340,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/VL53L0X_gestures/readme.md",
 			"build_flags" : "-D USERMOD_VL53L0X_GESTURES",
-			"lib_deps" : "pololu/VL53L0X @ ^1.3.0"
+			"lib_deps" : "pololu/VL53L0X @ ^1.3.0",
+			"id": 3500
 		},
 		{
 			"name" : "[WLED>=0.15.x] Support AHT10, AHT15 or AHT20 sensors (Temperature, Humidity)",
@@ -1203,7 +1349,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/AHT10_v2/README.md",
 			"build_flags" : "-D USERMOD_AHT10",
-			"lib_deps" : "enjoyneering/AHT10@~1.1.0\n  Wire"
+			"lib_deps" : "enjoyneering/AHT10@~1.1.0\n  Wire",
+			"id": 3600
 		},
 		{
 			"name" : "[WLED>=0.15.x] Read from a LD2410 movement/presence sensor (requires second UART, ESP32)",
@@ -1211,7 +1358,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LD2410_v2/readme.md",
 			"build_flags" : "-D USERMOD_LD2410",
-			"lib_deps" : "ncmreynolds/ld2410@^0.1.3"
+			"lib_deps" : "ncmreynolds/ld2410@^0.1.3",
+			"id": 3700
 		},
 		{
 			"name" : "[WLED>=0.15.x] Stairway wipe basic",
@@ -1220,12 +1368,14 @@
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/stairway_wipe_basic/readme.md",
 			"build_flags" : "-D USERMOD_STAIRCASE_WIPE",
 			"lib_deps" : "",
+			"id": 3800,
 			"options" : [
 				{
 					"name" : "Have the LEDs wipe off instead of fading out",
 					"type" : "checkbox",
 					"build_flags" : "-D STAIRCASE_WIPE_OFF",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 3801
 				}
 			]
 		},
@@ -1235,7 +1385,8 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LDR_Dusk_Dawn_v2/README.md",
 			"build_flags" : "-D USERMOD_LDR_DUSK_DAWN",
-			"lib_deps" : ""
+			"lib_deps" : "",
+			"id": 3900
 		},
 		{
 			"name" : "[WLED>=0.15.x] Http Pull Light Control (not for ESP8266)",
@@ -1244,31 +1395,36 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/usermod_v2_HttpPullLightControl/readme.md",
 			"build_flags" : "-D USERMOD_HTTP_PULL_LIGHT_CONTROL",
 			"lib_deps" : "",
+			"id": 4000,
 			"options" : [
 				{
 					"name" : "URL which will be requested all the time to set the lights/effects (like http://mydomain.com/json-response.php)",
 					"type" : "string",
 					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_URL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 4001
 				},
 				{
 					"name" : "A secret SALT which will help by making the ID more safe (like my_very-S3cret_C0de)",
 					"type" : "string",
 					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_SALT=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 4002
 				},
 				{
 					"name" : "Interval at which the URL is requested, in seconds",
 					"type" : "number",
 					"minnumber": 1,
 					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_INTERVAL=",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 4003
 				},
 				{
 					"name" : "Hide the SALT in the User Interface",
 					"type" : "checkbox",
 					"build_flags" : "-D HTTP_PULL_LIGHT_CONTROL_HIDE_SALT",
-					"lib_deps" : ""
+					"lib_deps" : "",
+					"id": 4004
 				}
 				
 			]
