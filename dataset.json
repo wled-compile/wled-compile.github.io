@@ -571,8 +571,7 @@
 		{
 			"name" : "Undefine PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)",
 			"sources" : [0, 1, 2, 3],
-			"type" : "number",
-			"minnumber": 0,
+			"type" : "checkbox",
 			"build_flags" : "",
 			"lib_deps" : "",
 			"build_unflags" : "-D BOARD_HAS_PSRAM -D WLED_USE_PSRAM -D WLED_USE_PSRAM_JSON -D ALL_JSON_TO_PSRAM"
