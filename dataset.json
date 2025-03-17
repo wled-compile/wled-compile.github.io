@@ -663,7 +663,7 @@
 		},
 		{
 			"name" : "Remove Audio Reactive Usermod if included per default in Version 0.15.x",
-			"sources" : [0, 2],
+			"sources" : [0],
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
 			"build_flags" : "",
@@ -823,7 +823,7 @@
 					"id": 702
 				},
 				{
-					"name" : "Preset number used by autosave usermod",
+					"name" : "Select if autosave should be enabled on boot",
 					"type" : "checkbox",
 					"build_flags" : "-D USERMOD_AUTO_SAVE_ON_BOOT",
 					"lib_deps" : "",
@@ -976,7 +976,45 @@
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/multi_relay/readme.md",
 			"build_flags" : "-D USERMOD_MULTI_RELAY",
 			"lib_deps" : "",
-			"id": 1600
+			"id": 1600,
+			"options" : [ 
+				{
+					"name" : "Maximum number of relays (default: 4)",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D MULTI_RELAY_MAX_RELAYS=",
+					"lib_deps" : "",
+					"id": 1601
+				},
+				{
+					"name" : "Enable (please enter <b>true</b>) or disable (please enter <b>false</b>) HA discovery for externally controlled relays",
+					"type" : "defparam",
+					"build_flags" : "-D MULTI_RELAY_HA_DISCOVERY=",
+					"lib_deps" : "",
+					"id": 1602
+				},
+				{
+					"name" : "Define default pins for relays (for exampe enter <b>12,14,18,22</b>)",
+					"type" : "string",
+					"build_flags" : "-D MULTI_RELAY_PINS=",
+					"lib_deps" : "",
+					"id": 1603
+				},
+				{
+					"name" : "Define delay in seconds after on/off command is received for all relays (for exampe enter <b>0,0,5,5</b>)",
+					"type" : "string",
+					"build_flags" : "-D MULTI_RELAY_DELAYS=",
+					"lib_deps" : "",
+					"id": 1604
+				},
+				{
+					"name" : "Define if WLED does not control relay and it can only be triggered by an external command (MQTT, HTTP, JSON or button) for al relays (for exampe enter <b>false,false,true,true</b>)",
+					"type" : "string",
+					"build_flags" : "-D MULTI_RELAY_EXTERNALS=",
+					"lib_deps" : "",
+					"id": 1605
+				}
+			]
 		},
 		{
 			"name" : "Battery",

@@ -46,6 +46,11 @@
 	<div id="AttentionMSG" class="form-floating mb-1 p-1 border border-danger border-2 rounded" style="background-color:white">
 		<span id="L35" style="color:red">Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="https://myhome-control.de" target="_blank">Ticket in unserem Shop</a>.</span>
 	</div>
+	<div>
+	<button type="button" class="btn btn-primary" onclick="ClickSaveConfig()" style="margin: 3px"><span span id="L52">Konfiguration speichern (Datei)</span></button>
+	&nbsp;&nbsp;&nbsp;
+	<button type="button" class="btn btn-primary" onclick="ClickLoadConfig()" style="margin: 3px"><span span id="L53">Konfiguration laden (Datei)</span></button>
+	</div>
 	<div class="accordion accordion-flush" id="MainAccordion">
 	<div class="accordion-item">
 	<h2 class="accordion-header" id="headingMainDetails1">
@@ -382,6 +387,250 @@ var PrivateModeState="off";
 const TicketShopLinkEN="https://shop.myhome-control.de/en/Ticket-for-WLED-COMPILE-Web-Service-on-a-protected-server-NO-auto-renewal/SW10004";
 const TicketShopLinkDE="https://shop.myhome-control.de/Ticket-fuer-WLED-COMPILE-Web-Service-auf-einem-geschuetzten-Server-KEINE-autom.-Verlaengerung/SW10004";
 
+var jsonConfig={};
+
+function ClickSaveConfig() {
+
+	jsonConfig["hacks"]=[]
+	for(var i = 0; i < dataset.hacks.length; i++) {
+		if(document.getElementById('checkbox-setHack'+String(i)).checked) {
+			jsonConfig["hacks"].push({id: dataset.hacks[i].id});
+		}
+	}
+		
+	//console.log(jsonConfig);
+  var json_string = JSON.stringify(jsonConfig);
+  var filename = 'WLED_compile_' + new Date().toLocaleString().replace(/\./g,'_').replace(/,/g,'_').replace(/ /g,'_') + '.txt';
+  var link = document.createElement('a');
+  link.style.display = 'none';
+  link.setAttribute('target', '_blank');
+  link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(json_string));
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+branchesLoaded=false;
+
+function LoadSetString(jsonString){
+	jsonConfLoaded=JSON.parse(jsonString);
+	//console.log(jsonConfLoaded);
+	const source_index=dataset.sources.findIndex((source)=> (source.id===jsonConfLoaded.source_id) || (String(source.id)===jsonConfLoaded.source_id));
+	//console.log(source_index);
+	if(source_index===-1) {
+		alert("Saved source ID can not be found. Please check the source. Try to load the rest.");
+	} else {
+		var SS = document.getElementById('select-sources');
+		SS.selectedIndex=source_index;
+		SourceChanged();
+		branchesLoaded=false;		
+	}
+	LoadSetStringAfterBranchesLoaded(jsonConfLoaded);
+}
+
+envsLoaded=false;
+
+function LoadSetStringAfterBranchesLoaded(jsonConfLoaded) {
+	if(branchesLoaded===false) {
+		setTimeout(()=>LoadSetStringAfterBranchesLoaded(jsonConfLoaded), 500);
+		return;
+	}
+	var SB = document.getElementById('select-branches');
+	//console.log(SB.options);
+	let NoBranchFound=true;
+	for(let option of SB.options) {
+		//console.log(option.attributes.value, String(option.getAttribute("type")), String(option.getAttribute("bname")));
+		if(String(option.getAttribute("type")) === jsonConfLoaded.branch.type && String(option.getAttribute("bname"))===jsonConfLoaded.branch.bname) {
+			//console.log(option.attributes.value, String(option.getAttribute("type")), String(option.getAttribute("bname")));
+			SB.value=option.getAttribute("value");
+			BranchChanged();
+			NoBranchFound=false;
+			envsLoaded=false;
+		}
+	}
+	if(NoBranchFound) alert("The SW branch/release cannot be found. Please check manually.");
+	LoadSetStringAfterEnvsLoaded(jsonConfLoaded);
+}
+
+function LoadSetStringAfterEnvsLoaded(jsonConfLoaded) {
+	if(envsLoaded===false) {
+		setTimeout(()=>LoadSetStringAfterEnvsLoaded(jsonConfLoaded), 500);
+		return;
+	}
+	var SE = document.getElementById('select-enviroments');
+	for(let option of SE.options) {
+		//console.log(option.attributes.value, String(option.getAttribute("env")));
+		if(String(option.getAttribute("env")) === jsonConfLoaded.enviroment) {
+			//console.log(option.attributes.value, String(option.getAttribute("type")), String(option.getAttribute("bname")));
+			SE.value=option.getAttribute("value");
+			EnvChanged();
+			let SomethinNotFound=false;
+			// Set details etc. from jsonConfLoaded
+			if("details" in jsonConfLoaded) {
+				for(let detail of jsonConfLoaded.details) {
+					// detail.id, detail.numval, detail.stringval
+					// search for id in dataset
+					const det_index = dataset.details.findIndex(det=>det.id===detail.id);
+					if(det_index>-1) {
+						//console.log(det_index);
+						CB=document.getElementById('checkbox-setDet'+String(det_index));
+						//console.log(CB);
+						if(CB !== null) {
+							CB.checked=true;
+							if("numval" in detail) {
+								IN=document.getElementById('input-number-Det'+String(det_index));
+								if(IN !== null) {
+									IN.value=detail.numval;
+								} else {
+									SomethinNotFound=true;
+								}
+							}
+							if("stringval" in detail) {
+								IN=document.getElementById('input-string-Det'+String(det_index));
+								if(IN !== null) {
+									IN.value=detail.stringval;
+								} else {
+									SomethinNotFound=true;
+								}
+							}
+							
+						} else {
+							SomethinNotFound=true;
+						}
+					}
+				}
+			}
+			// Set hacks from jsonConfLoaded
+			if("hacks" in jsonConfLoaded) {
+				for(let hack of jsonConfLoaded.hacks) {
+					// detail.id, detail.numval, detail.stringval
+					// search for id in dataset
+					const hack_index = dataset.hacks.findIndex(det=>det.id===hack.id);
+					if(hack_index>-1) {
+						//console.log(hack_index);
+						CB=document.getElementById('checkbox-setHack'+String(hack_index));
+						//console.log(CB);
+						if(CB !== null) {
+							CB.checked=true;						
+						} else {
+							SomethinNotFound=true;
+						}
+					}
+				}
+			}
+			// set settings from jsonConfLoaded
+			if("settings" in jsonConfLoaded) {
+				for(let setting of jsonConfLoaded.settings) {
+					// setting.id, setting.numval, setting.stringval
+					// search for id in dataset
+					const set_index = dataset.settings.findIndex(set=>set.id===setting.id);
+					if(set_index>-1) {
+						//console.log(set_index);
+						CB=document.getElementById('checkbox-set'+String(set_index));
+						//console.log(CB);
+						if(CB !== null) {
+							CB.checked=true;
+							if("numval" in setting) {
+								IN=document.getElementById('input-number-'+String(set_index));
+								if(IN !== null) {
+									IN.value=setting.numval;
+								} else {
+									SomethinNotFound=true;
+								}
+							}
+							if("stringval" in setting) {
+								IN=document.getElementById('input-string-'+String(set_index));
+								if(IN !== null) {
+									IN.value=setting.stringval;
+								} else {
+									SomethinNotFound=true;
+								}
+							}
+							
+						} else {
+							SomethinNotFound=true;
+						}
+					}
+				}
+			}
+			// set usermods from jsonConfLoaded
+			if("usermods" in jsonConfLoaded) {
+				for(let usermod of jsonConfLoaded.usermods) {
+					// usermod.id, usermod.options[{id, numval, stringval}]
+					// search for id in dataset
+					const um_index = dataset.usermods.findIndex(um=>um.id===usermod.id);
+					if(um_index>-1) {
+						//console.log(um_index);
+						CB=document.getElementById('checkbox-setum'+String(um_index));
+						//console.log(CB);
+						if(CB !== null) {
+							CB.checked=true;
+							ChangeVisibilityUsermodOptions(um_index);
+							for(let option of usermod.options) {
+								if("options" in dataset.usermods[um_index]) {
+									const opt_index = dataset.usermods[um_index].options.findIndex(opt=>opt.id===option.id);
+									//console.log(dataset.usermods[um_index].options, option.id);
+									if(opt_index>-1) {
+										OPT_CB=document.getElementById('checkbox-setUMopt'+String(um_index)+"_"+String(opt_index));
+										if(OPT_CB !== null) {
+											OPT_CB.checked=true;
+											if("numval" in option) {
+												IN=document.getElementById('input-number-UMopt'+String(um_index)+"_"+String(opt_index));
+												if(IN !== null) {
+													IN.value=option.numval;
+												} else {
+													SomethinNotFound=true;
+												}
+											}
+											if("stringval" in option) {
+												IN=document.getElementById('input-string-UMopt'+String(um_index)+"_"+String(opt_index));
+												if(IN !== null) {
+													IN.value=option.stringval;
+												} else {
+													SomethinNotFound=true;
+												}
+											}
+										}
+									} else {
+										SomethinNotFound=true;
+									}
+								} else {
+									SomethinNotFound=true;
+								}
+							}
+							
+						} else {
+							SomethinNotFound=true;
+						}
+					}
+				}
+			}
+			// alert if required
+			if(SomethinNotFound) alert("Not all settings were found in current configuration. Please check everything manually.");
+			
+		}
+	}
+	GenerateEnvText();
+}
+
+function ClickLoadConfig() {
+var in1 = document.createElement('input');
+  in1.style.display = 'none';
+  in1.setAttribute('type', 'file');
+  in1.setAttribute('id', 'file-selector');
+  in1.setAttribute('accept', '.csv, .txt');
+  in1.addEventListener('change', function(event) {
+    const fileList = event.target.files;
+    const reader = new FileReader();
+      reader.addEventListener('load', function(event) {
+        LoadSetString(event.target.result);
+      });
+      reader.readAsText(fileList[0]);
+  });
+  document.body.appendChild(in1);
+  in1.click();
+}
 
 function proceed_extends(obj) {
 	retval=false;
@@ -638,6 +887,7 @@ function SourceChanged() {
 }
 
 function BranchChanged() {
+	branchesLoaded=true;
 	var SB = document.getElementById('select-branches');
 	var SI=SB.selectedIndex;
 	
@@ -673,7 +923,7 @@ function BranchChanged() {
 					if(!(envname.toLowerCase().includes("codm") || envname.toLowerCase().includes("athom") || envname.toLowerCase().includes("travis") || envname.toLowerCase().includes("sp5") || envname.toLowerCase().includes("h803") || envname.toLowerCase().includes("heltec")  || envname.toLowerCase().includes("elekstube") || envname.toLowerCase().includes("anavi") || envname.toLowerCase().includes("my92"))) {
 						//console.log(envname);
 						var opt = document.createElement('option');
-						opt.value = 0;
+						opt.value = i;
 						opt.innerHTML = envname;
 						if(envname===SS.options[SSI].getAttribute("recommended_esp8266")) opt.innerHTML = opt.innerHTML + " (RECOMMENDED for ESP8266)";
 						if(envname===SS.options[SSI].getAttribute("recommended_esp32")) opt.innerHTML = opt.innerHTML + " (RECOMMENDED for ESP32)";
@@ -731,6 +981,7 @@ function ChangeVisibilityUsermodOptions(i) {
 }
 
 function EnvChanged() {
+	envsLoaded=true;
 	var SI=parseInt(document.getElementById('select-sources').selectedIndex);
 	
 	options_div=document.getElementById('div-options');
@@ -858,6 +1109,7 @@ function LoadDataset() {
 			opt.value = i;
 			opt.innerHTML = dataset.sources[i].name;
 			opt.setAttribute("ghusername",dataset.sources[i].githubusername);
+			opt.setAttribute("dataset_id",dataset.sources[i].id);
 			opt.setAttribute("ghreponame",dataset.sources[i].githubreponame);
 			opt.setAttribute("custom",dataset.sources[i].custom);
 			opt.setAttribute("recommendedbranch",dataset.sources[i].recommendedbranch);
@@ -877,12 +1129,17 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 	var buildflags="";
 	var libdeps="";
 	var buildunflags="";
+	var confObj={}
 	
 	if(document.getElementById('checkbox-set'+stri).checked) {
+		confObj["id"]=setting.id;
+		confObj["name"]=setting.name;
+		
 		if(String(setting.build_flags).length>0) {
 		buildflags=buildflags+" "+setting.build_flags;
 			if(setting.type=="number" || setting.type=="number_float") {
 				numval=String(document.getElementById('input-number-'+stri).value);
+				confObj["numval"]=numval;
 				if(numval.length==0) {
 					numval="0";
 				}
@@ -897,10 +1154,12 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 			}
 			if(setting.type=="string") {
 				stringval=String(document.getElementById('input-string-'+stri).value);
+				confObj["stringval"]=stringval;
 				buildflags=buildflags+"'\""+stringval+"\"'";
 			}
 			if(setting.type=="defparam") {
 				stringval=String(document.getElementById('input-string-'+stri).value);
+				confObj["stringval"]=stringval;
 				buildflags=buildflags+stringval;
 			}
 		}
@@ -912,16 +1171,23 @@ function GetFlagsAndDepsForSetting(setting, stri) {
 		}
 	}
 	
-	return [buildflags, libdeps, buildunflags];
+	return [buildflags, libdeps, buildunflags, confObj];
 }
 
 function GetLinesForDetail(setting, stri) {
 	var newline="";
+	var confObj={};
 	
 	if(document.getElementById('checkbox-set'+stri).checked) {
+	
 		newline="\n"+setting.line;
+		confObj["id"]=setting.id;
+		confObj["name"]=setting.name;
+		
 		if(setting.type=="number" || setting.type=="number_float") {
 			numval=String(document.getElementById('input-number-'+stri).value);
+			confObj["numval"] = numval;
+			
 			if(numval.length==0) {
 				numval="0";
 			}
@@ -930,17 +1196,24 @@ function GetLinesForDetail(setting, stri) {
 		}
 		if(setting.type=="string") {
 			stringval=String(document.getElementById('input-string-'+stri).value);
+			confObj["stringval"] = stringval;
+			
 			newline=newline+"'\""+stringval+"\"'";
 		}
 		if(setting.type=="defparam") {
 			stringval=String(document.getElementById('input-string-'+stri).value);
+			confObj["stringval"] = stringval;
+			
 			newline=newline+stringval;
 		}
+		
+		jsonConfig["details"].push(confObj);
 	}
 	
 	return newline;
 }
 
+// generate env and jsonConfig (to save in a file)
 function GenerateEnvText() {
 	envtextfield=document.getElementById('env-text');
 	SS=document.getElementById('select-sources');
@@ -951,6 +1224,14 @@ function GenerateEnvText() {
 	SBI=SB.selectedIndex;
 
 	var value="[env:custom_build]\nextends = env:"+SE.options[SEI].getAttribute("env");
+	
+	jsonConfig["source_id"]=SS.options[SSI].getAttribute("dataset_id");
+	jsonConfig["branch"]={"type": SB.options[SBI].getAttribute("type"), "bname": SB.options[SBI].getAttribute("bname")};
+	jsonConfig["enviroment"]=SE.options[SEI].getAttribute("env");
+	jsonConfig["username"]=document.getElementById('input-username').value;
+	jsonConfig["reponame"]=document.getElementById('input-reponame').value;
+	jsonConfig["details"]=[];
+	
 
 	for(var i = 0; i < dataset.details.length; i++) {
 			if((dataset.details[i].type=="checkbox" || dataset.details[i].type=="number" || dataset.details[i].type=="number_float" || dataset.details[i].type=="string"  || dataset.details[i].type=="defparam") && dataset.details[i].sources.includes(SSI)) {
@@ -965,17 +1246,21 @@ function GenerateEnvText() {
 	var libdeps="";
 	var buildunflags="";
 	var custom_usermods=""
+	
+	jsonConfig["settings"]=[];
 
 	for(var i = 0; i < dataset.settings.length; i++) {
 		if((dataset.settings[i].type=="checkbox" || dataset.settings[i].type=="number" || dataset.settings[i].type=="number_float" || dataset.settings[i].type=="string"  || dataset.settings[i].type=="defparam") && dataset.settings[i].sources.includes(SSI)) {
-			[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
+			[buildflags_add, libdeps_add, buildunflags_add, confObj] = GetFlagsAndDepsForSetting(dataset.settings[i], String(i));
 			buildflags=buildflags+buildflags_add;
 			libdeps=libdeps+libdeps_add;
 			buildunflags=buildunflags+buildunflags_add;
-			
+			if(Object.keys(confObj).length !== 0) jsonConfig["settings"].push(confObj);
 		}
 
 	}
+	
+	jsonConfig["usermods"]=[];
 	
 	let newUsermodHandling=false;
 	if(SS.value==0 && (SB.options[SBI].getAttribute("bname")=="main" || SB.options[SBI].getAttribute("bname")=="nightly" || SB.options[SBI].getAttribute("bname").includes("0.16"))) {
@@ -985,7 +1270,11 @@ function GenerateEnvText() {
 	for(var i = 0; i < dataset.usermods.length; i++) {
 		if(dataset.usermods[i].type=="checkbox" && dataset.usermods[i].sources.includes(SSI)) {
 			if(document.getElementById('checkbox-setum'+String(i)).checked) {
-			
+				var confObj={};
+				confObj["id"]=dataset.usermods[i].id;
+				confObj["name"]=dataset.usermods[i].name;
+				confObj["options"]=[];
+				
 				if(newUsermodHandling) {
 					const readmelist=dataset.usermods[i].readme.split("/");
 					const usermodname=readmelist[readmelist.length-2];
@@ -1005,12 +1294,14 @@ function GenerateEnvText() {
 				
 				if("options" in dataset.usermods[i]) {
 					for(var j = 0; j < dataset.usermods[i].options.length; j++) {
-						[buildflags_add, libdeps_add, buildunflags_add] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
+						[buildflags_add, libdeps_add, buildunflags_add, confObjOpt] = GetFlagsAndDepsForSetting(dataset.usermods[i].options[j], 'UMopt'+String(i)+'_'+String(j));
 						buildflags=buildflags+buildflags_add;
 						libdeps=libdeps+libdeps_add;
 						buildunflags=buildunflags+buildunflags_add;
+						if(Object.keys(confObjOpt).length !== 0) confObj["options"].push(confObjOpt);
 					}
 				}
+				jsonConfig["usermods"].push(confObj);
 			}
 		}
 	}
@@ -1029,7 +1320,8 @@ function GenerateEnvText() {
 		value=value+"\ncustom_usermods = "+custom_usermods;
 	}
 	
-envtextfield.value=value;
+	envtextfield.value=value;
+	jsonConfig["envtextfield"]=value;
 }
 
 function LangChangedByUser() {
@@ -1102,6 +1394,9 @@ function LangChanged() {
 		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignorieren und kompilieren starten";
 		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'Sie kompilieren auf einem öffentlichen Server, wo jeder Ihre Daten einsehen kann. Sie haben aber Ihre persönlichen Daten (WiFi SSID und/oder Password) definiert. Jeder kann diese einsehen! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="'+TicketShopLinkDE+'" target="_blank">Ticket in unserem Shop</a>';
 		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Achtung: in WLED version 0.16.x (inkl. aktuell main branch) wurde die Vorgehensweise geändert, wie UserMods hinzugefügt werden. Es kann aktuell mit einigen UserMods nicht funktionieren.";
+		if(document.getElementById('L52')) document.getElementById('L52').innerHTML = "Konfiguration in einer Datei speichern";
+		if(document.getElementById('L53')) document.getElementById('L53').innerHTML = "Konfiguration aus einer Datei laden";
+		
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -1160,6 +1455,8 @@ function LangChanged() {
 		if(document.getElementById('L49')) document.getElementById('L49').innerHTML = "Ignore and start compiling";
 		if(document.getElementById('L50')) document.getElementById('L50').innerHTML = 'You compile on a public server where anyone can see your data. However, you have defined your personal data (WiFi SSID and/or password). Anyone can see these! For a small fee we can also compile in a protected area. To do this, purchase a <a href="'+TicketShopLinkEN+'" target="_blank">ticket in our shop</a>';
 		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Attention: In WLED version 0.16.x (including actual main branch), the procedure for adding usermods has been changed. It may currently not work with some usermods.";
+		if(document.getElementById('L52')) document.getElementById('L52').innerHTML = "Save configuration to a file";
+		if(document.getElementById('L53')) document.getElementById('L53').innerHTML = "Load configuration from a file";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
@@ -1191,6 +1488,7 @@ const base_url_gate_private='https://wled-api.myhome-control.de/cs-api/';
 
 const base_url_repo='https://raw.githubusercontent.com/wled-compile1/myrepo1/refs/heads/main/';
 const base_url_repo_private=base_url_gate_private;
+
 
 function GeneratorJob(PrivateMode) {
 
@@ -1557,7 +1855,7 @@ window.onload = function () {
 </script>
 <script
   type="module"
-  src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  src="esp-web-tools/dist/web/install-button.js"
 ></script>
 </body>
 </html>
