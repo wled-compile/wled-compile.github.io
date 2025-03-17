@@ -400,7 +400,7 @@ function ClickSaveConfig() {
 		
 	//console.log(jsonConfig);
   var json_string = JSON.stringify(jsonConfig);
-  var filename = 'WLED_compile_' + new Date().toLocaleString().replace(/\./g,'_').replace(/,/g,'_').replace(/ /g,'_') + '.txt';
+  var filename = 'WLED_compile_' + new Date().toLocaleString().replace(/\./g,'_').replace(/,/g,'_').replace(/ /g,'_') + '.json';
   var link = document.createElement('a');
   link.style.display = 'none';
   link.setAttribute('target', '_blank');
@@ -619,7 +619,7 @@ var in1 = document.createElement('input');
   in1.style.display = 'none';
   in1.setAttribute('type', 'file');
   in1.setAttribute('id', 'file-selector');
-  in1.setAttribute('accept', '.csv, .txt');
+  in1.setAttribute('accept', '.json');
   in1.addEventListener('change', function(event) {
     const fileList = event.target.files;
     const reader = new FileReader();
