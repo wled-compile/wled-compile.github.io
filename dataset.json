@@ -700,12 +700,16 @@
 			"id": 500,
 			"options" : [
 				{
-					"name" : "DHT model: 11, 21, 22 for DHT11, DHT21, or DHT22, defaults to 22/DHT22",
-					"type" : "number",
-					"minnumber": 11,
+					"name" : "DHT model (default DHT 22)",
+					"type" : "defparam",
 					"build_flags" : "-D USERMOD_DHT_DHTTYPE=",
 					"lib_deps" : "",
-					"id": 501
+					"id": 501,
+					"value_list": {
+						"11":"DHT 11",
+						"21":"DHT 21",
+						"22":"DHT 22"
+					}
 				},
 				{
 					"name" : "Pin to which DHT is connected",
@@ -901,11 +905,15 @@
 					"id": 1203
 				},
 				{
-					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
+					"name" : "GPIO functionality",
 					"type" : "defparam",
 					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
 					"lib_deps" : "",
-					"id": 1204
+					"id": 1204,
+					"value_list": {
+						"INPUT_PULLUP":"Use uC internal pull-up",
+						"INPUT":"Use pull-up on the PCB"
+					}
 				}
 			]
 		},
@@ -943,11 +951,15 @@
 					"id": 1303
 				},
 				{
-					"name" : "GPIO functionality: enter INPUT_PULLUP to use internal pull-up, enter INPUT to use pull-up on the PCB)",
+					"name" : "GPIO functionality",
 					"type" : "defparam",
 					"build_flags" : "-D USERMOD_ROTARY_ENCODER_GPIO=",
 					"lib_deps" : "",
-					"id": 1304
+					"id": 1304,
+					"value_list": {
+						"INPUT_PULLUP":"Use uC internal pull-up",
+						"INPUT":"Use pull-up on the PCB"
+					}
 				}
 			]
 		},
@@ -987,11 +999,15 @@
 					"id": 1601
 				},
 				{
-					"name" : "Enable (please enter <b>true</b>) or disable (please enter <b>false</b>) HA discovery for externally controlled relays",
+					"name" : "Enable or disable HA discovery for externally controlled relays",
 					"type" : "defparam",
 					"build_flags" : "-D MULTI_RELAY_HA_DISCOVERY=",
 					"lib_deps" : "",
-					"id": 1602
+					"id": 1602,
+					"value_list": {
+						"true":"Enable",
+						"false":"Disable"
+					}
 				},
 				{
 					"name" : "Define default pins for relays (for exampe enter <b>12,14,18,22</b>)",
@@ -1097,12 +1113,16 @@
 					"id": 1709
 				},
 				{
-					"name" : "Enables low power indication. Please enter <b>true</b> to enable, <b>false</b> to disable",
+					"name" : "Disable / enable low power indication",
 					"type" : "defparam",
 					"minnumber": 0,
 					"build_flags" : "-D USERMOD_BATTERY_LOW_POWER_INDICATOR_ENABLED=",
 					"lib_deps" : "",
-					"id": 1710
+					"id": 1710,
+					"value_list": {
+						"true":"Enable",
+						"false":"Disable"
+					}
 				},
 				{
 					"name" : "When low power is detected then use this preset ID to indicate low power",
@@ -1367,7 +1387,7 @@
 			"name" : "[WLED>=0.15.x] BME680/BME68X sensors",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/BME68X_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/BME68X_v2/README.md",
 			"build_flags" : "-D USERMOD_BME68X",
 			"lib_deps" : "boschsensortec/BSEC Software Library @ ^1.8.1492",
 			"id": 3400
@@ -1376,7 +1396,7 @@
 			"name" : "[WLED>=0.15.x] Support of simple hand gestures via a VL53L0X sensor: on/off and brightness adjustment",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/VL53L0X_gestures/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/VL53L0X_gestures/readme.md",
 			"build_flags" : "-D USERMOD_VL53L0X_GESTURES",
 			"lib_deps" : "pololu/VL53L0X @ ^1.3.0",
 			"id": 3500
@@ -1385,7 +1405,7 @@
 			"name" : "[WLED>=0.15.x] Support AHT10, AHT15 or AHT20 sensors (Temperature, Humidity)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/AHT10_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/AHT10_v2/README.md",
 			"build_flags" : "-D USERMOD_AHT10",
 			"lib_deps" : "enjoyneering/AHT10@~1.1.0\n  Wire",
 			"id": 3600
@@ -1394,7 +1414,7 @@
 			"name" : "[WLED>=0.15.x] Read from a LD2410 movement/presence sensor (requires second UART, ESP32)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LD2410_v2/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/LD2410_v2/readme.md",
 			"build_flags" : "-D USERMOD_LD2410",
 			"lib_deps" : "ncmreynolds/ld2410@^0.1.3",
 			"id": 3700
@@ -1403,7 +1423,7 @@
 			"name" : "[WLED>=0.15.x] Stairway wipe basic",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/stairway_wipe_basic/readme.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/stairway_wipe_basic/readme.md",
 			"build_flags" : "-D USERMOD_STAIRCASE_WIPE",
 			"lib_deps" : "",
 			"id": 3800,
@@ -1421,7 +1441,7 @@
 			"name" : "[WLED>=0.15.x] Read from a Light Dependent Resistor (LDR) and turn on/off specific presets",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/0_15/usermods/LDR_Dusk_Dawn_v2/README.md",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/LDR_Dusk_Dawn_v2/README.md",
 			"build_flags" : "-D USERMOD_LDR_DUSK_DAWN",
 			"lib_deps" : "",
 			"id": 3900
