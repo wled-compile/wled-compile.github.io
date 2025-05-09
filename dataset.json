@@ -1486,7 +1486,16 @@
 				}
 				
 			]
-		}
+		},
+		{
+			"name" : "[WLED>=0.15.x] POV Display usermod",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/wled/WLED/tree/main/usermods/pov_display/README.md",
+			"build_flags" : "-D USERMOD_POV_DISPLAY",
+			"lib_deps" : "bitbank2/PNGdec@^1.0.1",
+			"id": 4100
+		},
 		
 	]
 }
