@@ -1495,7 +1495,7 @@
 			"build_flags" : "-D USERMOD_POV_DISPLAY",
 			"lib_deps" : "bitbank2/PNGdec@^1.0.1",
 			"id": 4100
-		},
+		}
 		
 	]
 }
