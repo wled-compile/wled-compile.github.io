@@ -7,9 +7,29 @@
   <title>WLED Online compiler</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="index.css">
+  <style>
+    #spinnerOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1050;
+      display: none;
+    }
+  </style>
 </head>
 <body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<div id="spinnerOverlay">
+  <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+    <span class="visually-hidden" id="L58">Lade... Bitte warten...</span>
+  </div>
+</div>
 <div class="container">
 <h3 style="font-weight: bold;"><span style="color:red">W</span><span style="color:orange">L</span><span style="color:darkblue">E</span><span style="color:lightpink">D</span><span style="color:mediumblue"> o</span><span style="color:brown">n</span><span style="color:hotpink">l</span><span style="color:lightcoral">i</span><span style="color:red">n</span><span style="color:seagreen">e</span><span style="color:crimson"> c</span><span style="color:darkgreen">o</span><span style="color:darkmagemnta">m</span><span style="color:darkblue">p</span><span style="color:red">i</span><span style="color:darksalmon">l</span><span style="color:lightpink">e</span><span style="color:red">r</span></h3>
 	<div class="form-floating mb-1">
@@ -290,7 +310,20 @@
   </div>
 </div>
 	
-	
+<div class="modal fade" id="ChooseLoadEnv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="L54" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert alert-info">
+        <h5 class="modal-title" id="L54">Bitte wählen:</h5>
+      </div>
+      <div class="modal-body" id="L55">[env:custom_build] basierend auf Daten neu regenerieren (empfohlen) oder aus der Datei laden (empfohlen, wenn Sie diese vorher manuell angepasst haben)?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="L56" onClick="ChooseLoadEnvResult(true);">Regenerieren</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="L57" onClick="ChooseLoadEnvResult(false);">Aus der Datei laden</button>
+      </div>
+    </div>
+  </div>
+</div>
 	
 <hr>
     <div class="container">
@@ -420,6 +453,7 @@ function LoadSetString(jsonString){
 	const source_index=dataset.sources.findIndex((source)=> (source.id===jsonConfLoaded.source_id) || (String(source.id)===jsonConfLoaded.source_id));
 	//console.log(source_index);
 	if(source_index===-1) {
+		document.getElementById('spinnerOverlay').style.display = 'none';
 		alert("Saved source ID can not be found. Please check the source. Try to load the rest.");
 	} else {
 		var SS = document.getElementById('select-sources');
@@ -454,7 +488,10 @@ function LoadSetStringAfterBranchesLoaded(jsonConfLoaded) {
 	LoadSetStringAfterEnvsLoaded(jsonConfLoaded);
 }
 
+var jsonConfLoadedGlobal="";
+
 function LoadSetStringAfterEnvsLoaded(jsonConfLoaded) {
+	jsonConfLoadedGlobal=jsonConfLoaded;
 	if(envsLoaded===false) {
 		setTimeout(()=>LoadSetStringAfterEnvsLoaded(jsonConfLoaded), 500);
 		return;
@@ -609,14 +646,30 @@ function LoadSetStringAfterEnvsLoaded(jsonConfLoaded) {
 			}
 			// alert if required
 			if(SomethinNotFound) alert("Not all settings were found in current configuration. Please check everything manually.");
-			
 		}
 	}
-	GenerateEnvText();
+	document.getElementById('spinnerOverlay').style.display = 'none';
+	if("envtextfield" in jsonConfLoaded) {
+		var myModal = new bootstrap.Modal(document.getElementById('ChooseLoadEnv'), {});
+		myModal.show();
+	} else {
+		GenerateEnvText();
+	}
+}
+
+function ChooseLoadEnvResult(regenerate) {
+	if(!regenerate) {
+		if("envtextfield" in jsonConfLoadedGlobal) {
+			document.getElementById('env-text').value = jsonConfLoadedGlobal.envtextfield;
+		}
+	} else {
+		GenerateEnvText();
+	}
 }
 
 function ClickLoadConfig() {
-var in1 = document.createElement('input');
+  document.getElementById('spinnerOverlay').style.display = 'flex';
+  var in1 = document.createElement('input');
   in1.style.display = 'none';
   in1.setAttribute('type', 'file');
   in1.setAttribute('id', 'file-selector');
@@ -1412,7 +1465,11 @@ function LangChanged() {
 		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Achtung: in WLED version 0.16.x (inkl. aktuell main branch) wurde die Vorgehensweise geändert, wie UserMods hinzugefügt werden. Es kann aktuell mit einigen UserMods nicht funktionieren.";
 		if(document.getElementById('L52')) document.getElementById('L52').innerHTML = "Konfiguration in einer Datei speichern";
 		if(document.getElementById('L53')) document.getElementById('L53').innerHTML = "Konfiguration aus einer Datei laden";
-		
+		if(document.getElementById('L54')) document.getElementById('L54').innerHTML = "Bitte wählen:";
+		if(document.getElementById('L55')) document.getElementById('L55').innerHTML = "[env:custom_build] basierend auf Daten neu regenerieren (empfohlen) oder aus der Datei laden (empfohlen, wenn Sie diese vorher manuell angepasst haben)?";
+		if(document.getElementById('L56')) document.getElementById('L56').innerHTML = "Regenerieren";
+		if(document.getElementById('L57')) document.getElementById('L57').innerHTML = "Aus der Datei laden";
+		if(document.getElementById('L58')) document.getElementById('L58').innerHTML = "Lade ... bitte warten ...";
 		
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
@@ -1473,6 +1530,11 @@ function LangChanged() {
 		if(document.getElementById('L51')) document.getElementById('L51').innerHTML = "Attention: In WLED version 0.16.x (including actual main branch), the procedure for adding usermods has been changed. It may currently not work with some usermods.";
 		if(document.getElementById('L52')) document.getElementById('L52').innerHTML = "Save configuration to a file";
 		if(document.getElementById('L53')) document.getElementById('L53').innerHTML = "Load configuration from a file";
+		if(document.getElementById('L54')) document.getElementById('L54').innerHTML = "Please choose:";
+		if(document.getElementById('L55')) document.getElementById('L55').innerHTML = "Regenerate [env:custom_build] based on file data (recommended) or load from file (recommended if you have previously modified it manually)?";
+		if(document.getElementById('L56')) document.getElementById('L56').innerHTML = "Regenerate";
+		if(document.getElementById('L57')) document.getElementById('L57').innerHTML = "Load from file";
+		if(document.getElementById('L58')) document.getElementById('L58').innerHTML = "Loading ... please wait ...";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';

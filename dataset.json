@@ -403,9 +403,9 @@
 			"id": 2800
 		},
 		{
-			"name" : "Set default LED pin GPIO number: ",
+			"name" : "Set default LED pin GPIO number(s) (one or more numbers separated by commas) ",
 			"sources" : [0, 1, 2, 3],
-			"type" : "number",
+			"type" : "defparam",
 			"build_flags" : "-D DATA_PINS=",
 			"lib_deps" : "",
 			"id": 2900
@@ -452,11 +452,19 @@
 			"id": 3400
 		},
 		{
-			"name" : "Enable and define dig. mic. type by number: ",
-			"sources" : [1, 2, 3],
-			"type" : "number",
-			"build_flags" : "-D DMENABLED=",
+			"name" : "Define microfone type:",
+			"sources" : [0, 1, 2, 3],
+			"type" : "defparam",
+			"build_flags" : "-D SR_DMTYPE=",
 			"lib_deps" : "",
+			"value_list": {
+						"0":"analog",
+						"1":"generic I2S",
+						"2":"ES7243 I2S",
+						"3":"SPH0645 I2S",
+						"4":"generic I2S with master clock",
+						"5":"PDM I2S"
+					},
 			"id": 3500
 		},
 		{
