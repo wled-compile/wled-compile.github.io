@@ -180,7 +180,7 @@
 		{
 			"id" : 1,
 			"name" : "To be used with DMX_OUTPUT option for ESP32: use GPIO32 instead of GPIO2 as DMX output pin",
-			"tooltip" : "This does not work correctly with some GPIOs",
+			"tooltip" : "",
 			"changes": [
 				{
 				"file" : "wled00/src/dependencies/dmx/SparkFunDMX.cpp",
