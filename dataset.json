@@ -196,6 +196,11 @@
 				"file" : "wled00/wled.cpp",
 				"search" : "allocatePin(2, true, PinOwner::DMX)",
 				"replace" : "allocatePin(32, true, PinOwner::DMX)"
+				},
+				{
+				"file" : "wled00/xml.cpp",
+				"search" : "oappend(SET_F(\",2\"));",
+				"replace" : "oappend(SET_F(\",32\"));"
 				}
 			]
 		}
