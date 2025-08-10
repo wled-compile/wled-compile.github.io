@@ -1890,11 +1890,22 @@ function startvalidation() {
 window.onload = function () {
 	const searchParams = new URLSearchParams(window.location.search);
 	lang=searchParams.get('lang');
-	if(lang=="en") {
-		document.getElementById('lang').value="1";
+	if(lang) {
+		if(lang=="en") {
+			document.getElementById('lang').value="1";
+		} else {
+			document.getElementById('lang').value="0"
+			lang="de";
+		}
 	} else {
-		document.getElementById('lang').value="0"
-		lang="de";
+		const requestedLang=navigator.language || navigator.userLanguage;
+		if(requestedLang.includes("de")){
+			document.getElementById('lang').value="0"
+			lang="de";
+		} else {
+			document.getElementById('lang').value="1";
+			lang="en";
+		}
 	}
 	
 	document.getElementById('L22').style.display = "inherit";
