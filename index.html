@@ -1076,9 +1076,9 @@ function EnvChanged() {
 			if("tooltip" in dataset.usermods[i]) {
 				ttip=dataset.usermods[i].tooltip;
 			}
-		
-			prefix = '<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-setum'+String(i)+'" name="option-setum'+String(i)+'" value="something" onchange="ChangeVisibilityUsermodOptions('+String(i)+');GenerateEnvText();">  <label class="form-check-label-um"><span>'+dataset.usermods[i].name+'</span>   <a href="'+dataset.usermods[i].readme+'" target="_blank">README</a></label><span style="color:red; display:none" id="usermod-na-text-'+String(i)+'">&nbsp;[currently might be broken for WLED >=0.16.x]</span><div id="UMOptionsList'+String(i)+'" style="display:none">';
-			
+			let readmelabeltext="";
+			if("readme" in dataset.usermods[i]) readmelabeltext="<a href="'+dataset.usermods[i].readme+'" target="_blank">README</a>"
+			prefix = '<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-setum'+String(i)+'" name="option-setum'+String(i)+'" value="something" onchange="ChangeVisibilityUsermodOptions('+String(i)+');GenerateEnvText();">  <label class="form-check-label-um"><span>'+dataset.usermods[i].name+'</span>  '+readmelabeltext+'</label><span style="color:red; display:none" id="usermod-na-text-'+String(i)+'">&nbsp;[currently might be broken for WLED >=0.16.x]</span><div id="UMOptionsList'+String(i)+'" style="display:none">';
 			middlepart='';
 			if("options" in dataset.usermods[i]) {
 				for(var j = 0; j < dataset.usermods[i].options.length; j++) {
@@ -1098,10 +1098,12 @@ function EnvChanged() {
 				}
 			})(i);
 			  //https://raw.githubusercontent.com/
-			  const readmelist=dataset.usermods[i].readme.split("/");
-			  const usermodname=readmelist[readmelist.length-2];
-			  xhttp.open("GET", "https://raw.githubusercontent.com/wled/wled/main/usermods/"+usermodname+"/library.json");
-			  xhttp.send(); 
+			  if("readme" in dataset.usermods[i]) {
+				  const readmelist=dataset.usermods[i].readme.split("/");
+				  const usermodname=readmelist[readmelist.length-2];
+				  xhttp.open("GET", "https://raw.githubusercontent.com/wled/wled/main/usermods/"+usermodname+"/library.json");
+				  xhttp.send(); 
+			  }
 		}
       }
 	var obj = TestIni();
@@ -1345,9 +1347,17 @@ function GenerateEnvText() {
 				confObj["options"]=[];
 				
 				if(newUsermodHandling) {
-					const readmelist=dataset.usermods[i].readme.split("/");
-					const usermodname=readmelist[readmelist.length-2];
-					custom_usermods = custom_usermods+" "+usermodname.replace("usermod_v2_","").replace("_v2","");
+					let readmelist=[];
+					let usermodname="";
+					if("readme" in dataset.usermods[i]) {
+						readmelist=dataset.usermods[i].readme.split("/");
+					    usermodname=readmelist[readmelist.length-2];
+					}
+					if((emptyusermodlist in dataset.usermods[i]) && dataset.usermods[i].emptyusermodlist) {
+					   custom_usermods = custom_usermods+" ";
+					} else {
+					   custom_usermods = custom_usermods+" "+usermodname.replace("usermod_v2_","").replace("_v2","");
+					}
 					
 				} else {
 					if(String(dataset.usermods[i].build_flags).length>0) {
