@@ -701,7 +701,7 @@
 			"id": 200
 		},
 		{
-			"name" : "Remove Audio Reactive Usermod if included per default in Version 0.15.x",
+			"name" : "Remove Audio Reactive Usermod if included per default in Version 0.15.x (only)",
 			"sources" : [0],
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/audioreactive/readme.md",
@@ -709,6 +709,17 @@
 			"lib_deps" : "",
 			"build_unflags" : "-D USERMOD_AUDIOREACTIVE",
 			"id": 300
+		},
+		{
+			"name" : "Remove Audio Reactive Usermod if included per default in Version >=0.16.x",
+			"sources" : [0],
+			"type" : "checkbox",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/",
+			"noreadme": true,
+			"build_flags" : "",
+			"lib_deps" : "",
+			"build_unflags" : "",
+			"id": 350
 		},
 		{
 			"name" : "DS18B20 Temperatursensor",
@@ -1538,3 +1549,4 @@
 		
 	]
 }
+
