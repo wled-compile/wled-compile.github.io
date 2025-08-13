@@ -1077,7 +1077,7 @@ function EnvChanged() {
 				ttip=dataset.usermods[i].tooltip;
 			}
 			let readmelabeltext="";
-			if("readme" in dataset.usermods[i]) readmelabeltext="<a href="'+dataset.usermods[i].readme+'" target="_blank">README</a>"
+			if("readme" in dataset.usermods[i]) readmelabeltext='<a href='+dataset.usermods[i].readme+' target="_blank">README</a>'
 			prefix = '<div class="row row-cols-auto"><div class="col mb-1"><div class="form-check"><input class="form-check-input" type="checkbox" id="checkbox-setum'+String(i)+'" name="option-setum'+String(i)+'" value="something" onchange="ChangeVisibilityUsermodOptions('+String(i)+');GenerateEnvText();">  <label class="form-check-label-um"><span>'+dataset.usermods[i].name+'</span>  '+readmelabeltext+'</label><span style="color:red; display:none" id="usermod-na-text-'+String(i)+'">&nbsp;[currently might be broken for WLED >=0.16.x]</span><div id="UMOptionsList'+String(i)+'" style="display:none">';
 			middlepart='';
 			if("options" in dataset.usermods[i]) {
