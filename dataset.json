@@ -714,8 +714,7 @@
 			"name" : "Remove Audio Reactive Usermod if included per default in Version >=0.16.x",
 			"sources" : [0],
 			"type" : "checkbox",
-			"readme" : "https://github.com/wled/WLED/blob/main/usermods/",
-			"noreadme": true,
+			"emptyusermodlist": true,
 			"build_flags" : "",
 			"lib_deps" : "",
 			"build_unflags" : "",
@@ -1549,4 +1548,5 @@
 		
 	]
 }
+
 
