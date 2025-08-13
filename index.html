@@ -1353,7 +1353,7 @@ function GenerateEnvText() {
 						readmelist=dataset.usermods[i].readme.split("/");
 					    usermodname=readmelist[readmelist.length-2];
 					}
-					if((emptyusermodlist in dataset.usermods[i]) && dataset.usermods[i].emptyusermodlist) {
+					if(("emptyusermodlist" in dataset.usermods[i]) && dataset.usermods[i].emptyusermodlist) {
 					   custom_usermods = custom_usermods+" ";
 					} else {
 					   custom_usermods = custom_usermods+" "+usermodname.replace("usermod_v2_","").replace("_v2","");
