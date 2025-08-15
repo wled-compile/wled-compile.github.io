@@ -340,7 +340,7 @@
 				</ul>
 		</div>
 	   <div class="col-md">
-	   
+			<div id="carousel1_title"><span style="color: blue;"><b>Would you like to become a distributor of our products?</b> <a href="mailto:info@myhome-control.de">Contact us!</a></span></div>
 			<div id="carousel1" class="carousel carousel-dark slide img-fluid" data-bs-ride="carousel" data-bs-interval="10000">
 			  <div class="carousel-indicators">
 				<button type="button" data-bs-target="#carousel1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -1555,11 +1555,11 @@ function LangChanged() {
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
 		document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:green">noch kein</span>';
-		document.getElementById("carousel1").style.display = "block";
+		document.getElementById("carousel1_title").style.display = "none";
 	} else {
 		document.getElementById('result_line1').innerHTML='State: <span style="color:green">not started yet</span>';
 		document.getElementById('result_line2').innerHTML='Download link for the result: <span style="color:green">nothing yet</span>';
-		document.getElementById("carousel1").style.display = "none";
+		document.getElementById("carousel1_title").style.display = "block";
 	}
 	if(document.getElementById('comporthelp')) {
 		if(document.getElementById('comporthelp').innerHTML!="") NoComPortHelp();
