@@ -1544,9 +1544,60 @@
 			"build_flags" : "-D USERMOD_POV_DISPLAY",
 			"lib_deps" : "bitbank2/PNGdec@^1.0.1",
 			"id": 4100
+		},
+		{
+			"name" : "[WLED>=0.15.x] Deep Sleep (not for ESP8266)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"readme" : "https://github.com/wled/WLED/blob/main/usermods/deep_sleep/readme.md",
+			"build_flags" : "-D USERMOD_DEEP_SLEEP",
+			"lib_deps" : "",
+			"id": 4200,
+			"options": [
+				{
+					"name" : "Define the pin to be used for wake-up, see list of useable pins in README. The pin can be used normally as a button pin in WLED",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D DEEPSLEEP_WAKEUPPIN=",
+					"lib_deps" : "",
+					"id": 4201
+				},
+				{
+					"name" : "Define number of seconds after which a wake-up happens automatically, sooner if button is pressed. 0 = never. accuracy is about 2%",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D DEEPSLEEP_WAKEUPINTERVAL=",
+					"lib_deps" : "",
+					"id": 4202
+				},
+			    {
+					"name" : "Define delay between power-off and sleep in seconds, default =1",
+					"type" : "number",
+					"minnumber": 0,
+					"build_flags" : "-D DEEPSLEEP_DELAY=",
+					"lib_deps" : "",
+					"id": 4203
+				},
+				{
+					"name" : "If defined, wakes up when pin goes high (default is low)",
+					"type" : "checkbox",
+					"build_flags" : "-D DEEPSLEEP_WAKEWHENHIGH=1",
+					"lib_deps" : "",
+					"id": 4204
+				},
+				{
+					"name" : "If defined, internal pullup/pulldown is enabled in deep sleep (default is disabled)",
+					"type" : "checkbox",
+					"build_flags" : "-D DEEPSLEEP_DISABLEPULL=0",
+					"lib_deps" : "",
+					"id": 4205
+				}
+				
+			]
 		}
 		
 	]
 }
+
 
 
