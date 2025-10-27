@@ -904,7 +904,7 @@ function SearchForBranchesAndReleases(){
 						for(let i = 0; i < json.length; i++) {
 							let obj = json[i];
 							var opt = document.createElement('option');
-							opt.value = i+NN-1;
+							opt.value = i+NN;
 							opt.setAttribute("type","release");
 							opt.setAttribute("bname",obj.tag_name);
 							opt.setAttribute("url",obj.zipball_url);
