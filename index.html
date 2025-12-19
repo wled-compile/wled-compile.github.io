@@ -1642,7 +1642,7 @@ function GeneratorJob(PrivateMode) {
 				wait_cycle_counter=0;
 				generator_state='waitforbuildfinish';
 				if(document.getElementById('lang').selectedIndex==0) {
-					document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird ausgeführt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 is 10 Minuten</span>';
+					document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird ausgeführt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 bis 10 Minuten</span>';
 					document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:orange">noch kein</span>';
 				} else {
 					document.getElementById('result_line1').innerHTML='State: <span style="color:orange">job is being executed... please wait and DO NOT reload this page ... it takes 5 to 10 minutes usually</span>';
@@ -1654,7 +1654,7 @@ function GeneratorJob(PrivateMode) {
 		};
 		generator_state='waitforid';
 		if(document.getElementById('lang').selectedIndex==0) {
-			document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird angefragt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 is 10 Minuten</span>';
+			document.getElementById('result_line1').innerHTML='Status: <span style="color:orange">job wird angefragt ... bitte warten und die Seite NICHT neu laden ... es dauert gewöhnlich 5 bis 10 Minuten</span>';
 			document.getElementById('result_line2').innerHTML='Download-Link zum Ergebnis: <span style="color:orange">noch kein</span>';
 		} else {
 			document.getElementById('result_line1').innerHTML='State: <span style="color:orange">job is requested ... please wait and DO NOT reload this page ... it takes 5 to 10 minutes usually</span>';
