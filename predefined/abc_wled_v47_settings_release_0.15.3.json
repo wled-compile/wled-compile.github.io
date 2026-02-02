@@ -12,7 +12,6 @@
         }
     ],
     "enviroment": "esp32_eth",
-    "envtextfield": "[env:custom_build]\nextends = env:esp32_eth\nboard_build.flash_mode = qio\nbuild_flags = ${env:esp32_eth.build_flags} -D WLED_DISABLE_ESPNOW -D DATA_PINS=16 -D BTNPIN=-1 -D RLYPIN=4 -D AUDIOPIN=-1 -D SR_DMTYPE=1 -D WLED_ETH_DEFAULT=9 -D UM_AUDIOREACTIVE_ENABLE -D UM_AUDIOREACTIVE_DYNAMICS_LIMITER_OFF -D I2S_SDPIN=32 -D I2S_WSPIN=15 -D I2S_CKPIN=14",
     "hacks": [
     ],
     "reponame": "WLED",
