@@ -1,0 +1,81 @@
+{
+	"source_id":"0",
+    "branch": {
+        "bname": "v0.15.3",
+        "type": "release"
+    },
+    "details": [
+        {
+            "id": 200,
+            "name": "Redefine flash mode type",
+            "stringval": "qio"
+        }
+    ],
+    "enviroment": "esp32_eth",
+    "envtextfield": "[env:custom_build]\nextends = env:esp32_eth\nboard_build.flash_mode = qio\nbuild_flags = ${env:esp32_eth.build_flags} -D WLED_DISABLE_ESPNOW -D DATA_PINS=16 -D BTNPIN=-1 -D RLYPIN=4 -D AUDIOPIN=-1 -D SR_DMTYPE=1 -D WLED_ETH_DEFAULT=9 -D UM_AUDIOREACTIVE_ENABLE -D UM_AUDIOREACTIVE_DYNAMICS_LIMITER_OFF -D I2S_SDPIN=32 -D I2S_WSPIN=15 -D I2S_CKPIN=14",
+    "hacks": [
+    ],
+    "reponame": "WLED",
+    "settings": [
+        {
+            "id": 400,
+            "name": "Disable ESP-NOW Interface"
+        },
+        {
+            "id": 2900,
+            "name": "Set default LED pin GPIO number(s) (one or more numbers separated by commas) ",
+            "stringval": "16"
+        },
+        {
+            "id": 3000,
+            "name": "Set default button pin GPIO number: ",
+            "numval": "-1"
+        },
+        {
+            "id": 3100,
+            "name": "Set default relay pin GPIO number: ",
+            "numval": "4"
+        },
+        {
+            "id": 3400,
+            "name": "Set default audio pin GPIO number: ",
+            "numval": "-1"
+        },
+        {
+            "id": 3500,
+            "name": "Define microfone type:",
+            "stringval": "1"
+        },
+        {
+            "id": 5700,
+            "name": "Define Ethernet board/adapter type:",
+            "stringval": "9"
+        },
+        {
+            "id": 5800,
+            "name": "Audio Reactive Usermod: enable"
+        },
+        {
+            "id": 5900,
+            "name": "Audio Reactive Usermod: disable dynamic limiter"
+        },
+        {
+            "id": 6000,
+            "name": "Audio Reactive Usermod: define I2S SD pin",
+            "numval": "32"
+        },
+        {
+            "id": 6100,
+            "name": "Audio Reactive Usermod: define I2S WS pin",
+            "numval": "15"
+        },
+        {
+            "id": 6200,
+            "name": "Audio Reactive Usermod: define I2S SCK pin",
+            "numval": "14"
+        }
+    ],
+    "usermods": [
+    ],
+    "username": "wled"
+}
