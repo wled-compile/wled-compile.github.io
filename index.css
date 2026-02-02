@@ -86,3 +86,20 @@ body {
 .bottompart {
   background-color: #f3f3f3;
 }
+
+.btn-select {
+  width: auto;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem; /* rechts mehr Platz */
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+.btn-select-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}

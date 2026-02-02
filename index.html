@@ -66,10 +66,18 @@
 	<div id="AttentionMSG" class="form-floating mb-1 p-1 border border-danger border-2 rounded" style="background-color:white">
 		<span id="L35" style="color:red">Achtung: Bitte geben Sie bei der Konfiguration der WLED SW keine personenbezogenen Daten (Name etc.) und keine geheimen Informationen (Passwörter etc.) ein! Das kompilieren erfolgt auf öffentlich zugänglichen Servern, so dass jeder die von Ihnen eingegebenen Informationen einsehen kann! Gegen eine kleine Gebühr können wir auch in einem geschützen Bereich kompilieren. Kaufen Sie dazu ein <a href="https://myhome-control.de" target="_blank">Ticket in unserem Shop</a>.</span>
 	</div>
-	<div>
-	<button type="button" class="btn btn-primary" onclick="ClickSaveConfig()" style="margin: 3px"><span span id="L52">Konfiguration speichern (Datei)</span></button>
-	&nbsp;&nbsp;&nbsp;
-	<button type="button" class="btn btn-primary" onclick="ClickLoadConfig()" style="margin: 3px"><span span id="L53">Konfiguration laden (Datei)</span></button>
+	<div class="d-inline-flex align-items-center gap-2">
+		<button type="button" class="btn btn-primary" onclick="ClickSaveConfig()" style="margin: 3px"><span span id="L52">Konfiguration speichern (Datei)</span></button>
+		<button type="button" class="btn btn-primary" onclick="ClickLoadConfig()" style="margin: 3px"><span span id="L53">Konfiguration laden (Datei)</span></button>
+		<select id="selectPredefined" class="form-select btn-select btn-select-primary w-auto" autocomplete="off" onChange="ClickLoadPredefined();">
+			<option value=''>.. or load predefined settings for:</option>
+			<option value='./predefined/abc_wled_v43_settings_release_0.15.3.json'> ABC! WLED V43 Controller (release 0.15.3)</option>
+			<option value='./predefined/abc_wled_v43_settings_main_branch.json'> ABC! WLED V43 Controller (main branch)</option>
+			<option value='./predefined/abc_wled_v47_settings_release_0.15.3.json'> ABC! WLED V47 Controller (release 0.15.3)</option>
+			<option value='./predefined/abc_wled_v47_settings_main_branch.json'> ABC! WLED V47 Controller (main branch)</option>
+			<option value='./predefined/abc_wled_v73_settings_release_0.15.3.json'> ABC! WLED V73 Controller (release 0.15.3)</option>
+			<option value='./predefined/abc_wled_v73_settings_main_branch.json'> ABC! WLED V73 Controller (main branch)</option>
+		</select>
 	</div>
 	<div class="accordion accordion-flush" id="MainAccordion">
 	<div class="accordion-item">
@@ -673,23 +681,78 @@ function ChooseLoadEnvResult(regenerate) {
 	}
 }
 
-function ClickLoadConfig() {
-  document.getElementById('spinnerOverlay').style.display = 'flex';
-  var in1 = document.createElement('input');
-  in1.style.display = 'none';
-  in1.setAttribute('type', 'file');
-  in1.setAttribute('id', 'file-selector');
-  in1.setAttribute('accept', '.json');
-  in1.addEventListener('change', function(event) {
-    const fileList = event.target.files;
-    const reader = new FileReader();
-      reader.addEventListener('load', function(event) {
-        LoadSetString(event.target.result);
-      });
-      reader.readAsText(fileList[0]);
+function pickFile({ accept = '' } = {}) {
+  return new Promise((resolve) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = accept;
+    input.style.display = 'none';
+
+    let settled = false;
+
+    input.addEventListener('change', () => {
+      if (settled) return;
+      settled = true;
+      resolve(input.files.length ? input.files[0] : null);
+      cleanup();
+    });
+
+    const onFocus = () => {
+      setTimeout(() => {
+        if (settled) return;
+        settled = true;
+        resolve(null);
+        cleanup();
+      }, 100);
+    };
+
+    function cleanup() {
+      window.removeEventListener('focus', onFocus);
+      input.remove();
+    }
+
+    window.addEventListener('focus', onFocus);
+    document.body.appendChild(input);
+    input.click();
   });
-  document.body.appendChild(in1);
-  in1.click();
+}
+
+async function ClickLoadPredefined() {
+  select=document.getElementById('selectPredefined');
+  if (select.selectedIndex === 0) return;
+  document.getElementById('spinnerOverlay').style.display = 'flex';
+
+  try {
+    const url = select.value;
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error(response.statusText);
+    const text = await response.text();
+    LoadSetString(text);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    document.getElementById('spinnerOverlay').style.display = 'none';
+  }
+}
+
+
+async function ClickLoadConfig() {
+  const spinner = document.getElementById('spinnerOverlay');
+  spinner.style.display = 'flex';
+  try {
+    const file = await pickFile({ accept: '.json' });
+    if (!file) {
+      return;
+    }
+    const text = await file.text();
+    LoadSetString(text);
+  } catch (err) {
+    console.error(err);
+    alert('Error file load!');
+  } finally {
+    spinner.style.display = 'none';
+  }
 }
 
 function proceed_extends(obj) {
@@ -854,7 +917,7 @@ function SearchForBranchesAndReleases(){
 	var SS = document.getElementById('select-sources');
 	var SI=SS.selectedIndex;
 	var mReq = new XMLHttpRequest();
-	mReq.open('GET', 'https://api.github.com/repos/'+SS.options[SI].getAttribute("ghusername")+'/'+SS.options[SI].getAttribute("ghreponame")+'/branches');
+	mReq.open('GET', 'https://api.github.com/repos/'+SS.options[SI].getAttribute("ghusername")+'/'+SS.options[SI].getAttribute("ghreponame")+'/branches?per_page=100');
 	mReq.responseType = 'json';
 	mReq.onreadystatechange = function () {
 	  if (this.readyState == 4) {
@@ -1486,7 +1549,9 @@ function LangChanged() {
 		if(document.getElementById('L56')) document.getElementById('L56').innerHTML = "Regenerieren";
 		if(document.getElementById('L57')) document.getElementById('L57').innerHTML = "Aus der Datei laden";
 		if(document.getElementById('L58')) document.getElementById('L58').innerHTML = "Lade ... bitte warten ...";
-		
+		let select = document.getElementById('selectPredefined');
+		select.options[0].text = ".. oder eine vordefinierte Konfig laden für:";
+			
 	} else {
 		if(document.getElementById('L01')) document.getElementById('L01').innerHTML = "Select WLED source (fork):";
 		if(document.getElementById('L02')) document.getElementById('L02').innerHTML = "Select branch/release:";
@@ -1551,6 +1616,8 @@ function LangChanged() {
 		if(document.getElementById('L56')) document.getElementById('L56').innerHTML = "Regenerate";
 		if(document.getElementById('L57')) document.getElementById('L57').innerHTML = "Load from file";
 		if(document.getElementById('L58')) document.getElementById('L58').innerHTML = "Loading ... please wait ...";
+		let select = document.getElementById('selectPredefined');
+		select.options[0].text = ".. or load predefined config for:";
 	}
     if(document.getElementById('lang').selectedIndex==0) {
 		document.getElementById('result_line1').innerHTML='Status: <span style="color:green">noch nicht gestartet</span>';
@@ -1904,6 +1971,7 @@ function startvalidation() {
 }
 
 window.onload = function () {
+	document.getElementById('selectPredefined').selectedIndex = 0;
 	const searchParams = new URLSearchParams(window.location.search);
 	lang=searchParams.get('lang');
 	if(lang) {
