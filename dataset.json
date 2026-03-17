@@ -750,6 +750,36 @@
 			"build_unflags" : "",
 			"minnumber": -1,
 			"id": 6200
+		},
+		{
+			"name" : "Define repository as source of WLED (WLED_REPO)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"build_flags" : "-D WLED_REPO=",
+			"lib_deps" : "",
+			"build_unflags" : "",
+			"minnumber": 0,
+			"id": 6300
+		},
+		{
+			"name" : "Define product name (WLED_PRODUCT_NAME)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"build_flags" : "-D WLED_PRODUCT_NAME=",
+			"lib_deps" : "",
+			"build_unflags" : "",
+			"minnumber": 0,
+			"id": 6400
+		},
+		{
+			"name" : "Define brand name (WLED_BRAND) (default: WLED). Will affect DEFAULT_AP_SSID, if not defined separately.",
+			"sources" : [0, 1, 2, 3],
+			"type" : "string",
+			"build_flags" : "-D WLED_BRAND=",
+			"lib_deps" : "",
+			"build_unflags" : "",
+			"minnumber": 0,
+			"id": 6500
 		}
 	],
 	"usermods":[
