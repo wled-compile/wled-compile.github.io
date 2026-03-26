@@ -1353,7 +1353,7 @@
 			"type" : "checkbox",
 			"readme" : "https://github.com/wled/WLED/blob/main/usermods/rgb-rotary-encoder/readme.md",
 			"build_flags" : "-D RGB_ROTARY_ENCODER",
-			"lib_deps" : "lennarthennigs/ESP Rotary@^1.5.0",
+			"lib_deps" : "lennarthennigs/ESP Rotary@^2.1.1",
 			"id": 2200
 		},
 		{
