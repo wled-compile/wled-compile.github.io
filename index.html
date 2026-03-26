@@ -1688,7 +1688,7 @@ function GeneratorJob(PrivateMode) {
 		mReq.onreadystatechange = function () { 
 		  if (mReq.readyState === 4 && this.status == 200 && generator_state=='waitforid') {
 			var resp=mReq.responseText;
-			if(resp.length!=14+10+1+8 && resp.length!=99) {
+			if(resp.length!=14+10+1+8 && resp.length!=14+10+1+8+2 && resp.length!=99) {
 			  //alert("Error returned!");
 			  idreturned='';
 			  datereturned='';
