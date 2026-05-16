@@ -1403,7 +1403,7 @@ function GenerateEnvText() {
 	jsonConfig["usermods"]=[];
 	
 	let newUsermodHandling=false;
-	if(SS.value==0 && (SB.options[SBI].getAttribute("bname")=="main" || SB.options[SBI].getAttribute("bname")=="nightly" || SB.options[SBI].getAttribute("bname").includes("0.16"))) {
+	if(SS.value==0 && (SB.options[SBI].getAttribute("bname")=="main" || SB.options[SBI].getAttribute("bname")=="nightly" || SB.options[SBI].getAttribute("bname").includes("0.16") || SB.options[SBI].getAttribute("bname").includes("v16.") || SB.options[SBI].getAttribute("bname").includes("16_x") || SB.options[SBI].getAttribute("bname").includes("v17.") || SB.options[SBI].getAttribute("bname").includes("v18."))) {
 		newUsermodHandling=true;
 	}
 	
