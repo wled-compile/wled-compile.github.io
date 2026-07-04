@@ -512,6 +512,79 @@ function LoadSetStringAfterBranchesLoaded(jsonConfLoaded) {
 	LoadSetStringAfterEnvsLoaded(jsonConfLoaded);
 }
 
+function isNorthAmericaVisitor() {
+  // Browser language (e.g. "en-US", "fr-CA", "es-MX")
+  const language = (navigator.language || "").toUpperCase();
+
+  if (
+    language.endsWith("-US") ||
+    language.endsWith("-CA") ||
+    language.endsWith("-MX")
+  ) {
+    return true;
+  }
+
+  // Time zone (e.g. "America/New_York")
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+
+  const northAmericanTimeZones = [
+    "America/New_York",
+    "America/Detroit",
+    "America/Kentucky/Louisville",
+    "America/Kentucky/Monticello",
+    "America/Indiana/Indianapolis",
+    "America/Indiana/Vincennes",
+    "America/Indiana/Winamac",
+    "America/Indiana/Marengo",
+    "America/Indiana/Petersburg",
+    "America/Indiana/Vevay",
+    "America/Chicago",
+    "America/Indiana/Tell_City",
+    "America/Indiana/Knox",
+    "America/Menominee",
+    "America/North_Dakota/Center",
+    "America/North_Dakota/New_Salem",
+    "America/North_Dakota/Beulah",
+    "America/Denver",
+    "America/Boise",
+    "America/Phoenix",
+    "America/Los_Angeles",
+    "America/Anchorage",
+    "America/Juneau",
+    "America/Sitka",
+    "America/Metlakatla",
+    "America/Yakutat",
+    "America/Nome",
+    "America/Adak",
+    "Pacific/Honolulu",
+
+    "America/Toronto",
+    "America/Vancouver",
+    "America/Edmonton",
+    "America/Winnipeg",
+    "America/Halifax",
+    "America/St_Johns",
+    "America/Regina",
+    "America/Whitehorse",
+    "America/Iqaluit",
+    "America/Moncton",
+
+    "America/Mexico_City",
+    "America/Cancun",
+    "America/Merida",
+    "America/Monterrey",
+    "America/Matamoros",
+    "America/Chihuahua",
+    "America/Mazatlan",
+    "America/Hermosillo",
+    "America/Tijuana",
+    "America/Bahia_Banderas",
+    "America/Ojinaga"
+  ];
+
+  return northAmericanTimeZones.includes(timeZone);
+}
+
 var jsonConfLoadedGlobal="";
 
 function LoadSetStringAfterEnvsLoaded(jsonConfLoaded) {
@@ -1577,7 +1650,11 @@ function LangChanged() {
 		if(document.getElementById('L14a')) document.getElementById('L14a').innerHTML = 'Official WLED Wiki: ';
 		if(document.getElementById('L14f')) document.getElementById('L14f').innerHTML = 'WLED FAQ: <a href="https://wled-faq.github.io">https://wled-faq.github.io</a>';
 		if(document.getElementById('L14b')) document.getElementById('L14b').innerHTML = 'DIY WLED Boards:';
-        if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED Controllers: <a href="https://shop.myhome-control.de">MyHome-Control Shop</a>';
+		if(isNorthAmericaVisitor()) {
+			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://www.amazon.com/s?me=A2DSSUJJJHGC0W">Amazon Shop (US, Canada)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
+		} else {
+			if(document.getElementById('L14c')) document.getElementById('L14c').innerHTML = 'Professional WLED controllers: <a href="https://wled.shop">WLED Shop (worldwide)</a> or <a href="https://shop.myhome-control.de">MyHome-Control Shop (Germany)</a>';
+		}
         if(document.getElementById('L14d')) document.getElementById('L14d').innerHTML = 'WEB-based WLED software installer: ';
 		if(document.getElementById('L14e')) document.getElementById('L14e').innerHTML = 'WLED power calculator: ';
 		if(document.getElementById('L14')) document.getElementById('L14').innerHTML = "Useful links: ";
