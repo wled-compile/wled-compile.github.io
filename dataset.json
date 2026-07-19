@@ -6,7 +6,7 @@
 	        "name": "Original Aircoookie",
 		"githubusername": "wled",
 		"githubreponame": "WLED",
-		"recommendedbranch":"main",
+		"recommendedbranch":"16_x",
 		"recommended_esp8266":"nodemcuv2",
 		"recommended_esp32":"esp32dev"
 	},
