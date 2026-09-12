@@ -672,6 +672,14 @@
 			"id": 5500
 		},
 		{
+			"name" : "Define PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)",
+			"sources" : [0, 1, 2, 3],
+			"type" : "checkbox",
+			"build_flags" : "-D BOARD_HAS_PSRAM -D WLED_USE_PSRAM -D WLED_USE_PSRAM_JSON -D ALL_JSON_TO_PSRAM",
+			"lib_deps" : "",
+			"id": 5610
+		},
+		{
 			"name" : "Undefine PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)",
 			"sources" : [0, 1, 2, 3],
 			"type" : "checkbox",
