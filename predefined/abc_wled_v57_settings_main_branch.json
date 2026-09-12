@@ -9,6 +9,21 @@
             "id": 200,
             "name": "Redefine flash mode type",
             "stringval": "qio"
+        },
+        {
+            "id": 400,
+            "name": "Redefine flash size",
+            "stringval": "8MB"
+        },
+        {
+            "id": 700,
+            "name": "Redefine PSRAM type",
+            "stringval": "qspi"
+        },
+        {
+            "id": 900,
+            "name": "Redefine memory partitions (ESP32-xx only, WLED >= 0.15.x & MoonMod)",
+            "stringval": "${esp32.large_partitions}"
         }
     ],
     "enviroment": "esp32_eth",
@@ -72,6 +87,10 @@
             "id": 6200,
             "name": "Audio Reactive Usermod: define I2S SCK pin",
             "numval": "14"
+        },
+		{
+            "id": 5610,
+            "name": "Define PSRAM enable settings (BOARD_HAS_PSRAM, moonmod also: WLED_USE_PSRAM, WLED_USE_PSRAM_JSON, ALL_JSON_TO_PSRAM)"
         }
     ],
     "usermods": [
